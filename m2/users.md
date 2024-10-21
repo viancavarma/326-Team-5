@@ -1,1 +1,13 @@
+# Target Users
 
+## Primary Audience
+
+Our expense tracker targets users aged between 18-35, as these individuals are establishing their careers and personal lives. They manage various types of expenses, from housing and utilities to discretionary spending. This group is technologically adept and seeks efficiency and insight in financial management tools. This group looks for tools that make managing their finances smoother and offer useful insights into how they spend their money. They're often juggling immediate expenses with big-picture goals, like buying a house or paying off student loans. They need a system that can neatly organize their expenses, track their financial goals, and alert them when they're close to exceeding their budget. This kind of support is crucial for navigating their often complicated financial worlds.
+
+## User Needs
+
+Young Adults and Professionals need an intuitive system to categorize and visualize expenses in real-time, which helps them make informed spending decisions. They also require tools for setting personal financial goals, tracking progress, and receiving alerts as they approach spending limits. Additionally, detailed financial reports and analytics provide insights into their spending patterns, enabling them to optimize their finances. On the other hand, College Students benefit from a straightforward interface for logging and reviewing expenses, especially since many have little to no prior budgeting experience. Access to resources that teach budgeting basics and financial literacy is crucial as they learn to manage finances independently. Furthermore, the ability to connect with peers for sharing tips and advice on managing student budgets provides a supportive system for helping each other develop strong financial habits.
+
+## Why These Users Matter
+
+Providing young adults with strong financial tools helps them become fully independent in managing their money, enabling them to make smarter, informed spending choices. This can reduce financial stress and lay the groundwork for a stable future, with the potential to invest money wisely. For college students, the application is crucial in helping them manage their tight budgets, address debt, and form smart financial habits from the start. Both young adults and college students are at a stage where their financial habits will significantly impact their long-term stability. Offering tools for tracking expenses, setting goals, and receiving personalized advice reduces financial stress and encourages better decision-making. By guiding college students in their early financial journey, we can help prevent debt accumulation and set them up for future success.
