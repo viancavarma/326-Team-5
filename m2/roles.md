@@ -15,6 +15,7 @@
 
 ## Anika - Note-taker: 
 - **Role:** In charge of recording the minutes of the recurring meetings and making sure that the decisions/updates are effectively communicated to the team members via discord.
+- **Top 3 Commits**
   -
   -
 ## Kaylin - Task Manager:
