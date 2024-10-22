@@ -12,10 +12,13 @@ Anika - Note-taker:
   -
   -
   -
-Kaylin - Task Manager:
-  -
-  -
-  -
+## Kaylin - Task Manager:
+  - **Role:** In charge of organizing and monitoring team tasks. Will frequently check in on discord to make sure that responsibilities are being fulfilled on time.
+  - **Top 3 Commits**:
+    1. Communicated over zoom and on discord to brainstorm tasks and ideas. 
+    2. [Commit on Markdown](https://github.com/viancavarma/326-Team-5/commit/c2fa8de23c862337b968f6fdbe04252878b36587): Created markdown files and organized them into the respective directories.
+    3. [Commit on Data](https://github.com/viancavarma/326-Team-5/commit/c06e03a493e2cd30d014787b98d4f7d25a787a86): Worked with Pawan to create the data breakdown for our expense tracker and draft final version of data.md.
+
 Ezra - Communication Lead: 
   -
   -
