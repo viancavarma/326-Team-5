@@ -31,4 +31,6 @@ Users can set a savings goal by entering the goal name and the target amount. Ex
 ![6](https://github.com/user-attachments/assets/732ec958-4245-4f00-b210-c6dc16087a86)
 
 ## Notes Screen
+The Notes screen provides a simple and intuitive interface for users to track important financial reminders and tasks related to their budgeting or saving goals.
 ![7](https://github.com/user-attachments/assets/f66cfa09-5e28-48c4-bf31-d27a6588a7fb)
+The right side of the screen displays a task management section where users can create and check off specific financial tasks. A "Submit" button at the bottom of the task section allows users to update their tasks list, providing a straightforward way to track progress. The left-side navigation is consistent with the other screens, giving users quick access to other features. This screen enables users to jot down important financial notes and stay on top of their savings strategies by managing actionable tasks.
