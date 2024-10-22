@@ -14,7 +14,7 @@
   3. made base template for 'roles.md'. https://github.com/viancavarma/326-Team-5/commit/9e12fbd462b37c630b0414267eba2a843b52f948
 
 Anika - Note-taker: 
-  -
+- **Role:** In charge of recording the minutes of the recurring meetings and making sure that the decisions/updates are effectively communicated to the team members via discord.
   -
   -
 ## Kaylin - Task Manager:
