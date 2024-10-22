@@ -37,6 +37,6 @@ The Savings Challenge Badges feature introduces a gamified aspect to the user’
 
 ## Settings
 
--
+- Gives the user customization to the various aspects of the application. This can include notifications, privacy, account information (email, phone number, etc).
 
 **Assigned to**: Ezra
