@@ -1,8 +1,11 @@
 
-Pawan - Project Manager: 
-  - 
-  -
-  -
+## Pawan - Project Manager: 
+- **Role:** In charge of making sure every member communicated with each other over zoom and discord. Answering any question regarding the project if needed.
+- **Top 3 Commits**
+  1.  Edited/work on 'users.md'(https://github.com/viancavarma/326-Team-5/blob/main/m2/users.md) and helped with 'data.md'(https://github.com/viancavarma/326-Team-5/blob/main/m2/data.md)
+  2.  Added notification/alerts features for 'features.md' https://github.com/viancavarma/326-Team-5/commit/c7b04025fbc62373725734aa0dce62857271177c
+  3.  Communicated over zoom and discord to discuss everyone understood thier roles and resposibilites. 
+  
 ## Daniel - Timekeeper: 
 - **Role:** set and track deadlines, allocate specific times for tasks, manage due dates
 - **Top 3 Commits**
