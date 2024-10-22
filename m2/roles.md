@@ -14,12 +14,12 @@
   3. made base template for 'roles.md'. https://github.com/viancavarma/326-Team-5/commit/9e12fbd462b37c630b0414267eba2a843b52f948
 
 ## Anika - Note-taker: 
--- **Role:** In charge of recording the minutes of the recurring meetings and making sure that the decisions/updates are effectively communicated to the team members via discord.
+- **Role:** In charge of recording the minutes of the recurring meetings and making sure that the decisions/updates are effectively communicated to the team members via discord.
 - **Top 3 Commits**
   1. [Commit 1] https://github.com/viancavarma/326-Team-5/commit/ec388074df0af470f29841330a6fd759f3c46035 - features.md commit
   2. [Commit 2] https://github.com/viancavarma/326-Team-5/commit/e1ecadea51b54955c81a389e60ee9b624bb9314a - UI design commits
   3. [Commit 3] Created a notes doc for the meeting minutes and added the commit link to my report file.
-  -
+  
 ## Kaylin - Task Manager:
   - **Role:** In charge of organizing and monitoring team tasks. Will frequently check in on discord to make sure that responsibilities are being fulfilled on time.
   - **Top 3 Commits**:
