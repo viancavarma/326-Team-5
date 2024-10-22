@@ -30,7 +30,7 @@ Ezra - Communication Lead:
   - **Top 3 Commits**:
     1. [Commit 1](https://github.com/viancavarma/326-Team-5/commit/13b17965dd03b50edadf46901352110ac13d9fe1): Worked with Pawan and created first draft for 'users.md' file, which explains the target audience.
     2. [Commit 2](https://github.com/viancavarma/326-Team-5/commit/c26de0082873626148e1a18b4e94e3533c533b7e): Thoroughly reviewed and refined the 'users.md' file to ensure clarity and alignment with project objectives, resulting in the final polished draft.
-    3. 
+    3. [Commit 3](https://github.com/viancavarma/326-Team-5/commit/3e041a04b49f8e014f6470e62dfccecd6cb14489): Developed the initial template for the 'features.md' file.md'.
 Vianca - Documentation Lead: 
   -
   -
