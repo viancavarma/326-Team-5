@@ -28,10 +28,10 @@ Ezra - Communication Lead:
 ## Preston - Quality Control:
   - **Role:** Responsible for proofreading and verifying the accuracy of all documents before they are submitted. Will review of all team submissions to ensure they meet quality standards.
   - **Top 3 Commits**:
-    1. [Commit 1](https://github.com/viancavarma/326-Team-5/commit/13b17965dd03b50edadf46901352110ac13d9fe1): Worked with Pawan and created first draft for 'users.md' file, which explains the target audience.
-    2. [Commit 2](https://github.com/viancavarma/326-Team-5/commit/c26de0082873626148e1a18b4e94e3533c533b7e): Thoroughly reviewed and refined the 'users.md' file to ensure clarity and alignment with project objectives, resulting in the final polished draft.
-    3. [Commit 3](https://github.com/viancavarma/326-Team-5/commit/3e041a04b49f8e014f6470e62dfccecd6cb14489): Developed the initial template for the 'features.md' file.md'.
-    
+    1. [Commit 1](https://github.com/viancavarma/326-Team-5/commit/c26de0082873626148e1a18b4e94e3533c533b7e): Thoroughly reviewed and refined the 'users.md' file to ensure clarity and alignment with project objectives, resulting in the final polished draft.
+    2. [Commit 2](https://github.com/viancavarma/326-Team-5/commit/3e041a04b49f8e014f6470e62dfccecd6cb14489): Developed the initial template for the 'features.md' file.md'.
+    3. [Commit 3](https://github.com/viancavarma/326-Team-5/commit/e9bf35008e9b0877a72d461f4998ee97576eee02): Added description for savings goal tracker feature.
+
 Vianca - Documentation Lead: 
   -
   -
