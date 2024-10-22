@@ -27,9 +27,9 @@ Anika - Note-taker:
 ## Ezra - Communication Lead: 
   - **Role** Facilitates team communication. In charge of keeping all team members informed and the running of the teams communication mostly through discord.
   - **Top 3 Commits**:
-    1. Worked with team members who weren't able to attend part of a discussion to keep them up to date with what was discussed and future meeting times
-    2. 
-    3. 
+    1. Worked with team members who weren't able to attend part of a discussion to keep them up to date with what was discussed and future meeting times.
+    2. [Commit](https://github.com/viancavarma/326-Team-5/commit/50d3fbe696b48dd4ef8e80ab03cbef8521465d59): Added settings description to the 'features.md' file
+    3. Worked with the team to improve our online communication and the function of our shared discord server. 
 ## Preston - Quality Control:
   - **Role:** Responsible for proofreading and verifying the accuracy of all documents before they are submitted. Will review of all team submissions to ensure they meet quality standards.
   - **Top 3 Commits**:
