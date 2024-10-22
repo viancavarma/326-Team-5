@@ -15,10 +15,10 @@
 
 - **Description**: Provides user with an all encompassing look at how their spending has been for this period. 
 - **Attributes**:
-  - `badges` (boolean): Evaluate based on the users completiton of savings for the given month.
+  - `badges` (boolean): Tracks whether you've met your savings goals for the month, rewarding you with badges.
   - `badges_time` (datetime): Date and time the badge was completed by the user. 
-  - `category` (string): Category of given expense.
-  - `total_spending` (float): Sum of expenses made by user.
+  - `category` (string): Specifies the category for each expense, such as food, rent, or entertainment.
+  - `total_spending` (float): Total sum of expenses made by user during the current period.
   - `amount_category` (float): Amount of money spent for a given category.
   - `spending_breakdown_percent` (object): Categories will map to percent of the amount to total spending.
   - `spending_breakdown_bar` (object): Categories will map to the amount spend in that category to create the bar chart. 
@@ -30,9 +30,9 @@
 
 - **Description**: Allows the user to access past dashboards and expenses from priot months of spending. 
 - **Attributes**:
-  - `month_year` (datetime): Month and year of the dashboard desired to be accessed.
+  - `month_year` (datetime): Specifies the month and year of the dashboard or expense records you want to access.
   - `dashboard_id` (datetime): Allows dashboard to be accessed via unique identification code, will be overwritten if dashboard is accessed again in same month.
-  - `expense_id` (integer): A unique identifier for each expense entry.
+  - `expense_id` (integer):  A unique identifier for each individual expense entry.
 - **Data Source**: Data will be user-input for the time of log they would like to access, but system generated for id types.
 
 ### 4. Settings
