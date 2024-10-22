@@ -19,7 +19,7 @@ The Savings Challenge Badges feature introduces a gamified aspect to the user’
 
 ## Categorize Expenses
 
--
+- This feature will allow users to add their expenses and categorize them into existing or new categories such as food, travel, shopping, and more. When adding a new expense, users would be able to see the categories in the form of a dropdown menu or create a custom category if they want to. This categorization helps users sort their expenses better and preview them easily from the logs tab. This provides a clearer view of the user's spending habits and allows them to manage areas of spending effectively. The categories created will also help with the pie charts and graphs on the dashboard for spending analytics. Users can also personalize the label of the expense. On the logs tab, users can filter through their expenses based on the date added, label, amount, or category, making it easy to view their spending history. It directly addresses the problem of users feeling overwhelmed to track expenses as it organizes expenses in a meaningful and personalized way.
 
 **Assigned to**: Vianca
 
