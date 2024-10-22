@@ -25,7 +25,7 @@ The Savings Challenge Badges feature introduces a gamified aspect to the user’
 
 ## Expense Reduction Suggestions/Tips
 
--
+- This feature will prompt tips and money saving ideas based off of the users spending habits. It will track the expenses already made and suggest categories where the user can attempt to save money. 
 
 **Assigned to**: Kaylin
 
