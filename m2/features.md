@@ -6,10 +6,9 @@ The Savings Goal Tracker allows users to set a target savings amount and track t
 
 **Assigned to**: Preston Moeun
   
-## Daily/Weekly/Monthly Reports (timeline feature)
-
--
-
+## Daily/Weekly/Monthly Reports & Challenge Badges
+The Spending Trends Graphs feature provides users with a visual representation of their spending patterns over time, either by week or month. This feature includes two graphs to help users visualize their spending habits. The bar chart represents the user's weekly spending, providing an easy-to-read breakdown of daily expenditures. The pie chart summarizes the user's monthly expenditures, categorizing spending into key areas such as Shopping, Food, Travel, Utilities, and other essential categories. 
+The Savings Challenge Badges feature introduces a gamified aspect to the user’s saving journey. Users are rewarded with badges as they reach specific savings milestones, such as "Save 10," "Save 20," and "Save 40." These badges are displayed on the dashboard, with each completed badge represented by a checkmark next to the corresponding milestone. By offering a sense of achievement through this challenge system, the feature makes saving money more engaging and encourages long-term financial discipline.
 **Assigned to**: Anika
 
 ## Spending & Savings Planner
