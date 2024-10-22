@@ -1,6 +1,7 @@
 # UI Diagrams
 
 ## Dashboard Screen
+The Dashboard screen serves as the central hub where users can monitor their spending and savings progress. On the left side, a sidebar provides navigation links for the primary features of the application, including "Dashboard," "Add Expenditure," "Logs," "Saving Goals," "Tips," "Notes," and "Settings."
 ![2](https://github.com/user-attachments/assets/bc57a257-eddb-44a5-a8a1-f2689ab4902e)
 
 ## Add Expenditure Screen
