@@ -43,6 +43,6 @@
 ## Vianca - Documentation Lead: 
   - **Role**: Responsible for ensuring all of the documents for the project are in place. Will check if all documents are completed based on the requirements, update the team if anything is missing, and ensure documents are accessible to all members. 
   - **Top 3 Commits**:
-    1. [Commit 1]
-    2. [Commit 2]
-    3. [Commit 3]
+    1. [Commit 1](https://github.com/viancavarma/326-Team-5/commit/cce8a8dac31b02b12057f8a73e0a2f1e382a9009): Updated the 'Add Expenditure', 'Logs', and 'Savings Goal' pages for ui-diagrams.md
+    2. [Commit 2](https://github.com/viancavarma/326-Team-5/commit/d405ed960a2865d99e63ccba55bd07b1c5d4ef52): Update the description of the 'Categorize expenses' feature
+    3. [Commit 3](https://github.com/viancavarma/326-Team-5/commit/90f8184a8732678275046fd6e2f91c18dfbd793d): Update role description in roles.md
