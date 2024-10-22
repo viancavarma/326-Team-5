@@ -28,7 +28,10 @@ Users can set a savings goal by entering the goal name and the target amount. Ex
 **Use Case**: A user plans to go to a concert and wants to set a savings goal of $300. They navigate to the savings goal screen from the nav bar. They then add information about the goal like a name, the amount, and  the date by which they would like to achieve it. Over time as they save money, the progress bar would keep updating to show how close they are to achieving the goal.
 
 ## Tips Screen
+The Tips screen is designed as a resourceful page where users can find practical advice on how to manage their finances more effectively. 
 ![6](https://github.com/user-attachments/assets/732ec958-4245-4f00-b210-c6dc16087a86)
+It dynamically generates financial advice based on the user's expenditure data and savings goals. After the user enters their spending information and defines their savings goals, a simple algorithm analyzes the data to identify spending patterns and areas where the user can improve. The algorithm compares the user's spending habits to their goals and provides relevant tips to help them save more effectively.
+This feature provides personalized advice, helping users to stay aligned with their savings goals by offering tailored suggestions.
 
 ## Notes Screen
 The Notes screen provides a simple and intuitive interface for users to track important financial reminders and tasks related to their budgeting or saving goals.
