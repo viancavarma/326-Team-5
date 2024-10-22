@@ -25,8 +25,8 @@ Ezra - Communication Lead:
   -
   -
   -
-Preston - Quality Control:
-  -
+## Preston - Quality Control:
+  - **Role:** Responsible for proofreading and verifying the accuracy of all documents before they are submitted. Will review of all team submissions to ensure they meet quality standards.
   -
   -
 Vianca - Documentation Lead: 
