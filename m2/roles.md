@@ -40,7 +40,9 @@
     2. [Commit 2](https://github.com/viancavarma/326-Team-5/commit/3e041a04b49f8e014f6470e62dfccecd6cb14489): Developed the initial template for the 'features.md' file.md'.
     3. [Commit 3](https://github.com/viancavarma/326-Team-5/commit/e9bf35008e9b0877a72d461f4998ee97576eee02): Added description for savings goal tracker feature.
 
-Vianca - Documentation Lead: 
-  -
-  -
-  -
+## Vianca - Documentation Lead: 
+  - **Role**: Responsible for ensuring all of the documents for the project are in place. Will check if all documents are completed based on the requirements, update the team if anything is missing, and ensure documents are accessible to all members. 
+  - **Top 3 Commits**:
+    1. [Commit 1]
+    2. [Commit 2]
+    3. [Commit 3]
