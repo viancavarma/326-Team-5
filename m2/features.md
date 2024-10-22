@@ -28,13 +28,13 @@ The Savings Goal Tracker allows users to set a target savings amount and track t
 
 -
 
-**Assigned to**: Kaylin
+**Assigned to**: Pawan
 
 ## Notifications/Alerts
 
--
+-The notification feature is like a friendly nudge, letting user know whenver there's something new or exciting happening. This feature ensure that users never miss important announcements or changes, enhacing user interaction and staisfaction. Also notification can also be customized to suit individual preferences, making sure that users receive only the most relevant information.
 
-**Assigned to**: Pawan
+**Assigned to**: Kaylin
 
 ## Settings
 
