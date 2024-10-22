@@ -21,10 +21,12 @@ Anika - Note-taker:
     2. [Commit on Markdown](https://github.com/viancavarma/326-Team-5/commit/c2fa8de23c862337b968f6fdbe04252878b36587): Created markdown files and organized them into the respective directories.
     3. [Commit on Data](https://github.com/viancavarma/326-Team-5/commit/c06e03a493e2cd30d014787b98d4f7d25a787a86): Worked with Pawan to create the data breakdown for our expense tracker and draft final version of data.md.
 
-Ezra - Communication Lead: 
-  -
-  -
-  -
+## Ezra - Communication Lead: 
+  - **Role** Facilitates team communication. In charge of keeping all team members informed and the running of the teams communication mostly through discord.
+  - **Top 3 Commits**:
+    1. Worked with team members who weren't able to attend part of a discussion to keep them up to date with what was discussed and future meeting times
+    2. 
+    3. 
 ## Preston - Quality Control:
   - **Role:** Responsible for proofreading and verifying the accuracy of all documents before they are submitted. Will review of all team submissions to ensure they meet quality standards.
   - **Top 3 Commits**:
