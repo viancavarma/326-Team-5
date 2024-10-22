@@ -28,9 +28,9 @@ Ezra - Communication Lead:
 ## Preston - Quality Control:
   - **Role:** Responsible for proofreading and verifying the accuracy of all documents before they are submitted. Will review of all team submissions to ensure they meet quality standards.
   - **Top 3 Commits**:
-  1. [Commit on Markdown](https://github.com/viancavarma/326-Team-5/commit/13b17965dd03b50edadf46901352110ac13d9fe1): Created first draft for 'users.md' file, which explains the target audience.
-  2. 
-  3. 
+    1. [Commit on Markdown](https://github.com/viancavarma/326-Team-5/commit/13b17965dd03b50edadf46901352110ac13d9fe1): Created first draft for 'users.md' file, which explains the target audience.
+    2. 
+    3. 
 Vianca - Documentation Lead: 
   -
   -
