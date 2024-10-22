@@ -14,7 +14,7 @@ The Savings Goal Tracker allows users to set a target savings amount and track t
 
 ## Spending & Savings Planner
 
--
+- Allows users to section items into wishlist and necessities. Users can see how much their weekly expenses are, and if they are able to afford the items they want to buy.
 
 **Assigned to**: Daniel
 
