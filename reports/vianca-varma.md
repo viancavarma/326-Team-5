@@ -13,4 +13,4 @@
 ### October 21, 2024
 - **Task**: Update ui-diagrams.md, roles.md, features.md
 - **Details**: Added my assigned parts for the mentioned files. Also, check if other documents are completed properly for milestone #2
-- **Link**: https://github.com/viancavarma/326-Team-5/commit/cce8a8dac31b02b12057f8a73e0a2f1e382a9009, https://github.com/viancavarma/326-Team-5/commit/d405ed960a2865d99e63ccba55bd07b1c5d4ef52, 
+- **Link**: https://github.com/viancavarma/326-Team-5/commit/cce8a8dac31b02b12057f8a73e0a2f1e382a9009, https://github.com/viancavarma/326-Team-5/commit/d405ed960a2865d99e63ccba55bd07b1c5d4ef52, https://github.com/viancavarma/326-Team-5/commit/90f8184a8732678275046fd6e2f91c18dfbd793d
