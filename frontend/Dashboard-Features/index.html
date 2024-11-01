@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Dashboard</h2>
+            <h2>Add Expenditure</h2>
+            <h2>Logs</h2>
+            <h2>Saving Goals</h2>
+            <h2>Tips</h2>
+            <h2>Notes</h2>
+            <h2>Settings</h2>
+            <button class="logout">Log out</button>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main">
+            <h2>Dashboard</h2>
+
+            <!-- Expense and Badges Section -->
+            <div class="expense-badges-container">
+                <!-- Form to Add Expense -->
+                <div class="add-expense-form">
+                    <h3>Add Expense</h3>
+                    <label>Amount: <input type="number" id="expenseAmount" required></label><br>
+                    <label>Category: <input type="text" id="expenseCategory" required></label><br>
+                    <label>Date: <input type="date" id="expenseDate" required></label><br>
+                    <button id="addExpenseButton">Add Expense</button>
+                    <button id="clearDataButton">Clear Data</button>
+                </div>
+
+                <!-- Badges Section -->
+                <div class="badges">
+                    <h3>Badges</h3>
+                    <ul>
+                        <li><input type="checkbox" checked> Save 10</li>
+                        <li><input type="checkbox" checked> Save 20</li>
+                        <li><input type="checkbox" checked> Save 40</li>
+                        <li><input type="checkbox"> Save 50</li>
+                        <li><input type="checkbox"> Save 60</li>
+                        <li><input type="checkbox"> Save 70</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Charts Section with Bar and Pie Charts Side-by-Side -->
+            <div class="charts-container">
+                <!-- Larger Bar Chart Section with Centered Controls -->
+                <div class="chart large-chart" id="barChart">
+                    <canvas id="weeklyChart"></canvas>
+                    <div class="chart-controls-container">
+                        <div class="chart-controls">
+                            <button id="previousWeekButton">&lt;</button>
+                            <span id="weekLabel">Current Week</span>
+                            <button id="nextWeekButton">&gt;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smaller Pie Chart Section with Centered Controls -->
+                <div class="chart small-chart" id="pieChart">
+                    <canvas id="expenditureChart"></canvas>
+                    <div class="chart-controls-container">
+                        <div class="chart-controls">
+                            <button id="previousMonthButton">&lt;</button>
+                            <span id="monthLabel">Current Month</span>
+                            <button id="nextMonthButton">&gt;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
