@@ -2,17 +2,14 @@ let db;
 let currentWeekOffset = 0;
 let currentMonthOffset = 0;
 
-// Predefined green shades for category colors
 const greenShades = [
     '#6b8e23', '#556b2f', '#8fbc8f', '#b2d3c2',
     '#708238', '#3b7a57', '#66cdaa', '#2e8b57',
     '#98fb98', '#00a36c'
 ];
 
-// Map to store category colors dynamically
 const categoryColors = {};
 
-// Function to assign a shade of green for each category
 function getCategoryColor(category) {
     if (!categoryColors[category]) {
         const colorIndex = Object.keys(categoryColors).length % greenShades.length;
@@ -21,7 +18,6 @@ function getCategoryColor(category) {
     return categoryColors[category];
 }
 
-// Initialize IndexedDB and Create Object Store
 function initIndexedDB() {
     const request = indexedDB.open('ExpenseDB', 1);
 
@@ -45,10 +41,8 @@ function initIndexedDB() {
     };
 }
 
-// Initialize IndexedDB
 initIndexedDB();
 
-// Function to add an expense to IndexedDB
 function addExpense(amount, category, date) {
     const transaction = db.transaction(['expenses'], 'readwrite');
     const store = transaction.objectStore('expenses');
@@ -66,14 +60,12 @@ function addExpense(amount, category, date) {
     };
 }
 
-// Clear entered data in the form fields
 function clearEnteredData() {
     document.getElementById('expenseAmount').value = '';
     document.getElementById('expenseCategory').value = '';
     document.getElementById('expenseDate').value = '';
 }
 
-// Retrieve and Update Data in Charts
 function getAllExpenses(callback) {
     const transaction = db.transaction(['expenses'], 'readonly');
     const store = transaction.objectStore('expenses');
@@ -94,12 +86,10 @@ function updateCharts(weekOffset, monthOffset) {
         const weeklyData = processWeeklyData(expenses, weekOffset);
         const categoryData = processMonthlyCategoryData(expenses, monthOffset);
 
-        // Update weekly spending stacked bar chart
         weeklySpendingChart.data.labels = weeklyData.labels;
         weeklySpendingChart.data.datasets = weeklyData.datasets;
         weeklySpendingChart.update();
 
-        // Update pie chart with category data
         if (categoryData.values.length === 0) {
             expenditureCategoryChart.data.datasets[0].data = [1]; // Placeholder for no data
             expenditureCategoryChart.data.labels = ['No Data'];
@@ -139,14 +129,12 @@ function updateMonthLabel(monthOffset) {
     document.getElementById('monthLabel').textContent = `${monthName} ${year}`;
 }
 
-// Process weekly data and create datasets for stacked bar chart by category
 function processWeeklyData(expenses, weekOffset) {
     const dayTotalsByCategory = {};
     const now = new Date();
     const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay() - (weekOffset * 7)));
-    startOfWeek.setHours(0, 0, 0, 0); // Set startOfWeek to midnight for consistent comparison
+    startOfWeek.setHours(0, 0, 0, 0);
 
-    // Initialize each day within the week with empty category totals
     for (let i = 0; i < 7; i++) {
         const day = new Date(startOfWeek);
         day.setDate(startOfWeek.getDate() + i);
@@ -154,13 +142,11 @@ function processWeeklyData(expenses, weekOffset) {
         dayTotalsByCategory[dayName] = {};
     }
 
-    // Filter and sum expenses for the specified week
     expenses.forEach((expense) => {
-        const expenseDate = new Date(expense.date + "T00:00:00"); // Ensure consistent time
-        expenseDate.setHours(0, 0, 0, 0); // Set to midnight for consistency
-        const dayDifference = Math.floor((expenseDate - startOfWeek) / (1000 * 60 * 60 * 24)); // Calculate day difference
-
-        if (dayDifference >= 0 && dayDifference < 7) { // Check if within the current week
+        const expenseDate = new Date(expense.date + "T00:00:00");
+        expenseDate.setHours(0, 0, 0, 0);
+        const dayDifference = Math.floor((expenseDate - startOfWeek) / (1000 * 60 * 60 * 24));
+        if (dayDifference >= 0 && dayDifference < 7) {
             const dayName = Object.keys(dayTotalsByCategory)[dayDifference];
             const category = expense.category;
 
@@ -171,7 +157,6 @@ function processWeeklyData(expenses, weekOffset) {
         }
     });
 
-    // Extract categories and prepare datasets
     const categories = new Set();
     Object.values(dayTotalsByCategory).forEach(dayData => {
         Object.keys(dayData).forEach(category => categories.add(category));
@@ -186,10 +171,6 @@ function processWeeklyData(expenses, weekOffset) {
     return { labels: Object.keys(dayTotalsByCategory), datasets };
 }
 
-
-
-
-// Process monthly data for pie chart with consistent colors
 function processMonthlyCategoryData(expenses, monthOffset) {
     const categoryTotals = {};
     const now = new Date();
@@ -216,13 +197,11 @@ function processMonthlyCategoryData(expenses, monthOffset) {
     };
 }
 
-// Initialize Charts
-// Initialize Charts
 const weeklySpendingChart = new Chart(document.getElementById('weeklyChart').getContext('2d'), {
     type: 'bar',
     data: {
-        labels: [], // Initial empty labels
-        datasets: [] // Dynamic datasets for stacked categories
+        labels: [],
+        datasets: []
     },
     options: {
         responsive: true,
@@ -234,22 +213,22 @@ const weeklySpendingChart = new Chart(document.getElementById('weeklyChart').get
             y: {
                 beginAtZero: true,
                 stacked: true,
-                max: 100,  // Set max to 100
+                max: 100,
                 ticks: {
-                    stepSize: 10  // Increment by 10
+                    stepSize: 10
                 }
             }
         },
         interaction: {
-            mode: 'nearest', // Activates the hover effect on the nearest element
-            axis: 'x', // Hover on the x-axis
-            intersect: false // Ensures all stacks in the same x-axis are hovered together
+            mode: 'nearest',
+            axis: 'x',
+            intersect: true
         },
         plugins: {
             tooltip: {
                 enabled: true,
-                mode: 'nearest', // Shows the tooltip for the nearest dataset segment
-                intersect: false, // Displays tooltips for all stacks in the bar on hover
+                mode: 'nearest',
+                intersect: false,
                 callbacks: {
                     label: function(tooltipItem) {
                         const label = tooltipItem.dataset.label || '';
@@ -263,7 +242,7 @@ const weeklySpendingChart = new Chart(document.getElementById('weeklyChart').get
         },
         hover: {
             mode: 'nearest',
-            intersect: false // Ensures all parts of the stacked bar respond to hover
+            intersect: false
         }
     }
 });

@@ -11,7 +11,7 @@ body {
 .container {
     display: flex;
     width: 100%;
-    height: 100vh; /* Ensures both sidebar and main content fill full viewport height */
+    height: 100vh;
 }
 
 .sidebar {
@@ -33,7 +33,7 @@ body {
 }
 
 .sidebar h2:first-of-type {
-    font-size: 24px; /* Larger font for the main title */
+    font-size: 24px;
     margin-bottom: 20px;
     color: #2a6045;
 }
@@ -55,7 +55,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    overflow-y: auto; /* Ensures content is scrollable if it exceeds viewport height */
+    overflow-y: auto;
 }
 
 .main h2 {
@@ -125,13 +125,11 @@ body {
     margin: 10px 0;
 }
 
-/* Charts Section */
 .charts-container {
     display: flex;
     gap: 20px;
 }
 
-/* Large chart for the bar chart */
 .large-chart {
     background-color: #f0f4e8;
     padding: 20px;
@@ -147,7 +145,6 @@ body {
     height: 300px !important;
 }
 
-/* Small chart for the pie chart */
 .small-chart {
     background-color: #f0f4e8;
     padding: 20px;
@@ -163,7 +160,6 @@ body {
     height: 80% !important;
 }
 
-/* Centered Controls */
 .chart-controls-container {
     display: flex;
     justify-content: center;
