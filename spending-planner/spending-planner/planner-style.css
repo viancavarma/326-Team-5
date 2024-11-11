@@ -1,0 +1,25 @@
+body {
+    font-family: serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f2e8;
+    color: #2c5445;
+}
+.container {
+    display:flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #f5f2e8;
+    border-right: 1px solid #2c5445;
+    padding: 20px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
