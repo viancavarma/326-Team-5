@@ -5,8 +5,9 @@ body {
     background-color: #f5f2e8;
     color: #2c5445;
 }
+
 .container {
-    display:flex;
+    display: flex;
     min-height: 100vh;
 }
 
@@ -20,6 +21,56 @@ body {
 .sidebar nav {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
 }
 
+.sidebar a {
+    color: #2c5445;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+#logout {
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #2c5445;
+    color: #f5f2e8;
+    border: none;
+    cursor: pointer;
+    font-family:serif;
+    font-size: 1.0em;
+}
+
+#logout:hover {
+    background-color: #1f3830;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    gap: 40px;
+}
+
+.planner {
+    font-size: 2.0em;
+}
+
+.wishlist {
+    font-size: 2.0em;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li::before {
+    content: "•";
+    margin-right: 10px;
+    font-size: 20px;
+}
