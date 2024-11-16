@@ -1,0 +1,40 @@
+body {
+    font-family: Georgia, serif;
+    background-color: #2a6045;
+}
+
+header {
+   height: 50px;
+   width: 100%;
+   background-color: #f0f4e8;
+   border-radius: 8px;
+}
+
+
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px;
+    margin: 20px;
+    align-items: start;
+  }
+  
+  #summary,
+  #tips,
+  #goals {
+    grid-column: 1;
+  }
+  
+  #influencers {
+    grid-column: 2; 
+    grid-row: 1 / span 3; 
+  }
+  
+
+  .content-box {
+    background-color: #f0f4e8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
