@@ -1,12 +1,12 @@
 body {
     font-family: Georgia, serif;
-    background-color: #2a6045;
+    background-color: #f0f4e8;
 }
 
 header {
    height: 50px;
    width: 100%;
-   background-color: #f0f4e8;
+   background-color: #2a6045;
    border-radius: 8px;
 }
 
@@ -35,6 +35,6 @@ header {
     background-color: #f0f4e8;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-color: #2a6045;
   }
   
