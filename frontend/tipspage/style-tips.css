@@ -3,13 +3,41 @@ body {
     background-color: #f0f4e8;
 }
 
-header {
-   height: 50px;
-   width: 100%;
-   background-color: #2a6045;
-   border-radius: 8px;
+.container {
+  display: flex;
+  min-height: 100vh;
 }
 
+.sidebar {
+  width: 200px;
+  padding: 20px;
+  border-right: 2px solid #2c5445;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar a {
+  color: #2c5445;
+  text-decoration: none;
+  font-size: 18px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
+.logout-btn {
+  margin-top: auto;
+  padding: 10px;
+  background-color: #2c5445;
+  color: #f5f2e8;
+  border: none;
+  cursor: pointer;
+  font-family: serif;
+  font-size: 16px;
+}
 
 .content-wrapper {
     display: grid;
