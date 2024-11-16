@@ -3,44 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Savings Planner</title>
+    <title>Planner and Wishlist</title>
     <link rel="stylesheet" href="planner-style.css">
+    <script src="planner-script.js"></script>
 </head>
 <body>
     <div class="container">
-        <aside class="sidebar">
-            <nav>
-                <a href="#dashboard">Dashboard</a>
-                <a href="#expenses">Add Expenditure</a>
-                <a href="#logs">Logs</a>
-                <a href="#savings-goals">Savings Goals</a>
-                <a href="#tips">Tips</a>
-                <a href="#settings">Settings</a>
-            </nav>
-            <button id="logout">Log Out</button>
-        </aside>
-        <main class="main"> 
-            <section class="planner">
-                <h1>Planner</h1>
-                    <ul id="item-list"> 
-                        <!-- User lists monthly expenses in a planner, possibly separate item and cost-->
-                         <!--Maybe allow users to sort by price-->
-                        <li>Item 1</li>
-                        <li>Item 2</li>
-                        <li>Item 3</li>
-                    </ul>
-            </section>
-            <section class="wishlist">
-                <h2>Wishlist</h2>
-                <ul id="wishlist-items">
-                    <!-- User lists items they want to save for -->
-                    <!-- Maybe allow users to sort by price -->
-                    <li> Item 1</li>
-                    <li> Item 2</li>
-                    <li> Item 3</li>
+        <nav class="sidebar">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#add-expenditure">Add Expenditure</a>
+            <a href="#logs">Logs</a>
+            <a href="#saving-goals">Saving Goals</a>
+            <a href="#planner">Planner</a>
+            <a href="#tips">Tips</a>
+            <a href="#settings">Settings</a>
+            <button class="logout-btn">Log out</button>
+        </nav>
+        
+        <main class="content">
+            <div class="planner-section">
+                <div class="section-header">
+                    <h2>Planner</h2>
+                    <button class="add-btn" id="add-planner">+</button>
+                </div>
+                <ul id="planner-list">
                 </ul>
-            </section> 
+            </div>
+
+            <div class="wishlist-section">
+                <div class="section-header">
+                    <h2>Wishlist</h2>
+                    <button class="add-btn" id="add-wishlist">+</button>
+                </div>
+                <ul id="wishlist-list">
+                </ul>
+            </div>
         </main>
+    </div>
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h3 id="popup-title"></h3>
+            <form id="add-item-form">
+                <div class="form-group">
+                    <label for="item-name">Name</label>
+                    <input type="text" id="item-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="item-description">Description</label>
+                    <input type="text" id="item-description">
+                </div>
+                <button type="submit" class="submit-btn">Add</button>
+                <button type="button" class="close-btn" id="close-popup">Close</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
