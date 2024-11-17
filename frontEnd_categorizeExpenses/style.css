@@ -91,3 +91,12 @@ body {
     border-radius: 5px;
 }
 
+.logs-container {
+    background-color: #f0f4e8;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    margin: auto;
+    color: #2a6045;
+}
+
