@@ -16,6 +16,9 @@ The Savings Challenge Badges feature introduces a gamified aspect to the user’
 
 - Allows users to section items into wishlist and necessities. Users can see how much their weekly expenses are, and if they are able to afford the items they want to buy.
 
+- **Frontend Features: **
+- 
+
 **Assigned to**: Daniel
 
 ## Categorize Expenses
