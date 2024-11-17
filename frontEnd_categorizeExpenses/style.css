@@ -56,3 +56,18 @@ body {
     color: #f0f4e8;
 }
 
+.form-container {
+    background-color: #f0f4e8;
+    color: #2a6045;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    width: 50%;
+    margin: auto;
+}
+
+.form-container label {
+    display: block;
+    margin: 10px 0;
+}
+
