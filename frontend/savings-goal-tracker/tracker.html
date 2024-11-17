@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings Goal Tracker</title>
+    <link rel="stylesheet" href="tracker-style.css">
+    <script src="tracker-script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#add-expenditure">Add Expenditure</a>
+            <a href="#logs">Logs</a>
+            <a href="#saving-goals" class="active">Saving Goals</a>
+            <a href="#planner">Planner</a>
+            <a href="#tips">Tips</a>
+            <a href="#settings">Settings</a>
+            <button class="logout-btn">Log out</button>
+        </nav>
+        
+        <main class="content">
+            <div class="savings-section">
+                <h2>Savings Goal Tracker</h2>
+                
+                <div class="add-goal-form">
+                    <h3>Add New Goal</h3>
+                    <label for="goal-name">Goal Name:</label>
+                    <input type="text" id="goal-name" required><br>
+                    
+                    <label for="target-amount">Target Amount:</label>
+                    <input type="number" id="target-amount" required><br>
+                    
+                    <label for="current-amount">Current Amount:</label>
+                    <input type="number" id="current-amount" value="0" required><br>
+                    
+                    <label for="goal-deadline">Deadline:</label>
+                    <input type="date" id="goal-deadline" required><br>
+                    
+                    <button id="add-goal-btn">Add Goal</button>
+                </div>
+                
+                <div class="goal-list">
+                    <h3>Your Goals</h3>
+                    <ul id="goal-list">
+                        <!-- Goals will dynamically appear here with progress bars -->
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
