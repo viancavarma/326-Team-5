@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="sidebar">
-            <h2>Dashboard</h2>
+            <button class="reload-dashboard">Dashboard</button>
             <h2>Add Expenditure</h2>
             <h2>Logs</h2>
             <h2>Saving Goals</h2>
@@ -69,5 +69,10 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
+    <script>
+        document.querySelector('.reload-dashboard').addEventListener('click', () => {
+            location.reload();
+        });
+    </script>
 </body>
 </html>
