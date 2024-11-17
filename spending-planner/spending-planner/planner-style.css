@@ -1,9 +1,9 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: serif;
-    background-color: #f5f2e8;
-    color: #2c5445;
+    font-family: Georgia, serif;
+    background-color: #0b6439;
+    color: #fafae8;
 }
 
 .container {
@@ -14,17 +14,21 @@ body {
 .sidebar {
     width: 200px;
     padding: 20px;
-    border-right: 2px solid #2c5445;
+    border-right: 2px solid #fafae8;
+    background-color: #fafae8;
     display: flex;
     flex-direction: column;
 }
 
 .sidebar a {
-    color: #2c5445;
+    color: #0b6439;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 24px;
+    margin-top: 15px;
     margin-bottom: 15px;
     display: block;
+    justify-content: center;
+    text-align: center;
 }
 
 .sidebar a:hover {
@@ -34,12 +38,13 @@ body {
 .logout-btn {
     margin-top: auto;
     padding: 10px;
-    background-color: #2c5445;
-    color: #f5f2e8;
+    background-color: #0b6439;
+    color: #fafae8;
     border: none;
     cursor: pointer;
     font-family: serif;
     font-size: 16px;
+    border-radius: 8px;  
 }
 
 .content {
@@ -52,8 +57,10 @@ body {
 }
 
 .planner-section, .wishlist-section {
-    border: 2px solid #2c5445;
+    border: 2px solid #0b6439;
     padding: 20px;
+    background-color: #fafae8;
+    border-radius: 8px;
 }
 
 .section-header {
@@ -66,14 +73,14 @@ body {
 h2 {
     margin: 0;
     font-size: 32px;
-    color: #2c5445;
+    color: #0b6439;
 }
 
 .add-btn {
     width: 30px;
     height: 30px;
-    background-color: #2c5445;
-    color: #f5f2e8;
+    background-color: #0b6439;
+    color: #fafae8;
     border: none;
     border-radius: 50%;
     font-size: 20px;
@@ -92,14 +99,15 @@ ul {
 li {
     margin-bottom: 10px;
     font-size: 18px;
+    color: #0b6439;
 }
 
 li::before {
     content: "•";
-    color: #2c5445;
+    color: #0b6439;
     display: inline-block;
     width: 1em;
-    margin-left: -1em;
+    margin-left: 0.5em;
 }
 
 .popup {
@@ -114,11 +122,13 @@ li::before {
 
 .popup-content {
     position: relative;
-    background-color: #f5f2e8;
+    background-color: #fafae8;
+    color: #0b6439;
     padding: 30px;
     width: 400px;
     margin: 100px auto;
-    border: 2px solid #2c5445;
+    border: 2px solid #0b6439;
+    border-radius: 8px;
 }
 
 .form-group {
@@ -128,14 +138,14 @@ li::before {
 label {
     display: block;
     margin-bottom: 5px;
-    color: #2c5445;
+    color: #0b6439;
 }
 
 input {
     width: 100%;
     padding: 8px;
-    border: 1px solid #2c5445;
-    background-color: #f5f2e8;
+    border: 1px solid #0b6439;
+    background-color: #fafae8;
     font-family: serif;
     font-size: 16px;
 }
@@ -144,9 +154,10 @@ input {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
-    background-color: #2c5445;
-    color: #f5f2e8;
+    background-color: #0b6439;
+    color: #fafae8;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
     font-family: serif;
     font-size: 16px;
