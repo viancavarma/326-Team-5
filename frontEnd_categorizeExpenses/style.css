@@ -100,3 +100,13 @@ body {
     color: #2a6045;
 }
 
+.logs-container table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.logs-container th, .logs-container td {
+    padding: 10px;
+    border: 1px solid #2a6045;
+}
