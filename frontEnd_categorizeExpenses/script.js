@@ -90,4 +90,14 @@ document.addEventListener('DOMContentLoaded', () => {
             section.style.display = section.id === targetId ? 'block' : 'none';
         });
     }
+
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.getAttribute('data-target');
+            showSection(targetId);
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+    showSection('addExpenditure');
 });
