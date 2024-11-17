@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const expenseCategory = document.getElementById('expenseCategory');
     const submitExpense = document.getElementById('submitExpense');
     const expenseLogsTable = document.querySelector('#expenseLogs tbody');
-    const logsView = document.getElementById('logsView');
+    const navButtons = document.querySelectorAll('.nav-button');
+    const sections = document.querySelectorAll('.main');
 
     // Indexed Data-Base setup
     let db;
@@ -81,5 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 expenseLogsTable.appendChild(row);
             });
         };
+    }
+
+    // Navigation function
+    function showSection(targetId) {
+        sections.forEach(section => {
+            section.style.display = section.id === targetId ? 'block' : 'none';
+        });
     }
 });
