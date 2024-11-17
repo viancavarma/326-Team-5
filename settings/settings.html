@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="settings-style.css">
+    <script src="settings-script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#add-expenditure">Add Expenditure</a>
+            <a href="#logs">Logs</a>
+            <a href="#saving-goals">Saving Goals</a>
+            <a href="#planner">Planner</a>
+            <a href="#tips">Tips</a>
+            <a href="#settings" class="active">Settings</a>
+            <button class="logout-btn">Log out</button>
+        </nav>
+
+        <main class="content">
+            <div class="settings">
+                <div class="profile-settings">
+                    <h2>Profile Settings</h2>
+                    <label for="username-input">Username:</label>
+                    <br>
+                    <input id="username-input">
+                    <br>
+                    <br>
+
+                    <label for="email-input">Email:</label>
+                    <br>
+                    <input id="email-input">
+                    <br>
+                    <br>
+                    
+                    <label for="password-input">Password:</label>
+                    <br>
+                    <input type="password" id="password-input">
+                    <br>
+                    <br>
+
+                    <button id="save-changes-button">Save Changes</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+      const saveChangesButton = document.getElementById("save-changes-button");
+
+      saveChangesButton.addEventListener("click",  function() {
+        storeInput();
+      });
+    </script>
+</body>
+</html>
