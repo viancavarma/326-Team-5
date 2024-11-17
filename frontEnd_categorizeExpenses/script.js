@@ -20,5 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
         loadExpenses();
     };
 
+    request.onupgradeneeded = (event) => {
+        db = event.target.result;
+        const expenseStore = db.createObjectStore('expenses', { keyPath: 'id', autoIncrement: true });
+        expenseStore.createIndex('date', 'date', { unique: false });
+        expenseStore.createIndex('label', 'label', { unique: false });
+        expenseStore.createIndex('amount', 'amount', { unique: false });
+        expenseStore.createIndex('category', 'category', { unique: false });
+        console.log('Object store created.');
+    };
+
     
 });
