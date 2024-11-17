@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings Goal Tracker</title>
+    <link rel="stylesheet" href="notification-script.css">
+    <script src="notification-script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <a href="#dashboard">Dashboard</a>
+            <a href="#add-expenditure">Add Expenditure</a>
+            <a href="#logs">Logs</a>
+            <a href="#saving-goals">Saving Goals</a>
+            <a href="#planner">Planner</a>
+            <a href="#tips">Tips</a>
+            <a href="#notification" class="active">Notification</a>
+            <a href="#settings">Settings</a>
+            <button class="logout-btn">Log out</button>
+        </nav>
+        <main class="content">
+            <div class="notifications-section">
+                <h2>Notifications</h2>
+                
+                <div class="notifications-list">
+                    <ul id="notifications-list">
+                        <!-- Notifications will dynamically appear here -->
+                    </ul>
+                </div>
+                
+                <button id="clear-notifications-btn">Clear All Notifications</button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
