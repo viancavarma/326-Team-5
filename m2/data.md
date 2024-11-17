@@ -47,10 +47,13 @@
 
 ### 5. Tips
 
-- **Description**: Displays different tips based on user spending.
+- **Description**: Displays different tips on a weekly (or user forced) basis, as well as allows user to add their own.
 - **Attributes**:
-  - `tips` (array): Array of strings which are different tips generated from user habits and help advise less spending. 
-- **Data Source**: This data will be system generated upon the creation of our application.
+  - `allTips` (array): Array of strings which are different tips to help with financial planning.
+  - 'userTips' (array): Array of strings which are user input to help with personalized financial planning.
+  - 'week' (datetime): The week of the last generated random tips.
+  - 'weeklyTips' (array): The array of tips which was last displayed on the screen.
+- **Data Source**: This data will be system generated upon the creation of our application. It will also be user-input when the user creates a custom tip. 
 
 ### 6. Expenses
 
