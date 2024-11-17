@@ -30,8 +30,8 @@ Users can set a savings goal by entering the goal name and the target amount. Ex
 ## Tips Screen
 The Tips screen is designed as a resourceful page where users can find practical advice on how to manage their finances more effectively. 
 ![6](https://github.com/user-attachments/assets/732ec958-4245-4f00-b210-c6dc16087a86)
-It dynamically generates financial advice based on the user's expenditure data and savings goals. After the user enters their spending information and defines their savings goals, a simple algorithm analyzes the data to identify spending patterns and areas where the user can improve. The algorithm compares the user's spending habits to their goals and provides relevant tips to help them save more effectively.
-This feature provides personalized advice, helping users to stay aligned with their savings goals by offering tailored suggestions.
+Generates financial advice from an array for the user to look at. Also allows for them to add their own tips for themselves in the future. As a brief summary the tips section will also provide two areas where the user could improve on their spending habits. Lastly on the right hand side, the user can navigate to different financial advisors as another resource.
+This feature provides personalized advice, helping users to stay aligned with their savings goals by offering helpful suggestions.
 
 ## Notes Screen
 The Notes screen provides a simple and intuitive interface for users to track important financial reminders and tasks related to their budgeting or saving goals.
