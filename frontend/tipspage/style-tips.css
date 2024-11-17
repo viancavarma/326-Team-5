@@ -59,6 +59,13 @@ main {
   gap: 20px; 
 }
 
+#addTipButton {
+  font-family: Georgia, serif;
+  border-color: #2c5445;
+  background-color: #cfd6c1;
+  border-radius: 5px;
+}
+
 .side-container {
   flex: 1; 
   background-color: #f5f7f1;
@@ -98,38 +105,38 @@ main {
 }
 
 #influencer-links {
-  list-style-type: none; /* Removes default bullet points */
-  padding: 0; /* Removes default padding */
-  margin: 0; /* Removes default margin */
+  list-style-type: none; 
+  padding: 0;
+  margin: 0; 
 }
 
 #influencer-links li {
-  margin-bottom: 15px; /* Adds spacing between list items */
+  margin-bottom: 15px;
 }
 
 #influencer-links span {
-  font-weight: bold; /* Makes the influencer's name bold */
-  display: block; /* Places the name on its own line */
+  font-weight: bold; 
+  display: block;
 }
 
 .description {
-  color: gray; /* Sets a different color for the description */
-  margin-top: 5px; /* Adds space between name and description */
-  font-size: 0.9em; /* Reduces the font size of the description */
+  color: gray; 
+  margin-top: 5px; 
+  font-size: 0.9em; 
 }
 
 .social-icons {
-  margin-top: 10px; /* Adds spacing above the social media icons */
-  display: flex; /* Aligns icons in a horizontal row */
-  gap: 10px; /* Adds spacing between icons */
+  margin-top: 10px; 
+  display: flex; 
+  gap: 10px; 
 }
 
 .social-logo {
-  width: 32px; /* Sets the width of the icons */
-  height: 32px; /* Sets the height of the icons */
-  transition: opacity 0.2s ease-in-out; /* Adds a smooth transition */
+  width: 32px; 
+  height: 32px; 
+  transition: opacity 0.2s ease-in-out; 
 }
 
 .social-logo:hover {
-  opacity: 0.8; /* Adds a hover effect */
+  opacity: 0.8; 
 }
