@@ -9,17 +9,17 @@
 <body>
     <div class="container">
         <div class="sidebar">
-            <h2>Dashboard</h2>
-            <h2 class="active">Add Expenditure</h2>
-            <h2>Logs</h2>
-            <h2>Savings Goals</h2>
-            <h2>Tips</h2>
-            <h2>Notes</h2>
-            <h2>Settings</h2>
+            <button class="nav-button" data-target="dashboard">Dashboard</button>
+            <button class="nav-button active" data-target="addExpenditure">Add Expenditure</button>
+            <button class="nav-button" data-target="logs">Logs</button>
+            <button class="nav-button" data-target="savingsGoals">Savings Goals</button>
+            <button class="nav-button" data-target="tips">Tips</button>
+            <button class="nav-button" data-target="notes">Notes</button>
+            <button class="nav-button" data-target="settings">Settings</button>
             <button class="logout">Log out</button>
         </div>
 
-        <div class="main">
+        <div class="main" id="addExpenditure">
             <h2>Add Expenditure</h2>
             <div class="form-container">
                 <label>Label: <input type="text" id="expenseLabel" required></label><br>
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div class="main" style="display:none;" id="logsView">
+        <div class="main" style="display:none;" id="logs">
             <h2>Logs</h2>
             <div class="logs-container">
                 <table id="expenseLogs">
