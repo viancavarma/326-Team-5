@@ -38,12 +38,13 @@ body {
 .logout-btn {
     margin-top: auto;
     padding: 10px;
-    background-color: #0b6439;
-    color: #fafae8;
+    background-color: #d5d5c6;
+    color: #0b6439;
     border: none;
     cursor: pointer;
     font-family: serif;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: bold;
     border-radius: 8px;  
 }
 
