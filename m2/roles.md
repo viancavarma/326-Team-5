@@ -23,9 +23,9 @@
 ## Kaylin - Task Manager:
   - **Role:** In charge of organizing and monitoring team tasks. Will frequently check in on discord to make sure that responsibilities are being fulfilled on time.
   - **Top 3 Commits**:
-    1. Communicated over zoom and on discord to brainstorm tasks and ideas. 
-    2. [Commit on Markdown](https://github.com/viancavarma/326-Team-5/commit/c2fa8de23c862337b968f6fdbe04252878b36587): Created markdown files and organized them into the respective directories.
-    3. [Commit on Data](https://github.com/viancavarma/326-Team-5/commit/c06e03a493e2cd30d014787b98d4f7d25a787a86): Worked with Pawan to create the data breakdown for our expense tracker and draft final version of data.md.
+    1. Communicated over discord in order to tie up the loose ends of milestone 3 submission.
+    2. [Commit on UI Diagrams](https://github.com/viancavarma/326-Team-5/commit/6cd0400e056261b4e5600095ee18f0c99c062623): Overhauled the tips page and had to adjust the UI diagrams accordingly to reflect the changes made. 
+    3. [Commit on Tips Page](https://github.com/viancavarma/326-Team-5/commit/075279c901270779cf7c37ca24edc7dd068d32b5): Finished up the tips page and aligned the styling to be cohesive with the rest of the application.
 
 ## Ezra - Communication Lead: 
   - **Role** Facilitates team communication. In charge of keeping all team members informed and the running of the teams communication mostly through discord.
