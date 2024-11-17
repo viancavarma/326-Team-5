@@ -30,5 +30,29 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Object store created.');
     };
 
+    // Add expense
+    submitExpense.addEventListener('click', () => {
+        const expense = {
+            date: new Date().toISOString().split('T')[0],
+            label: expenseLabel.value,
+            amount: parseFloat(expenseAmount.value),
+            category: expenseCategory.value
+        };
+
+        const transaction = db.transaction(['expenses'], 'readwrite');
+        const store = transaction.objectStore('expenses');
+        const request = store.add(expense);
+
+        request.onsuccess = () => {
+            console.log('Expense added:', expense);
+            loadExpenses();
+            clearForm();
+        };
+
+        request.onerror = (event) => {
+            console.error('Error adding expense:', event);
+        };
+    });
+
     
 });
