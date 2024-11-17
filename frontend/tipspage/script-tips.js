@@ -27,7 +27,7 @@ function getWeeklyTips() {
     const currentWeek = new Date().getWeekNumber();
 
     if (lastTips && lastWeek == currentWeek) {
-        return JSON.parse(storedTips);
+        return JSON.parse(lastTips);
     } else {
         const shuffledTips = shuffleTips([...allTips]).slice(0,3);
         localStorage.setItem('weeklyTips', JSON.stringify(shuffledTips));
