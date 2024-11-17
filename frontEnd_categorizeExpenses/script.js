@@ -54,5 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
-    
+    function clearForm() {
+        expenseLabel.value = '';
+        expenseAmount.value = '';
+        expenseCategory.value = '';
+    }
+
 });
