@@ -16,7 +16,7 @@ The Savings Challenge Badges feature introduces a gamified aspect to the user’
 
 - Allows users to section items into wishlist and necessities. Users can see how much their weekly expenses are, and if they are able to afford the items they want to buy.
 
-**Frontend Features: **
+Frontend Features:
 - Popup menu that users can add items to their planner/wishlist (2-3 pts)
 - Edit and Delete button so users can change their lists (2-3 pts)
 - Display users' items in a section (1-2 pts)
