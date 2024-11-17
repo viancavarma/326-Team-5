@@ -60,4 +60,26 @@ document.addEventListener('DOMContentLoaded', () => {
         expenseCategory.value = '';
     }
 
+    // Log of expenses
+    function loadExpenses() {
+        expenseLogsTable.innerHTML = '';
+
+        const transaction = db.transaction(['expenses'], 'readonly');
+        const store = transaction.objectStore('expenses');
+        const request = store.getAll();
+
+        request.onsuccess = (event) => {
+            const expenses = event.target.result;
+            expenses.forEach(expense => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${expense.date}</td>
+                    <td>${expense.label}</td>
+                    <td>${expense.amount.toFixed(2)}</td>
+                    <td>${expense.category}</td>
+                `;
+                expenseLogsTable.appendChild(row);
+            });
+        };
+    }
 });
