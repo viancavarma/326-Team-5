@@ -1,78 +1,214 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <div class="sidebar">
-            <button class="reload-dashboard">Dashboard</button>
-            <h2>Add Expenditure</h2>
-            <h2>Logs</h2>
-            <h2>Saving Goals</h2>
-            <h2>Tips</h2>
-            <h2>Notes</h2>
-            <h2>Settings</h2>
-            <button class="logout">Log out</button>
-        </div>
+body {
+    font-family: Georgia, serif;
+    background-color: #2a6045;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+}
 
-        <div class="main">
-            <h2>Dashboard</h2>
-            <div class="expense-badges-container">
-                <div class="add-expense-form">
-                    <h3>Add Expense</h3>
-                    <label>Amount: <input type="number" id="expenseAmount" required></label><br>
-                    <label>Category: <input type="text" id="expenseCategory" required></label><br>
-                    <label>Date: <input type="date" id="expenseDate" required></label><br>
-                    <button id="addExpenseButton">Add Expense</button>
-                    <button id="clearDataButton">Clear Data</button>
-                </div>
-                <div class="badges">
-                    <h3>Badges</h3>
-                    <ul>
-                        <li><input type="checkbox" checked> Save 10</li>
-                        <li><input type="checkbox" checked> Save 20</li>
-                        <li><input type="checkbox" checked> Save 40</li>
-                        <li><input type="checkbox"> Save 50</li>
-                        <li><input type="checkbox"> Save 60</li>
-                        <li><input type="checkbox"> Save 70</li>
-                    </ul>
-                </div>
-            </div>
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
 
-            <div class="charts-container">
-                <div class="chart large-chart" id="barChart">
-                    <canvas id="weeklyChart"></canvas>
-                    <div class="chart-controls-container">
-                        <div class="chart-controls">
-                            <button id="previousWeekButton">&lt;</button>
-                            <span id="weekLabel">Current Week</span>
-                            <button id="nextWeekButton">&gt;</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="chart small-chart" id="pieChart">
-                    <canvas id="expenditureChart"></canvas>
-                    <div class="chart-controls-container">
-                        <div class="chart-controls">
-                            <button id="previousMonthButton">&lt;</button>
-                            <span id="monthLabel">Current Month</span>
-                            <button id="nextMonthButton">&gt;</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
-    <script>
-        document.querySelector('.reload-dashboard').addEventListener('click', () => {
-            location.reload();
-        });
-    </script>
-</body>
-</html>
+.sidebar {
+    width: 20%;
+    background-color: #f0f4e8;
+    color: #2a6045;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.sidebar h2 {
+    font-size: 20px;
+    margin: 30px 0;
+    cursor: pointer;
+    color: #2a6045;
+}
+
+
+.sidebar .logout {
+    margin-top: auto;
+    padding: 10px;
+    font-size: 16px;
+    color: #2a6045;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+}
+
+.sidebar button {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 30px 0; /* Ensures consistent spacing between buttons */
+    background-color: transparent;
+    border: none;
+    color: #2a6045; /* Matches the text color of "Add Expenditure" and "Dashboard" */
+    cursor: pointer;
+    text-align: center;
+    padding: 0;
+    display: block;
+    box-sizing: border-box;
+}
+
+.sidebar button:hover {
+    background-color: #ccc;
+    border-radius: 7px;
+}
+.main {
+    width: 80%;
+    padding: 20px;
+    background-color: #2a6045;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+.main h2 {
+    color: #f0f4e8;
+}
+
+.expense-badges-container {
+    display: flex;
+    gap: 20px;
+}
+
+.add-expense-form {
+    background-color: #f0f4e8;
+    color: #2a6045;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    width: 60%;
+}
+
+.add-expense-form h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.add-expense-form label {
+    display: block;
+    margin: 10px 0;
+}
+
+.add-expense-form input {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.add-expense-form button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #88a478;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.badges {
+    background-color: #f0f4e8;
+    color: #2a6045;
+    padding: 20px;
+    border-radius: 8px;
+    width: 40%;
+}
+
+.badges h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.badges ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.badges ul li {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.charts-container {
+    display: flex;
+    gap: 20px;
+}
+
+.large-chart {
+    background-color: #f0f4e8;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.large-chart canvas {
+    width: 100% !important;
+    height: 300px !important;
+}
+
+.small-chart {
+    background-color: #f0f4e8;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.small-chart canvas {
+    width: 80% !important;
+    height: 80% !important;
+}
+
+.chart-controls-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.chart-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chart-controls button {
+    background-color: #88a478;
+    color: #fff;
+    border: none;
+    border-radius: 20%;
+    padding: 10px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.chart-controls button:hover {
+    background-color: #6b8e23;
+}
+
+.chart-controls button:active {
+    transform: scale(0.95);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#weekLabel, #monthLabel {
+    color: #2a6045;
+    font-weight: bold;
+    font-size: 16px;
+}
