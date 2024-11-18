@@ -66,7 +66,7 @@ body {
 
 .section-header {
     display: flex;
-    justify-content: space-between;
+    gap: 10px;
     align-items: center;
     margin-bottom: 20px;
 }
@@ -77,7 +77,7 @@ h2 {
     color: #0b6439;
 }
 
-.add-btn {
+.add-btn{
     width: 30px;
     height: 30px;
     background-color: #0b6439;
@@ -86,9 +86,29 @@ h2 {
     border-radius: 50%;
     font-size: 20px;
     cursor: pointer;
-    display: flex;
+    display: flex; 
     align-items: center;
     justify-content: center;
+}
+
+.add-btn:hover {
+    background-color: #104209;
+}
+
+.clear-btn {
+    padding: 10px;
+    background-color: #0b6439;
+    color: #fafae8;
+    border: none;
+    cursor: pointer;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-left:auto;
+}
+
+.clear-btn:hover {
+    background-color: #ed5555;
 }
 
 ul {
@@ -147,7 +167,7 @@ input {
     padding: 8px;
     border: 1px solid #0b6439;
     background-color: #fafae8;
-    font-family: serif;
+    font-family: Georgia, serif;
     font-size: 16px;
 }
 
@@ -164,6 +184,14 @@ input {
     font-size: 16px;
 }
 
+.submit-btn:hover{
+    background-color: #014209;
+}
+
 .close-btn {
     background-color: #858585;
+}
+
+.close-btn:hover {
+    background-color: #ed5555;
 }

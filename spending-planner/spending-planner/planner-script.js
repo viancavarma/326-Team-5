@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const closePopupBtn = document.getElementById('close-popup');
     const addItemForm = document.getElementById('add-item-form');
     const popupTitle = document.getElementById('popup-title');
+    const clearPlanner = document.getElementById('clear-planner');
+    const clearWishlist = document.getElementById('clear-wishlist');
 
     let currentList = null;
 
@@ -102,4 +104,30 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    function editItem(storeName, item) {
+        const tx = db.transaction(storeName, 'readwrite');
+        const store = tx.objectStore(storeName);
+        store.put(item);
+    }
+    function deleteItem(storeName, item) {
+        const tx = db.transaction(storeName, 'readwrite');
+        const store = tx.objectStore(storeName);
+        store.delete(item);
+    }
+
+    function clearItems(storeName) {
+        const tx = db.transaction(storeName, 'readwrite');
+        const store = tx.objectStore(storeName);
+        store.clear();
+    }
+
+    clearPlanner.addEventListener('click', () => {
+        clearItems('planner');
+        document.getElementById('planner-list').innerHTML = '';
+    });
+    clearWishlist.addEventListener('click', () => {
+        clearItems('wishlist');
+        document.getElementById('wishlist-list').innerHTML = '';
+    });
 });
