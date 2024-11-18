@@ -12,16 +12,9 @@ The Savings Challenge Badges feature introduces a gamified aspect to the user’
 
 **Assigned to**: Anika
 
-## Spending & Savings Planner
+## Spending & Savings Planner (3 pts)
 
-- Allows users to section items into wishlist and necessities. Users can see how much their weekly expenses are, and if they are able to afford the items they want to buy.
-
-Frontend Features:
-- Popup menu that users can add items to their planner/wishlist (2-3 pts)
-- Edit and Delete button so users can change their lists (2-3 pts)
-- Display users' items in a section (1-2 pts)
-- Sidebar where users can navigate the application (1-2 pts)
-- Logout button in sidebar (1-2 pts)
+- Allows users to section items into wishlist and necessities. Users can see how much their weekly expenses are, and if they are able to afford the items they want to buy. Users will be able to add and delete items on their lists, and will be able to see their items in a clear display.
 
 **Assigned to**: Daniel
 
