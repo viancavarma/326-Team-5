@@ -51,6 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const li = document.createElement('li');
         li.textContent = description ? `${name} - ${description}` : name;
         currentList.appendChild(li);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.textContent = 'X';
+        deleteBtn.addEventListener('click', function() {
+            currentList.removeChild(li);
+            deleteItem(storeName, data);
+        });
+        li.appendChild(deleteBtn);
+
         closePopup();
     });
 
@@ -88,32 +98,53 @@ document.addEventListener('DOMContentLoaded', () => {
         wishlistStore.getAll().onsuccess = function(event) {
             const wishlistItems = event.target.result;
             const wishlistList = document.getElementById('wishlist-list');
+
             wishlistItems.forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = item.description ? `${item.name} - ${item.description}` : item.name;
                 wishlistList.appendChild(li);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = 'X';
+                deleteBtn.addEventListener('click', function() {
+                    wishlistList.removeChild(li);
+                    deleteItem('wishlist', item);
+                });
+                li.appendChild(deleteBtn);
             });
         }
         plannerStore.getAll().onsuccess = function(event) {
             const plannerItems = event.target.result;
             const plannerList = document.getElementById('planner-list');
+
             plannerItems.forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = item.description ? `${item.name} - ${item.description}` : item.name;
                 plannerList.appendChild(li);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = 'X';
+                deleteBtn.addEventListener('click', function() {
+                    plannerList.removeChild(li);
+                    deleteItem('planner', item);
+                });
+                li.appendChild(deleteBtn);
             });
         }
     }
 
-    function editItem(storeName, item) {
-        const tx = db.transaction(storeName, 'readwrite');
-        const store = tx.objectStore(storeName);
-        store.put(item);
-    }
+    // function editItem(storeName, item) {
+    //     const tx = db.transaction(storeName, 'readwrite');
+    //     const store = tx.objectStore(storeName);
+    //     store.put(item);
+    // }
+    
     function deleteItem(storeName, item) {
         const tx = db.transaction(storeName, 'readwrite');
         const store = tx.objectStore(storeName);
-        store.delete(item);
+        store.delete(item.id);
     }
 
     function clearItems(storeName) {

@@ -111,6 +111,22 @@ h2 {
     background-color: #ed5555;
 }
 
+.delete-btn {
+  display: none; 
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px; 
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.delete-btn:hover {
+    background-color: #ed5555;
+}
 ul {
     list-style: none;
     padding: 0;
@@ -130,7 +146,11 @@ li::before {
     width: 1em;
     margin-left: 0.5em;
 }
-
+li:hover .delete-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
 .popup {
     display: none;
     position: fixed;
