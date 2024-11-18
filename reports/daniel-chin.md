@@ -17,4 +17,5 @@ Contribution Log - Daniel Chin
   
 11/17
 - revised color theme, font. https://github.com/viancavarma/326-Team-5/commit/d6c344cdc692517916e1d3849831e2c82811606b
+- added clear button, changed layout https://github.com/viancavarma/326-Team-5/commit/14761e1cab9db9bd6ed6813fb76d4fcb8c4d4bec
   
