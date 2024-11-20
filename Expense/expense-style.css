@@ -483,6 +483,8 @@ body {
 .notifications-section h2 {
     font-size: 24px;
     margin-bottom: 20px;
+    color: #2a6045; 
+
 }
 
 .notifications-list {
@@ -574,7 +576,11 @@ body {
 }
 
 /*planner-notes*/
-
+.planner-section h2, .wishlist-section h2 {
+    color: #0b6439; 
+    font-size: 24px;  
+    font-weight: bold; 
+}
 .planner-section, .wishlist-section {
     border: 2px solid #0b6439;
     padding: 20px;
