@@ -34,6 +34,6 @@ Generates financial advice from an array for the user to look at. Also allows fo
 This feature provides personalized advice, helping users to stay aligned with their savings goals by offering helpful suggestions.
 
 ## Notes Screen
-The Notes screen provides a simple and intuitive interface for users to track important financial reminders and tasks related to their budgeting or saving goals.
+The Notes screen provides a simple and intuitive interface for users to track important financial reminders and items related to their budgeting or saving goals.
 ![7](https://github.com/user-attachments/assets/f66cfa09-5e28-48c4-bf31-d27a6588a7fb)
-The right side of the screen displays a task management section where users can create and check off specific financial tasks. A "Submit" button at the bottom of the task section allows users to update their tasks list, providing a straightforward way to track progress. The left-side navigation is consistent with the other screens, giving users quick access to other features. This screen enables users to jot down important financial notes and stay on top of their savings strategies by managing actionable tasks.
+Allows the user to track their monthly or weekly expenses in a planner. Users can add or remove items from their lists, and the items will save when they leave the page. On the right side, users can keep track of future expenses or items they want to buy. This feature allows the user to write down and keep track of their current and future purchases.
