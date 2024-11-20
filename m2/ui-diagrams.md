@@ -36,5 +36,6 @@ This feature provides personalized advice, helping users to stay aligned with th
 
 ## Notes Screen
 The Notes screen provides a simple and intuitive interface for users to track important financial reminders and items related to their budgeting or saving goals.
-![7](https://github.com/user-attachments/assets/f66cfa09-5e28-48c4-bf31-d27a6588a7fb)
+![7](https://github.com/user-attachments/assets/eaec2cfb-c081-41d6-b971-41de61734804)
+![8](https://github.com/user-attachments/assets/490407f8-4fac-43ff-8f3c-e43176cbc644)
 Allows the user to track their monthly or weekly expenses in a planner. Users can add or remove items from their lists, and the items will save when they leave the page. On the right side, users can keep track of future expenses or items they want to buy. This feature allows the user to write down and keep track of their current and future purchases.
