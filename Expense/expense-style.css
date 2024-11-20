@@ -385,7 +385,9 @@ body {
 
 
 /*Tips*/
-
+#tips h2 {
+    color: rgb(44, 98, 61);
+}
 
 .content-wrapper-tips {
     flex-grow: 1;
