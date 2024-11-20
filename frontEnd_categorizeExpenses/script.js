@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const navButtons = document.querySelectorAll('.nav-button');
     const sections = document.querySelectorAll('.main');
 
+    let categories = [];
+
     // Indexed Data-Base setup
     let db;
     const request = indexedDB.open('ExpenseDB', 1);
@@ -24,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     request.onsuccess = (event) => {
         db = event.target.result;
         console.log('IndexedDB initialized.');
-        loadExpenses();
+        loadCategories();
     };
 
     request.onupgradeneeded = (event) => {
@@ -38,12 +40,58 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Add expense
+    function loadCategories() {
+        const transaction = db.transaction(['expenses'], 'readonly');
+        const store = transaction.objectStore('expenses');
+        const categoryRequest = store.getAll();
+
+        categoryRequest.onsuccess = (event) => {
+            const expenses = event.target.result;
+            const uniqueCategories = new Set(expenses.map(expense => expense.category));
+            categories = Array.from(uniqueCategories); // Populate categories array
+            updateCategoryDropdown();
+        };
+
+        categoryRequest.onerror = (event) => {
+            console.error('Error loading categories:', event);
+        };
+    }
+
+    // Update category dropdown
+    function updateCategoryDropdown() {
+        expenseCategory.innerHTML = '<option value="" disabled selected>Select a category</option>';
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category;
+            option.textContent = category;
+            expenseCategory.appendChild(option);
+        });
+    }
+
+    // Add custom category
+    addCategoryButton.addEventListener('click', () => {
+        const customCategoryValue = customCategory.value.trim();
+        if (customCategoryValue && !categories.includes(customCategoryValue)) {
+            categories.push(customCategoryValue);
+            updateCategoryDropdown();
+            customCategory.value = ''; // Clear input field
+            console.log('Custom category added:', customCategoryValue);
+        }
+    });
+
+    // Submit expense
     submitExpense.addEventListener('click', () => {
+        const selectedCategory = expenseCategory.value || customCategory.value.trim();
+        if (!selectedCategory) {
+            alert('Please select or add a category.');
+            return;
+        }
+
         const expense = {
             date: new Date().toISOString().split('T')[0],
             label: expenseLabel.value,
             amount: parseFloat(expenseAmount.value),
-            category: expenseCategory.value
+            category: selectedCategory
         };
 
         const transaction = db.transaction(['expenses'], 'readwrite');
@@ -65,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         expenseLabel.value = '';
         expenseAmount.value = '';
         expenseCategory.value = '';
+        customCategory.value = '';
     }
 
     // Log of expenses
