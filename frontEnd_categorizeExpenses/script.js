@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const navButtons = document.querySelectorAll('.nav-button');
     const sections = document.querySelectorAll('.main');
 
-    let categories = [];
-
     // Indexed Data-Base setup
     let db;
     const request = indexedDB.open('ExpenseDB', 1);
@@ -26,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     request.onsuccess = (event) => {
         db = event.target.result;
         console.log('IndexedDB initialized.');
-        loadCategories();
+        loadExpenses();
     };
 
     request.onupgradeneeded = (event) => {
@@ -40,63 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Add expense
-    function loadCategories() {
-        const transaction = db.transaction(['expenses'], 'readonly');
-        const store = transaction.objectStore('expenses');
-        const categoryRequest = store.getAll();
-
-        categoryRequest.onsuccess = (event) => {
-            const expenses = event.target.result;
-            const uniqueCategories = new Set(expenses.map(expense => expense.category));
-            categories = Array.from(uniqueCategories);
-            updateCategoryDropdown();
-        };
-
-        categoryRequest.onerror = (event) => {
-            console.error('Error loading categories:', event);
-        };
-    }
-
-    // Update category dropdown
-    function updateCategoryDropdown() {
-        const defaultOptions = `
-            <option value="" disabled selected>Select a category</option>
-            <option value="custom">Add Custom Category</option>
-        `;
-        expenseCategory.innerHTML = defaultOptions;
-        categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category;
-            option.textContent = category;
-            expenseCategory.appendChild(option);
-        });
-    }
-
-    // Add custom category
-    addCategoryButton.addEventListener('click', () => {
-        if (expenseCategory.value === 'custom') {
-            const customCategory = prompt('Enter a new category:');
-            if (customCategory && !categories.includes(customCategory)) {
-                categories.push(customCategory);
-                updateCategoryDropdown();
-                expenseCategory.value = customCategory;
-            }
-        }
-    });
-
-    // Submit expense
     submitExpense.addEventListener('click', () => {
-        const selectedCategory = expenseCategory.value;
-        if (!selectedCategory || selectedCategory === 'custom') {
-            alert('Please select or add a category.');
-            return;
-        }
-
         const expense = {
             date: new Date().toISOString().split('T')[0],
             label: expenseLabel.value,
             amount: parseFloat(expenseAmount.value),
-            category: selectedCategory
+            category: expenseCategory.value
         };
 
         const transaction = db.transaction(['expenses'], 'readwrite');
