@@ -32,7 +32,6 @@ body {
     color: #2a6045;
 }
 
-
 .sidebar .logout {
     margin-top: auto;
     padding: 10px;
@@ -47,10 +46,10 @@ body {
     font-family: Georgia, serif;
     font-size: 20px;
     font-weight: bold;
-    margin: 30px 0; /* Ensures consistent spacing between buttons */
+    margin: 30px 0;
     background-color: transparent;
     border: none;
-    color: #2a6045; /* Matches the text color of "Add Expenditure" and "Dashboard" */
+    color: #2a6045;
     cursor: pointer;
     text-align: center;
     padding: 0;
@@ -62,6 +61,7 @@ body {
     background-color: #ccc;
     border-radius: 7px;
 }
+
 .main {
     width: 80%;
     padding: 20px;
@@ -78,42 +78,9 @@ body {
 
 .expense-badges-container {
     display: flex;
+    justify-content: center; /* Centers the badges */
+    align-items: center;
     gap: 20px;
-}
-
-.add-expense-form {
-    background-color: #f0f4e8;
-    color: #2a6045;
-    padding: 20px;
-    border-radius: 8px;
-    font-size: 18px;
-    width: 60%;
-}
-
-.add-expense-form h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.add-expense-form label {
-    display: block;
-    margin: 10px 0;
-}
-
-.add-expense-form input {
-    padding: 5px;
-    font-size: 16px;
-}
-
-.add-expense-form button {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #88a478;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
 }
 
 .badges {
@@ -121,7 +88,8 @@ body {
     color: #2a6045;
     padding: 20px;
     border-radius: 8px;
-    width: 40%;
+    width: 50%; /* Adjust width for better alignment */
+    text-align: center;
 }
 
 .badges h3 {
@@ -139,60 +107,60 @@ body {
     margin: 10px 0;
 }
 
+/* Dashboard Charts Container */
+/* Dashboard Charts Container */
 .charts-container {
     display: flex;
-    gap: 20px;
+    gap: 30px; /* Space between the charts */
+    justify-content: space-between; /* Distributes charts evenly */
+    align-items: flex-start; /* Aligns charts to the top */
+    flex-wrap: wrap; /* Allows wrapping for smaller screens */
+    margin-top: 20px; /* Adds space above the charts */
 }
 
-.large-chart {
+/* Individual Chart Boxes */
+.large-chart, .small-chart {
     background-color: #f0f4e8;
-    padding: 20px;
+    padding: 20px; /* Adds padding inside the boxes */
     border-radius: 8px;
-    flex: 2;
+    flex: 1; /* Ensures charts take equal width */
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; /* Stacks chart and controls vertically */
+    align-items: center; /* Centers content horizontally */
+    justify-content: space-between; /* Spaces chart and controls */
+    min-width: 300px; /* Prevents boxes from becoming too narrow */
+    max-width: 600px; /* Ensures a maximum width for better responsiveness */
+    height: auto; /* Prevents height from becoming infinite */
+    box-sizing: border-box; /* Includes padding and border in size calculations */
 }
 
-.large-chart canvas {
-    width: 100% !important;
-    height: 300px !important;
+/* Chart Canvas */
+.large-chart canvas, .small-chart canvas {
+    width: 100%; /* Ensures charts fit nicely inside the boxes */
+    max-height: 300px; /* Sets a maximum height for the chart */
+    height: auto; /* Automatically adjusts height to content */
 }
 
-.small-chart {
-    background-color: #f0f4e8;
-    padding: 20px;
-    border-radius: 8px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.small-chart canvas {
-    width: 80% !important;
-    height: 80% !important;
-}
-
+/* Chart Control Buttons */
 .chart-controls-container {
     display: flex;
-    justify-content: center;
-    margin-top: 10px;
+    justify-content: center; /* Centers the buttons */
+    align-items: center;
+    margin-top: 10px; /* Adds space above the buttons */
 }
 
 .chart-controls {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    gap: 10px; /* Adds space between buttons */
 }
 
 .chart-controls button {
     background-color: #88a478;
-    color: #fff;
+    color: white;
     border: none;
-    border-radius: 20%;
+    border-radius: 20%; /* Rounded buttons */
     padding: 10px 15px;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     transition: transform 0.1s ease, box-shadow 0.1s ease;
@@ -207,10 +175,13 @@ body {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Labels for Week and Month */
 #weekLabel, #monthLabel {
     color: #2a6045;
     font-weight: bold;
     font-size: 16px;
+    margin: 0 10px; /* Adds spacing around the labels */
+    text-align: center; /* Centers the text */
 }
 
 /*Log and Expenditure*/
