@@ -443,15 +443,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function renderGoals() {
-        goalList.innerHTML = ''; 
-
+        goalList.innerHTML = '';
+    
         goals.forEach(goal => {
             const progressPercent = Math.min((goal.current / goal.target) * 100, 100).toFixed(1);
-
+    
             const goalItem = document.createElement('li');
+            goalItem.classList.add('goal-item'); 
             goalItem.innerHTML = `
                 <div class="goal-details">
-                    <span><strong>${goal.name}</strong> (${goal.current}/${goal.target})</span>
+                    <span><strong>${goal.name}</strong> (${goal.current} / ${goal.target})</span>
                     <span>Deadline: ${goal.deadline}</span>
                 </div>
                 <div class="goal-progress-container">
@@ -462,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button onclick="deleteGoal(${goal.id})">Delete</button>
                 </div>
             `;
-
+    
             goalList.appendChild(goalItem);
         });
     }
