@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const expenseCategory = document.getElementById('expenseCategory');
     const submitExpense = document.getElementById('submitExpense');
     const expenseLogsTable = document.querySelector('#expenseLogs tbody');
+    const filterDate = document.getElementById('filterDate');
+    const filterCategory = document.getElementById('filterCategory');
+    const filterLabel = document.getElementById('filterLabel');
+    const filterAmount = document.getElementById('filterAmount');
+    const applyFilters = document.getElementById('applyFilters');
+    const clearFilters = document.getElementById('clearFilters');
     const navButtons = document.querySelectorAll('.nav-button');
     const sections = document.querySelectorAll('.main');
 
@@ -71,7 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         request.onsuccess = (event) => {
             const expenses = event.target.result;
-            expenses.forEach(expense => {
+            const filteredExpenses = expenses.filter(expense => {
+                return (!filters.date || expense.date === filters.date) &&
+                       (!filters.category || expense.category.toLowerCase().includes(filters.category.toLowerCase())) &&
+                       (!filters.label || expense.label.toLowerCase().includes(filters.label.toLowerCase())) &&
+                       (!filters.amount || expense.amount === parseFloat(filters.amount));
+            });
+
+            filteredExpenses.forEach(expense => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${expense.date}</td>
@@ -83,6 +96,24 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         };
     }
+
+    applyFilters.addEventListener('click', () => {
+        const filters = {
+            date: filterDate.value || null,
+            category: filterCategory.value || null,
+            label: filterLabel.value || null,
+            amount: filterAmount.value || null
+        };
+        loadExpenses(filters);
+    });
+
+    clearFilters.addEventListener('click', () => {
+        filterDate.value = '';
+        filterCategory.value = '';
+        filterLabel.value = '';
+        filterAmount.value = '';
+        loadExpenses();
+    });
 
     // Navigation function
     function showSection(targetId) {

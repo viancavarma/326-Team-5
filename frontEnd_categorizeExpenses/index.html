@@ -31,6 +31,14 @@
 
         <div class="main" style="display:none;" id="logs">
             <h2>Logs</h2>
+            <div class="filter-container">
+                <label>Date: <input type="date" id="filterDate"></label>
+                <label>Label: <input type="text" id="filterLabel" placeholder="e.g., Groceries"></label>
+                <label>Amount: <input type="number" id="filterAmount" placeholder="e.g., 50"></label>
+                <label>Category: <input type="text" id="filterCategory" placeholder="e.g., Food"></label>
+                <button id="applyFilters">Apply Filters</button>
+                <button id="clearFilters">Clear Filters</button>
+            </div>
             <div class="logs-container">
                 <table id="expenseLogs">
                     <thead>
