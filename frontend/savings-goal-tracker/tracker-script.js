@@ -2,9 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const addGoalButton = document.getElementById('add-goal-btn');
     const goalList = document.getElementById('goal-list');
 
-    let goals = []; // Store goals locally (can be extended to IndexedDB for persistence)
+    let goals = []; 
 
-    // Add a new savings goal
     addGoalButton.addEventListener('click', () => {
         const goalName = document.getElementById('goal-name').value;
         const targetAmount = parseFloat(document.getElementById('target-amount').value);
@@ -17,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const newGoal = {
-            id: Date.now(), // Unique ID
+            id: Date.now(), 
             name: goalName,
             target: targetAmount,
             current: currentAmount,
@@ -29,9 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
         clearForm();
     });
 
-    // Render the list of goals
     function renderGoals() {
-        goalList.innerHTML = ''; // Clear the list before re-rendering
+        goalList.innerHTML = ''; 
 
         goals.forEach(goal => {
             const progressPercent = Math.min((goal.current / goal.target) * 100, 100).toFixed(1);
@@ -55,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Clear the form after adding a goal
     function clearForm() {
         document.getElementById('goal-name').value = '';
         document.getElementById('target-amount').value = '';
@@ -63,7 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('goal-deadline').value = '';
     }
 
-    // Edit an existing goal
     window.editGoal = function (id) {
         const goal = goals.find(g => g.id === id);
         if (goal) {
@@ -72,12 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('current-amount').value = goal.current;
             document.getElementById('goal-deadline').value = goal.deadline;
 
-            goals = goals.filter(g => g.id !== id); // Remove the old goal from the list
+            goals = goals.filter(g => g.id !== id); 
             renderGoals();
         }
     };
 
-    // Delete a goal
     window.deleteGoal = function (id) {
         goals = goals.filter(goal => goal.id !== id);
         renderGoals();
