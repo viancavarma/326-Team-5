@@ -83,14 +83,23 @@ function getAllExpenses(callback) {
 }
 
 function updateCharts(weekOffset, monthOffset) {
+    console.log('Updating charts:', { weekOffset, monthOffset });
+
     getAllExpenses((expenses) => {
+        console.log('Expenses retrieved:', expenses);
+
         const weeklyData = processWeeklyData(expenses, weekOffset);
         const categoryData = processMonthlyCategoryData(expenses, monthOffset);
 
+        console.log('Weekly data:', weeklyData);
+        console.log('Category data:', categoryData);
+
+        // Update weekly spending chart
         weeklySpendingChart.data.labels = weeklyData.labels;
         weeklySpendingChart.data.datasets = weeklyData.datasets;
         weeklySpendingChart.update();
 
+        // Update pie chart for monthly data
         if (categoryData.values.length === 0) {
             expenditureCategoryChart.data.datasets[0].data = [1]; // Placeholder for no data
             expenditureCategoryChart.data.labels = ['No Data'];
@@ -103,6 +112,7 @@ function updateCharts(weekOffset, monthOffset) {
         }
         expenditureCategoryChart.update();
 
+        // Update week and month labels
         updateWeekLabel(weekOffset);
         updateMonthLabel(monthOffset);
     });
@@ -270,32 +280,27 @@ const expenditureCategoryChart = new Chart(document.getElementById('expenditureC
 });
 
 // Event Listeners
-document.getElementById('addExpenseButton').addEventListener('click', () => {
-    const amount = document.getElementById('expenseAmount').value;
-    const category = document.getElementById('expenseCategory').value;
-    const date = document.getElementById('expenseDate').value;
-    addExpense(amount, category, date);
-});
-
-document.getElementById('clearDataButton').addEventListener('click', clearEnteredData);
-
 document.getElementById('previousWeekButton').addEventListener('click', () => {
-    currentWeekOffset += 1;
+    console.log('Previous week clicked');
+    currentWeekOffset += 1; // Move to the previous week
     updateCharts(currentWeekOffset, currentMonthOffset);
 });
 
 document.getElementById('nextWeekButton').addEventListener('click', () => {
-    currentWeekOffset -= 1;
+    console.log('Next week clicked');
+    currentWeekOffset -= 1; // Move to the next week
     updateCharts(currentWeekOffset, currentMonthOffset);
 });
 
 document.getElementById('previousMonthButton').addEventListener('click', () => {
-    currentMonthOffset -= 1;
+    console.log('Previous month clicked');
+    currentMonthOffset -= 1; // Move to the previous month
     updateCharts(currentWeekOffset, currentMonthOffset);
 });
 
 document.getElementById('nextMonthButton').addEventListener('click', () => {
-    currentMonthOffset += 1;
+    console.log('Next month clicked');
+    currentMonthOffset += 1; // Move to the next month
     updateCharts(currentWeekOffset, currentMonthOffset);
 });
 
