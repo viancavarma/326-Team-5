@@ -385,6 +385,13 @@ body {
 
 
 /*Tips*/
+.main-content-tips {
+    flex: 3; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+    }
+
 #addTipButton {
     font-family: Georgia, serif;
     background-color: rgb(213,213,198);
