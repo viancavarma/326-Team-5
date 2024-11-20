@@ -48,11 +48,28 @@ body {
     font-size: 16px;
 }
 
-.content {
+/* .content {
     flex: 1;
     padding: 40px;
     background-color: #f5f2e8;
+} */
+
+.content {
+    flex: 1;
+    padding: 30px;
+    background-color: #2c5445;
 }
+
+.profile-settings {
+    background-color: #f0f4e8;
+    color: #2a6045;
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 18px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 
 input {
     width: 20%;
@@ -84,8 +101,8 @@ input {
     background-color: #2c5445;
     color: #f5f2e8;
     border: none;
-    border-radius: 10px;
-    font-size: 12px;
+    border-radius: 8px;
+    font-size: 14px;
     font-family: serif;
     cursor: pointer;
     display: flex;
