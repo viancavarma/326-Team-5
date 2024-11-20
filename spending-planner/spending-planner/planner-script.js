@@ -71,9 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     let db;
+
     const request = indexedDB.open('spending-planner', 1);
     request.onupgradeneeded = function(event) {
-        event.target.result;
+        db = event.target.result;
         
         if (!db.objectStoreNames.contains('planner')) {
             db.createObjectStore('planner', { keyPath: 'id', autoIncrement: true });
@@ -89,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
     request.onerror = function(event) {
         console.error('Database error: ' + event.target.errorCode);
     }
-
     function loadItems() {
         const tx = db.transaction(['planner', 'wishlist'], 'readonly');
         const plannerStore = tx.objectStore('planner');
