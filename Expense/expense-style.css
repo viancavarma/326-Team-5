@@ -385,6 +385,14 @@ body {
 
 
 /*Tips*/
+.content-wrapper-tips {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    }
+
 .main-content-tips {
     flex: 3; 
     display: flex;
