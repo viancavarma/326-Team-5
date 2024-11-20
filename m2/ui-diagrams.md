@@ -2,7 +2,7 @@
 
 ## Dashboard Screen
 The Dashboard screen serves as the central hub where users can monitor their spending and savings progress. On the left side, a sidebar provides navigation links for the primary features of the application, including "Dashboard," "Add Expenditure," "Logs," "Saving Goals," "Tips," "Notes" and "Settings."
-![2](https://github.com/user-attachments/assets/bc57a257-eddb-44a5-a8a1-f2689ab4902e)
+![image](https://github.com/user-attachments/assets/e7fcd117-80b0-43c4-a021-6e16a406dd0f)
 The main part of the screen displays two visualizations: a bar chart for daily expenditures across a week and a pie graph that breaks down spending habits by category. This helps users understand how their spending is distributed across different needs. On the right side of the screen, there is a "Badges" section, which tracks the user’s progress toward various savings milestones. This feature encourages users to set and meet financial goals in a gamified manner. 
 Users can quickly navigate to other sections like adding new expenditures or checking saving goals from the sidebar.
 
