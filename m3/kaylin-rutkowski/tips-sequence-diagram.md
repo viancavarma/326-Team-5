@@ -7,5 +7,12 @@ The tips feature provides budgeting advice by highlighting two key spending area
 sequenceDiagram
     user->>frontend: opens page
     frontend-->>user: displays page
-    user-)frontend: 
+    frontend-->>user: shows the biggest purchase and expense category
+    frontend-->>user: shows 3 tips for the week
+    user->>frontend: clicks cash
+    frontend-->>user: refreshes and re-randomizes the 3 displayed tips
+    user->>frontend: inputs and submits a custom tip
+    frontend-->>user: refreshes and re-randomizes the 3 displayed tips with chance of being the custom tip
+    user->>frontend: clicks any of influencer links
+    frontend-->>user: redirects user to a different site depending on the link clicked
 ```
