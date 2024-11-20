@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         categoryRequest.onsuccess = (event) => {
             const expenses = event.target.result;
             const uniqueCategories = new Set(expenses.map(expense => expense.category));
-            categories = Array.from(uniqueCategories); // Populate categories array
+            categories = Array.from(uniqueCategories);
             updateCategoryDropdown();
         };
 
@@ -59,7 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update category dropdown
     function updateCategoryDropdown() {
-        expenseCategory.innerHTML = '<option value="" disabled selected>Select a category</option>';
+        const defaultOptions = `
+            <option value="" disabled selected>Select a category</option>
+            <option value="custom">Add Custom Category</option>
+        `;
+        expenseCategory.innerHTML = defaultOptions;
         categories.forEach(category => {
             const option = document.createElement('option');
             option.value = category;
@@ -70,19 +74,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add custom category
     addCategoryButton.addEventListener('click', () => {
-        const customCategoryValue = customCategory.value.trim();
-        if (customCategoryValue && !categories.includes(customCategoryValue)) {
-            categories.push(customCategoryValue);
-            updateCategoryDropdown();
-            customCategory.value = ''; // Clear input field
-            console.log('Custom category added:', customCategoryValue);
+        if (expenseCategory.value === 'custom') {
+            const customCategory = prompt('Enter a new category:');
+            if (customCategory && !categories.includes(customCategory)) {
+                categories.push(customCategory);
+                updateCategoryDropdown();
+                expenseCategory.value = customCategory;
+            }
         }
     });
 
     // Submit expense
     submitExpense.addEventListener('click', () => {
-        const selectedCategory = expenseCategory.value || customCategory.value.trim();
-        if (!selectedCategory) {
+        const selectedCategory = expenseCategory.value;
+        if (!selectedCategory || selectedCategory === 'custom') {
             alert('Please select or add a category.');
             return;
         }
@@ -113,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
         expenseLabel.value = '';
         expenseAmount.value = '';
         expenseCategory.value = '';
-        customCategory.value = '';
     }
 
     // Log of expenses
