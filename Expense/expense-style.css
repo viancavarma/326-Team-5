@@ -377,7 +377,7 @@ body {
   }
 
 #influencer-links li::before {
-    content: none; /* Removes any custom marker or bullet */
+    content: none; 
 }
   
 .side-container-tips {
