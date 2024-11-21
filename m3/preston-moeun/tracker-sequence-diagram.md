@@ -6,10 +6,8 @@ This feature allows the user to create and manage savings goals by entering a go
 
 ```mermaid
 sequenceDiagram
-  User ->> UI: Enter goal details (name, target amount, current amount, deadline)
-  User ->> UI: Click "Add Goal" button
-  UI ->> Database: Save goal details to IndexedDB
-  Database ->> UI: Confirm goal saved
-  UI ->> Display: Update goal list and render progress bar
-  
+  User ->> UI: Add goal details and click "Add Goal"
+  UI ->> Database: Save goal to IndexedDB
+  Database ->> UI: Confirm save and update display
+
 ```
