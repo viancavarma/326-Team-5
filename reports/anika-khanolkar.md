@@ -9,7 +9,7 @@ Made the doc for meeting minutes - https://docs.google.com/document/d/1KF-sQdjfu
 Made commits for the feature description I am assigned to. <br />
 Made commits for the role.md file. <br />
 
-## 31th October
+## 31st October
 Made an initial plan on how to implement the dashboard content. <br/>
 https://github.com/viancavarma/326-Team-5/commit/f033dffd0d191a68ca0d2e5d2526a714b72b145c <br/>
 
