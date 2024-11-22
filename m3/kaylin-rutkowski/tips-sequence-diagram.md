@@ -5,18 +5,14 @@ The tips feature provides budgeting advice by highlighting two key spending area
 ## Sequence Diagram
 ```mermaid
 sequenceDiagram
-    participant User
-    participant Frontend
-    User->>Frontend: Opens page
-    Frontend-->>User: Displays page contents
-    Frontend-->>User: Shows most expensive purchase and category
-    Frontend-->>User: Displays 3 tips for the week
-
-    
-    User->>Frontend: Inputs a personal tip
-    User->>Frontend: Clicks cash button
-    Frontend-->>User: Displays 3 new tips (including possible personal tip)
-    
-    User->>Frontend: Clicks a social media icon
-    Frontend-->>User: Redirects to the corresponding social media page
+    user->>frontend: opens page
+    frontend-->>user: displays page
+    frontend-->>user: shows the biggest purchase and expense category
+    frontend-->>user: shows 3 tips for the week
+    user->>frontend: clicks cash
+    frontend-->>user: refreshes and re-randomizes the 3 displayed tips
+    user->>frontend: inputs and submits a custom tip
+    frontend-->>user: refreshes and re-randomizes the 3 displayed tips with chance of being the custom tip
+    user->>frontend: clicks any of influencer links
+    frontend-->>user: redirects user to a different site depending on the link clicked
 ```
