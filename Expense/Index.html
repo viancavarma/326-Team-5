@@ -63,7 +63,7 @@
         </div>
 
         <!-- Add Expenditure Section from BudgetBetter -->
-        <div class="main" id="addExpenditure">
+        <div class="main" style="display:none;" id="addExpenditure">
             <h2>Add Expenditure</h2>
             <div class="form-container">
                 <label>Label: <input type="text" id="expenseLabel" required></label><br>
@@ -76,6 +76,16 @@
         <!-- Logs Section -->
         <div class="main" style="display:none;" id="logs">
             <h2>Logs</h2>
+            <div class="filter-container">
+                <label>Date: <input type="date" id="filterDate"></label>
+                <label>Label: <input type="text" id="filterLabel" placeholder="e.g., Eggs"></label>
+                <label>Amount: <input type="number" id="filterAmount" placeholder="e.g., 50"></label>
+                <label>Category: <input type="text" id="filterCategory" placeholder="e.g., Groceries"></label>
+                <div class="button-group">
+                    <button id="applyFilters">Apply Filters</button>
+                    <button id="clearFilters">Clear Filters</button>
+                </div>
+            </div>
             <div class="logs-container">
                 <table id="expenseLogs">
                     <thead>

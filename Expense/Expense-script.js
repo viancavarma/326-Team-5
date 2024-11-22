@@ -312,8 +312,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const expenseCategory = document.getElementById('expenseCategory');
     const submitExpense = document.getElementById('submitExpense');
     const expenseLogsTable = document.querySelector('#expenseLogs tbody');
-    const navButtons = document.querySelectorAll('.nav-button');
-    const sections = document.querySelectorAll('.main');
+    const filterDate = document.getElementById('filterDate');
+    const filterCategory = document.getElementById('filterCategory');
+    const filterLabel = document.getElementById('filterLabel');
+    const filterAmount = document.getElementById('filterAmount');
+    const applyFilters = document.getElementById('applyFilters');
+    const clearFilters = document.getElementById('clearFilters');
 
     // Indexed Data-Base setup
     let db;
@@ -379,7 +383,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         request.onsuccess = (event) => {
             const expenses = event.target.result;
-            expenses.forEach(expense => {
+            const filteredExpenses = expenses.filter(expense => {
+                return (!filters.date || expense.date === filters.date) &&
+                       (!filters.category || expense.category.toLowerCase().includes(filters.category.toLowerCase())) &&
+                       (!filters.label || expense.label.toLowerCase().includes(filters.label.toLowerCase())) &&
+                       (!filters.amount || expense.amount === parseFloat(filters.amount));
+            });
+
+            filteredExpenses.forEach(expense => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${expense.date}</td>
@@ -392,22 +403,23 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Navigation function
-    function showSection(targetId) {
-        sections.forEach(section => {
-            section.style.display = section.id === targetId ? 'block' : 'none';
-        });
-    }
-
-    navButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const targetId = button.getAttribute('data-target');
-            showSection(targetId);
-            navButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-        });
+    applyFilters.addEventListener('click', () => {
+        const filters = {
+            date: filterDate.value || null,
+            category: filterCategory.value || null,
+            label: filterLabel.value || null,
+            amount: filterAmount.value || null
+        };
+        loadExpenses(filters);
     });
-    showSection('addExpenditure');
+
+    clearFilters.addEventListener('click', () => {
+        filterDate.value = '';
+        filterCategory.value = '';
+        filterLabel.value = '';
+        filterAmount.value = '';
+        loadExpenses();
+    });
 });
 
 //saving goal
