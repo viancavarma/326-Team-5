@@ -2,7 +2,8 @@
 
 ## Dashboard Screen
 The Dashboard screen serves as the central hub where users can monitor their spending and savings progress. On the left side, a sidebar provides navigation links for the primary features of the application, including "Dashboard," "Add Expenditure," "Logs," "Saving Goals," "Tips," "Notes" and "Settings."
-![2](https://github.com/user-attachments/assets/bc57a257-eddb-44a5-a8a1-f2689ab4902e)
+![image](https://github.com/user-attachments/assets/d4ad6632-ad9a-4db3-baf9-0a976d1c1fed)
+![image](https://github.com/user-attachments/assets/57733341-3a7c-4bef-957a-6498e94bbece)
 The main part of the screen displays two visualizations: a bar chart for daily expenditures across a week and a pie graph that breaks down spending habits by category. This helps users understand how their spending is distributed across different needs. On the right side of the screen, there is a "Badges" section, which tracks the user’s progress toward various savings milestones. This feature encourages users to set and meet financial goals in a gamified manner. 
 Users can quickly navigate to other sections like adding new expenditures or checking saving goals from the sidebar.
 
@@ -29,11 +30,12 @@ Users can set a savings goal by entering the goal name and the target amount. Ex
 
 ## Tips Screen
 The Tips screen is designed as a resourceful page where users can find practical advice on how to manage their finances more effectively. 
-![6](https://github.com/user-attachments/assets/732ec958-4245-4f00-b210-c6dc16087a86)
+![6](https://github.com/user-attachments/assets/8183a263-6ccf-41b3-8801-f3367b5a274d)
 Generates financial advice from an array for the user to look at. Also allows for them to add their own tips for themselves in the future. As a brief summary the tips section will also provide two areas where the user could improve on their spending habits. Lastly on the right hand side, the user can navigate to different financial advisors as another resource.
 This feature provides personalized advice, helping users to stay aligned with their savings goals by offering helpful suggestions.
 
 ## Notes Screen
-The Notes screen provides a simple and intuitive interface for users to track important financial reminders and tasks related to their budgeting or saving goals.
-![7](https://github.com/user-attachments/assets/f66cfa09-5e28-48c4-bf31-d27a6588a7fb)
-The right side of the screen displays a task management section where users can create and check off specific financial tasks. A "Submit" button at the bottom of the task section allows users to update their tasks list, providing a straightforward way to track progress. The left-side navigation is consistent with the other screens, giving users quick access to other features. This screen enables users to jot down important financial notes and stay on top of their savings strategies by managing actionable tasks.
+The Notes screen provides a simple and intuitive interface for users to track important financial reminders and items related to their budgeting or saving goals.
+![7](https://github.com/user-attachments/assets/eaec2cfb-c081-41d6-b971-41de61734804)
+![8](https://github.com/user-attachments/assets/490407f8-4fac-43ff-8f3c-e43176cbc644)
+Allows the user to track their monthly or weekly expenses in a planner. Users can add or remove items from their lists, and the items will save when they leave the page. On the right side, users can keep track of future expenses or items they want to buy. This feature allows the user to write down and keep track of their current and future purchases.

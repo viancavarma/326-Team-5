@@ -7,7 +7,8 @@ This feature allows the user to add their expenses into a planner and if they wa
 ```mermaid
 sequenceDiagram
   User ->> UI: user adds item to list
-  UI ->> Database: save to local storage
-  Database ->> Display: display to user
+  User ->> UI: user removes item from list
+  UI ->> Database: save change to local storage
+  Database ->> Display: update display
 
 ```
