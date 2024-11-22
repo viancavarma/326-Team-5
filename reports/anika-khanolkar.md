@@ -19,4 +19,8 @@ https://github.com/viancavarma/326-Team-5/commit/5d481a3e6da9aac93f4d84aebf5409b
 https://github.com/viancavarma/326-Team-5/commit/9d7c7aff11743619b02c5da0564f1ea3059b2956 <br/>
 
 ## 20th October
+Updated the doc for meeting minutes - https://docs.google.com/document/d/1KF-sQdjfuZ7bleJI0aYbbR2jKDdfrXsT8LRe2Q0ahcs/edit?usp=sharing <br />
 Final dashboard update - https://github.com/viancavarma/326-Team-5/commit/e9e6772f901d04e530ed40a2e8f13a64930e0e97 <br/>
+
+## 22nd October
+Updated sequence diagram for dashboard page - https://github.com/viancavarma/326-Team-5/commit/b784088c9f9789b3f64a2a928a02152334b86ba4 <br/>
