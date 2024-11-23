@@ -14,3 +14,8 @@
 - **Task**: Update ui-diagrams.md, roles.md, features.md
 - **Details**: Added my assigned parts for the mentioned files. Also, check if other documents are completed properly for milestone #2
 - **Link**: https://github.com/viancavarma/326-Team-5/commit/cce8a8dac31b02b12057f8a73e0a2f1e382a9009, https://github.com/viancavarma/326-Team-5/commit/d405ed960a2865d99e63ccba55bd07b1c5d4ef52, https://github.com/viancavarma/326-Team-5/commit/90f8184a8732678275046fd6e2f91c18dfbd793d
+
+### October 17, 2024
+- **Task**: Complete the add-expenditure and logs features (push from local files)
+- **Details**: Pushed the code from my assigned parts from my local files to my branch.
+- **Link**: https://github.com/viancavarma/326-Team-5/commit/715d83ed51c89845ab212ddf97b6bc418c627579, https://github.com/viancavarma/326-Team-5/commit/bce3285d6167e692184fdbec57579a9be43628d9, https://github.com/viancavarma/326-Team-5/commit/d7cdf2e84f008174d369da12017d9b2579ab85fc
