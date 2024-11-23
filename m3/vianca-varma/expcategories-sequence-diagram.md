@@ -14,3 +14,7 @@ sequenceDiagram
     IndexedDB-->>Frontend: Confirms save
     Frontend-->>User: Clears the form as it is saved
 ```
+
+## Logs
+**Description:**  
+The Logs feature provides an overview of all expenses recorded in the indexed database. Users can filter through the logs based on date, label, amount, or category. After applying the filters, the filtered results are displayed in a table format. This allows the usser to better analyse and review their spending habits. Once the user is done, they can click the clear filter button to remove the filters applied to the database.
