@@ -19,3 +19,8 @@
 - **Task**: Complete the add-expenditure and logs features (push from local files)
 - **Details**: Pushed the code from my assigned parts from my local files to my branch.
 - **Link**: https://github.com/viancavarma/326-Team-5/commit/715d83ed51c89845ab212ddf97b6bc418c627579, https://github.com/viancavarma/326-Team-5/commit/bce3285d6167e692184fdbec57579a9be43628d9, https://github.com/viancavarma/326-Team-5/commit/d7cdf2e84f008174d369da12017d9b2579ab85fc
+
+### October 20, 2024
+- **Task**: Updated the logs feature for a filter as well as discussed in the meeting
+- **Details**: Made adjustments to my code to include a filter as well. This would enhance the feature overall.
+- **Link**: https://github.com/viancavarma/326-Team-5/commit/187d249c003fc6f75fe69f271fe1a001c4f6428d, https://github.com/viancavarma/326-Team-5/commit/c497c6a555bda9c8f6d741bdfcbb989d9e93aba5, https://github.com/viancavarma/326-Team-5/commit/a00af8434a9ff77e838268e92f9908225c7cc750
