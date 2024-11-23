@@ -18,3 +18,16 @@ sequenceDiagram
 ## Logs
 **Description:**  
 The Logs feature provides an overview of all expenses recorded in the indexed database. Users can filter through the logs based on date, label, amount, or category. After applying the filters, the filtered results are displayed in a table format. This allows the usser to better analyse and review their spending habits. Once the user is done, they can click the clear filter button to remove the filters applied to the database.
+
+### Sequence Diagram
+```mermaid
+sequenceDiagram
+    User->>Frontend: Opens Logs page
+    Frontend-->>User: Displays all logged expenditures in a table
+    User->>Frontend: Enters filters (date, label, amount, or category) and clicks "Apply Filters" button
+    Frontend->>IndexedDB: Queries the database with applied filters from the user
+    IndexedDB-->>Frontend: Returns filtered results
+    Frontend-->>User: Updates table and displays filtered expenditures
+    User->>Frontend: Clicks "Clear Filters" button
+    Frontend-->>User: Updates table and displays the complete log of expenditures
+```
