@@ -24,3 +24,8 @@
 - **Task**: Updated the logs feature for a filter as well as discussed in the meeting
 - **Details**: Made adjustments to my code to include a filter as well. This would enhance the feature overall.
 - **Link**: https://github.com/viancavarma/326-Team-5/commit/187d249c003fc6f75fe69f271fe1a001c4f6428d, https://github.com/viancavarma/326-Team-5/commit/c497c6a555bda9c8f6d741bdfcbb989d9e93aba5, https://github.com/viancavarma/326-Team-5/commit/a00af8434a9ff77e838268e92f9908225c7cc750
+
+### October 22, 2024
+- **Task**: Update my final code into the main branch. Add sequence diagrams for the features too
+- **Details**: Updated the main branch we have with the combined code with my final code changes. Merged that branch into the main branch. Completed the sequence diagrams and reports section thereafter.
+- **Link**: https://github.com/viancavarma/326-Team-5/commit/e4df9faa8a056f407637be94082b6e6e2eb022dc, https://github.com/viancavarma/326-Team-5/commit/94bb1db496c14cc184c29a762b7ca420a247d138, https://github.com/viancavarma/326-Team-5/commit/1a9564b462aa6b1ebf7fb51ab0848e0d54aac95b
