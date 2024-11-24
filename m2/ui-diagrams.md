@@ -23,7 +23,7 @@ Users can see their complete list of expenses in a grid or excel like layout. Th
 
 ## Savings Goal Screen
 This screen allows users to check their current savings goals that they set or set a new savings goal.
-![5](https://github.com/user-attachments/assets/faa729e6-4627-41cd-bec1-769ab1e280fa)
+![5](https://github.com/user-attachments/assets/2c580b83-1c0c-4829-addf-bba418134bcd)
 Users can set a savings goal by entering the goal name and the target amount. Existing goals are displayed in a list with progress bars that visually indicate how close they are to achieving each goal.
 
 **Use Case**: A user plans to go to a concert and wants to set a savings goal of $300. They navigate to the savings goal screen from the nav bar. They then add information about the goal like a name, the amount, and  the date by which they would like to achieve it. Over time as they save money, the progress bar would keep updating to show how close they are to achieving the goal.
