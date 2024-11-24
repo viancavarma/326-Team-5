@@ -1,6 +1,6 @@
 # Application Features
 
-## Savings Goal Tracker
+## Savings Goal Tracker (3 points)
 
 The Savings Goal Tracker allows users to set a target savings amount and track their progress. Users can input a goal name (e.g., "Vacation Fund") and the amount they want to save. The tracker will show how much they've saved so far and how close they are to reaching their goal. A simple progress bar will display their savings progress, making it easy to monitor over time. This feature helps users stay motivated and focused on their financial goals.
 
