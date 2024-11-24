@@ -15,3 +15,7 @@
  - **Details:** Designed and implemented the Savings Goals Tracker feature, which allows users to set and track financial goals, including goal name, target amount, current savings, and deadlines.
  - **Link to Commit:** [Commit on SavingsGoalsFeature](https://github.com/viancavarma/326-Team-5/commit/615c86bbe5ae23a0955f9c02a44fa091a7e16632)
 
+### November 20, 2024
+ - **Task:** Create a sequence diagram for the Savings Goals Tracker feature.
+ - **Details:** Documented the interaction flow of the Savings Goals Tracker feature using Mermaid syntax
+ - **Link to Commit:** [Commit on tracker-sequence-diagram.md](https://github.com/viancavarma/326-Team-5/commit/aa5e1e177278a2dfc8ca064a1a6190fda3705b33)
