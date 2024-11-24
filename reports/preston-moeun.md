@@ -9,3 +9,13 @@
  - **Task:** Develop the initial template for the 'features.md' file.
  - **Details:** Created the basic structure and layout for the 'features.md' file, outlining the key features of the project. Ensured that the template is clear and ready for detailed content to be added in future updates.
  - **Link to Commit:** [Commit on Features.md](https://github.com/viancavarma/326-Team-5/commit/3e041a04b49f8e014f6470e62dfccecd6cb14489)
+
+### November 16, 2024
+ - **Task:** Implemented the Savings Goals Tracker feature.
+ - **Details:** Designed and implemented the Savings Goals Tracker feature, which allows users to set and track financial goals, including goal name, target amount, current savings, and deadlines.
+ - **Link to Commit:** [Commit on SavingsGoalsFeature](https://github.com/viancavarma/326-Team-5/commit/615c86bbe5ae23a0955f9c02a44fa091a7e16632)
+
+### November 20, 2024
+ - **Task:** Create a sequence diagram for the Savings Goals Tracker feature.
+ - **Details:** Documented the interaction flow of the Savings Goals Tracker feature using Mermaid syntax
+ - **Link to Commit:** [Commit on tracker-sequence-diagram.md](https://github.com/viancavarma/326-Team-5/commit/aa5e1e177278a2dfc8ca064a1a6190fda3705b33)
