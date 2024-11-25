@@ -18,7 +18,7 @@
 
 **Assigned to**: Daniel
 
-## Categorize Expenses
+## Categorize Expenses (1 point - 'Add Expenditure' tab + 3 points - 'Logs' tab)
 
 - This feature will allow users to add their expenses and categorize them into categories such as food, travel, shopping, and more. When adding a new expense, users would need to add a label, the amount, and the category they choose for the expenditure. This categorization helps users sort their expenses better and preview them easily from the logs tab. This provides a clearer view of the user's spending habits and allows them to manage areas of spending effectively. The categories created will also help with the pie charts and graphs on the dashboard for spending analytics. Users can also personalize the label of the expense. On the logs tab, users can filter through their expenses based on the date added, label, amount, or category, making it easy to view their spending history. It directly addresses the problem of users feeling overwhelmed to track expenses as it organizes expenses in a meaningful and personalized way.
 
@@ -32,7 +32,7 @@
 
 ## Notifications/Alerts(3 points)
 
--The notification feature is like a friendly nudge, letting user know whenver there's something new or exciting happening. This feature ensure that users never miss important announcements or changes, enhacing user interaction and staisfaction. Also notification can also be customized to suit individual preferences, making sure that users receive only the most relevant information.
+- The notification feature is like a friendly nudge, letting user know whenver there's something new or exciting happening. This feature ensure that users never miss important announcements or changes, enhacing user interaction and staisfaction. Also notification can also be customized to suit individual preferences, making sure that users receive only the most relevant information.
 
 **Assigned to**: Pawan
 
