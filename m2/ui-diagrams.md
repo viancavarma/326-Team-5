@@ -42,4 +42,4 @@ Allows the user to track their monthly or weekly expenses in a planner. Users ca
 
 # Notification screen
 The Notification screen is designed as a hub where users can view all their financial goals and reminders, functioning like a typical notification center. It features options to delete, archive, clear, and mark notifications as important, giving users more flexibility in how they manage their notifications.
-![9]![image](https://github.com/user-attachments/assets/d0e4d77b-c25a-41fd-b9fc-751845ff0142)
+![image](https://github.com/user-attachments/assets/d0e4d77b-c25a-41fd-b9fc-751845ff0142)
