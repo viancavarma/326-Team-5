@@ -39,3 +39,7 @@ The Notes screen provides a simple and intuitive interface for users to track im
 ![7](https://github.com/user-attachments/assets/eaec2cfb-c081-41d6-b971-41de61734804)
 ![8](https://github.com/user-attachments/assets/490407f8-4fac-43ff-8f3c-e43176cbc644)
 Allows the user to track their monthly or weekly expenses in a planner. Users can add or remove items from their lists, and the items will save when they leave the page. On the right side, users can keep track of future expenses or items they want to buy. This feature allows the user to write down and keep track of their current and future purchases.
+
+# Notification screen
+The Notification screen is designed as a hub where users can view all their financial goals and reminders, functioning like a typical notification center. It features options to delete, archive, clear, and mark notifications as important, giving users more flexibility in how they manage their notifications.
+![9]
