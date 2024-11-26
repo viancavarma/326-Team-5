@@ -30,9 +30,10 @@
 ## Ezra - Communication Lead: 
   - **Role** Facilitates team communication. In charge of keeping all team members informed and the running of the teams communication mostly through discord.
   - **Top 3 Commits**:
-    1. Worked with team members who weren't able to attend part of a discussion to keep them up to date with what was discussed and future meeting times.
-    2. [Commit](https://github.com/viancavarma/326-Team-5/commit/50d3fbe696b48dd4ef8e80ab03cbef8521465d59): Added settings description to the 'features.md' file
-    3. Worked with the team to improve our online communication and the function of our shared discord server. 
+    1. [Commit](https://github.com/viancavarma/326-Team-5/commit/96229f033612b6382f7539c5c082a2f5bfc9a710): Added my settings folder and related files and content.
+    2. [Commit](https://github.com/viancavarma/326-Team-5/commit/aa463aea24b51d3f5f0a23e9e7aaea52368dd598): Updated my settings style to be better matched with the whole team's style 
+    3. [Commit](https://github.com/viancavarma/326-Team-5/commit/2db0c0913f10f1394ffae5621608bfbd6de76010): Added my sequence diagram. 
+
 ## Preston - Quality Control:
   - **Role:** Responsible for proofreading and verifying the accuracy of all documents before they are submitted. Will review of all team submissions to ensure they meet quality standards.
   - **Top 3 Commits**:
