@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import expensesRoutes from './routes/expenses.js'; // Import the expenses routes
 
 dotenv.config();
 
@@ -9,7 +10,10 @@ const PORT = process.env.PORT || 3000;
 // Middleware for parsing JSON
 app.use(express.json());
 
-// Example route (replace later)
+// Use the expenses routes
+app.use('/expenses', expensesRoutes); // Prefix the expenses routes
+
+// Example root route
 app.get('/', (req, res) => {
   res.send('Expense Tracker API is running!');
 });
