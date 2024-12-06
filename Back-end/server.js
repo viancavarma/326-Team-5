@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import expensesRoutes from './routes/expenses.js'; // Import the expenses routes
+import expenseRoutes from './routes/ExpenseRoutes.js'; // Import the expenses routes
 
 dotenv.config();
 
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 // Use the expenses routes
-app.use('/expenses', expensesRoutes); // Prefix the expenses routes
+app.use('/expenses', expenseRoutes); // Prefix the expenses routes
 
 // Example root route
 app.get('/', (req, res) => {
