@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import expensesRoutes from './routes/expenses.js'; // Import the expenses routes
+import expensesRoutes from './routes/ExpenseRoutes.js'; // Import the expenses routes
 
 dotenv.config();
 
