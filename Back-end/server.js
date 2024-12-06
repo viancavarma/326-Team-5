@@ -6,18 +6,16 @@ const PORT = 3000;
 // use mock data
 const mockData = require('./mockData.json');
 
-// Route to get the most expensive item
+// Route for fetching the most expensive expense
 app.get('/api/most-expensive-item', (req, res) => {
-  const mostExpensiveItem = mockData.reduce((max, item) => {
-    const itemAmount = parseFloat(item.amount.replace('$', ''));
-    const maxAmount = parseFloat(max.amount.replace('$', ''));
-    return itemAmount > maxAmount ? item : max;
-  });
-
-  res.json(mostExpensiveItem); // Respond with the most expensive item
+  const mostExpensive = mockData.reduce((max, item) => {
+    const amount = parseFloat(item.amount.replace('$', ''));
+    return amount > max.amount ? { ...item, amount } : max;
+  }, { amount: 0 });
+  res.json(mostExpensive);
 });
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
