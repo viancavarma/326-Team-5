@@ -6,19 +6,19 @@
       "category": "grocery"
     },
     {
-        "id": 1,
+        "id": 2,
         "label": "milk",
         "amount": "$3",
         "category": "grocery"
       },
       {
-        "id": 1,
+        "id": 3,
         "label": "haircut",
         "amount": "$60",
         "category": "personal"
       },
       {
-        "id": 1,
+        "id": 4,
         "label": "car insurance",
         "amount": "$200",
         "category": "bills"
