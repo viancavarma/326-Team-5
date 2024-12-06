@@ -590,19 +590,33 @@ Date.prototype.getWeekNumber = function () {
 
 async function fetchMostExpensiveCategory() {
     try {
-      const response = await fetch('/expenses/most-expensive-category');
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      
-      // Update the page with the fetched data
-      document.getElementById('biggest-category').innerText = data.category;
-      document.getElementById('biggest-expense').innerText = `$${data.total.toFixed(2)}`;
+        const response = await fetch('http://localhost:3000/expenses/most-expensive-category');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Format the string as "Category - $Total"
+        const formattedText = `${data.category} - $${data.total.toFixed(2)}`;
+
+        // Update the text in the biggest-category element
+        const categoryElement = document.getElementById('biggest-category');
+        if (!categoryElement) {
+            throw new Error('HTML element with id "biggest-category" not found');
+        }
+        categoryElement.textContent = formattedText;
     } catch (error) {
-      console.error('Error fetching the most expensive category:', error);
+        console.error('Error fetching most expensive category:', error);
+
+        // Handle errors (optional)
+        const categoryElement = document.getElementById('biggest-category');
+        if (categoryElement) {
+            categoryElement.textContent =
+                'Error loading data. Please try again later.';
+        }
     }
-  }
+}
 
 //when page loads display tips
 window.onload = function(){

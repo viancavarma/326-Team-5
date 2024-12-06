@@ -1,11 +1,15 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import expensesRoutes from './routes/ExpenseRoutes.js'; // Import the expenses routes
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Enable CORS for all routes
+app.use(cors());
 
 // Middleware for parsing JSON
 app.use(express.json());
