@@ -1,6 +1,6 @@
-// File: routes/expenses.js
+import express from 'express';
+import expenseModel from '../models/SQLiteExpenseModel.js';
 
-const express = require('express');
 const router = express.Router();
 const { Expense } = require('../models');
 const { sequelize } = require('../models');
@@ -31,4 +31,23 @@ router.get('/summary', async (req, res) => {
     }
 });
 
-module.exports = router;
+// POST /expenses/add a new expense
+router.post('/', async (req, res) => {
+    try {
+        const { date, label, amount, category } = req.body;
+
+        // Validate input
+        if (!date || !label || !amount || !category) {
+            return res.status(400).json({ error: 'All fields are required.' });
+        }
+
+        // Create the expense
+        const newExpense = await expenseModel.create({ date, label, amount, category });
+        res.status(201).json(newExpense);
+    } catch (error) {
+        console.error('Error adding expense:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+export default router;
