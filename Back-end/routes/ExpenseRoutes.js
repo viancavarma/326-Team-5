@@ -31,4 +31,32 @@ router.get('/summary', async (req, res) => {
     }
 });
 
+import passport from "../auth/passport.js";
+import { //TODO: make sure this actually lines up later
+  register,
+  login,
+  logout,
+  googleAuthCallback,
+  getProfile,
+} from "../controller/controller.js";
+import { isAuthenticated } from "../auth/middleware.js";
+
+// Routes for registration and login
+router.post("/register", register);
+router.post("/login", login);
+router.get("/logout", logout);
+
+// Google Authentication routes
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile"] })
+);
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/" }),
+  googleAuthCallback
+);
+
+router.get("/profile", isAuthenticated, getProfile);
+
 module.exports = router;
