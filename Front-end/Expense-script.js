@@ -588,9 +588,24 @@ Date.prototype.getWeekNumber = function () {
     return Math.ceil((numberOfDays + oneJan.getDay() + 1) / 7);
 };
 
+// fetch the most expensive expense 
+function fetchMostExpensiveItem() {
+    fetch('http://localhost:3000/api/most-expensive-item') // Adjust the URL if necessary
+      .then((response) => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+      })
+      .then((data) => {
+        // Populate the "Biggest Expense (Individual Purchase)" element
+        document.getElementById('biggest-expense').textContent = `${data.label} - ${data.amount} - ${data.category}`;
+      })
+      .catch((error) => console.error('Error fetching the most expensive expense:', error));
+  }
+
 //when page loads display tips
 window.onload = function(){
     displayTips(false);
+    fetchMostExpensiveItem();
 };
 
 //listen to click of tip button and add to the tips
