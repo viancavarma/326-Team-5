@@ -31,4 +31,30 @@ router.get('/summary', async (req, res) => {
     }
 });
 
+// GET expenses/most-expenses-category
+router.get('/most-expensive-category', async (req, res) => {
+    try {
+        // Aggregate total amount by category
+        const categoryTotals = await Expense.findAll({
+            attributes: [
+                'category',
+                [sequelize.fn('sum', sequelize.col('amount')), 'total']
+            ],
+            group: ['category'],
+            order: [[sequelize.fn('sum', sequelize.col('amount')), 'DESC']],
+            limit: 1 // Only get the category with the highest total
+        });
+
+        if (categoryTotals.length > 0) {
+            const mostExpensiveCategory = categoryTotals[0].get();
+            res.status(200).json(mostExpensiveCategory);
+        } else {
+            res.status(404).json({ error: 'No expenses found' });
+        }
+    } catch (error) {
+        console.error('Error retrieving most expensive category:', error);
+        res.status(500).json({ error: 'Failed to retrieve data' });
+    }
+});
+
 module.exports = router;
