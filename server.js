@@ -1,7 +1,10 @@
-import express from "express";
+const express = require('express');
+const cors = require("cors");
 
 const app = express();
 const PORT = 3000;
+
+app.use(cors());
 
 // use mock data
 const mockData = require('./Back-end/mockData.json');
