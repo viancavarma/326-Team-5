@@ -4,7 +4,7 @@ const app = express();
 const PORT = 3000;
 
 // use mock data
-const mockData = require('./mockData.json');
+const mockData = require('./Back-end/mockData.json');
 
 // Route for fetching the most expensive expense
 app.get('/api/most-expensive-item', (req, res) => {
