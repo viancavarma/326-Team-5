@@ -1,0 +1,26 @@
+[
+    {
+      "id": 1,
+      "label": "eggs",
+      "amount": "$3",
+      "category": "grocery"
+    },
+    {
+        "id": 1,
+        "label": "milk",
+        "amount": "$3",
+        "category": "grocery"
+      },
+      {
+        "id": 1,
+        "label": "haircut",
+        "amount": "$60",
+        "category": "personal"
+      },
+      {
+        "id": 1,
+        "label": "car insurance",
+        "amount": "$200",
+        "category": "bills"
+      }
+  ]
