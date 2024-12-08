@@ -1,9 +1,8 @@
-// File: routes/expenses.js
+import express from 'express';
+import { Sequelize } from 'sequelize';
+import { Expense } from '../models/SQLiteExpenseModel.js';
 
-const express = require('express');
 const router = express.Router();
-const { Expense } = require('../models');
-const { sequelize } = require('../models');
 
 // GET /expenses/summary
 router.get('/summary', async (req, res) => {
@@ -11,8 +10,8 @@ router.get('/summary', async (req, res) => {
         // Aggregate the expenses to get monthly totals
         const expenses = await Expense.findAll({
             attributes: [
-                [sequelize.fn('strftime', '%Y-%m', sequelize.col('date')), 'month'],
-                [sequelize.fn('sum', sequelize.col('amount')), 'total']
+                [Sequelize.fn('strftime', '%Y-%m', Sequelize.col('date')), 'month'],
+                [Sequelize.fn('sum', Sequelize.col('amount')), 'total']
             ],
             group: ['month'],
             order: [['month', 'ASC']]
@@ -31,4 +30,23 @@ router.get('/summary', async (req, res) => {
     }
 });
 
-module.exports = router;
+// POST /expenses/add a new expense
+router.post('/', async (req, res) => {
+    try {
+        const { date, label, amount, category } = req.body;
+
+        // Validate input
+        if (!date || !label || !amount || !category) {
+            return res.status(400).json({ error: 'All fields are required.' });
+        }
+
+        // Create the expense
+        const newExpense = await Expense.create({ date, label, amount, category });
+        res.status(201).json(newExpense);
+    } catch (error) {
+        console.error('Error adding expense:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+export default router;
