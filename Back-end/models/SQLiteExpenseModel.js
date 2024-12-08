@@ -67,3 +67,4 @@ class SQLiteExpenseModel {
 const expenseModel = new SQLiteExpenseModel();
 
 export default expenseModel;
+export { Expense };
