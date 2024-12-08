@@ -1,9 +1,9 @@
 import express from 'express';
 import expenseModel from '../models/SQLiteExpenseModel.js';
+import { Sequelize } from 'sequelize';
+import Expense from '../models/SQLiteExpenseModel.js';
 
 const router = express.Router();
-const { Expense } = require('../models');
-const { sequelize } = require('../models');
 
 // GET /expenses/summary
 router.get('/summary', async (req, res) => {
@@ -11,8 +11,8 @@ router.get('/summary', async (req, res) => {
         // Aggregate the expenses to get monthly totals
         const expenses = await Expense.findAll({
             attributes: [
-                [sequelize.fn('strftime', '%Y-%m', sequelize.col('date')), 'month'],
-                [sequelize.fn('sum', sequelize.col('amount')), 'total']
+                [Sequelize.fn('strftime', '%Y-%m', Sequelize.col('date')), 'month'],
+                [Sequelize.fn('sum', Sequelize.col('amount')), 'total']
             ],
             group: ['month'],
             order: [['month', 'ASC']]
