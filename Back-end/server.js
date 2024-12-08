@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import expenseRoutes from './routes/ExpenseRoutes.js'; // Import the expenses routes
+import expenseRoutes from './routes/ExpenseRoutes.js';
+import expenseModel from './models/SQLiteExpenseModel.js';
 
 dotenv.config();
 
@@ -18,7 +19,19 @@ app.get('/', (req, res) => {
   res.send('Expense Tracker API is running!');
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// Start the server after initializing the database
+const startServer = async () => {
+  try {
+    // Initialize the database
+    await expenseModel.init(true); // Set to 'true' for testing; 'false' in production
+
+    // Start the server
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error('Error starting the server:', error);
+  }
+};
+
+startServer();

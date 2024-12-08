@@ -1,7 +1,6 @@
 import express from 'express';
-import expenseModel from '../models/SQLiteExpenseModel.js';
 import { Sequelize } from 'sequelize';
-import Expense from '../models/SQLiteExpenseModel.js';
+import { Expense } from '../models/SQLiteExpenseModel.js';
 
 const router = express.Router();
 
@@ -42,7 +41,7 @@ router.post('/', async (req, res) => {
         }
 
         // Create the expense
-        const newExpense = await expenseModel.create({ date, label, amount, category });
+        const newExpense = await Expense.create({ date, label, amount, category });
         res.status(201).json(newExpense);
     } catch (error) {
         console.error('Error adding expense:', error);
