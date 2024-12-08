@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 const startServer = async () => {
   try {
     // Initialize the database
-    await expenseModel.init(true); // Set to 'true' for testing; 'false' in production
+    await expenseModel.init(false); // Set to 'true' for testing; 'false' in production
 
     // Start the server
     app.listen(PORT, () => {
