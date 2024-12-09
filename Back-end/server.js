@@ -31,9 +31,6 @@ app.get('/', (req, res) => {
 // use tips routes
 app.use('/tips', tipsRoutes);
 
-// Use savings goals routes
-app.use('/savings-goals', savingsGoalsRoutes);
-
 sequelize.authenticate()
     .then(() => console.log('Database connected'))
     .catch(err => console.error('Database connection error:', err));
