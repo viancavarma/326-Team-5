@@ -288,6 +288,24 @@ body {
     border: 1px solid #2a6045;
 }
 
+.select-checkbox {
+    transform: scale(1.5);
+    cursor: pointer;
+}
+
+#deleteSelected {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#deleteSelected:hover {
+    background-color: darkred;
+}
+
 /*saving goal*/
 
 .savings-section {
