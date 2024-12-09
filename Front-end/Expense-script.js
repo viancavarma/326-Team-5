@@ -318,6 +318,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterAmount = document.getElementById('filterAmount');
     const applyFilters = document.getElementById('applyFilters');
     const clearFilters = document.getElementById('clearFilters');
+    document.getElementById('deleteSelected').addEventListener('click', deleteSelectedExpenses);
+
 
     // Indexed Data-Base setup
     let db;
@@ -374,7 +376,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Log of expenses
-    function loadExpenses(filters = {}) { // Default filters to an empty object
+    function loadExpenses(filters = {}) {
+
         expenseLogsTable.innerHTML = '';
     
         const transaction = db.transaction(['expenses'], 'readonly');
@@ -386,13 +389,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const filteredExpenses = expenses.filter(expense => {
                 return (!filters.date || expense.date === filters.date) &&
                        (!filters.category || expense.category.toLowerCase().includes(filters.category.toLowerCase())) &&
-                       (!filters.label || expense.label.toLowerCase().includes(filters.label.toLowerCase())) &&
                        (!filters.amount || expense.amount === parseFloat(filters.amount));
             });
     
             filteredExpenses.forEach(expense => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
+                    <td>
+                        <input type="checkbox" class="select-checkbox" data-id="${expense.id}">
+                    </td>
                     <td>${expense.date}</td>
                     <td>${expense.label}</td>
                     <td>${expense.amount.toFixed(2)}</td>
@@ -400,6 +405,34 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 expenseLogsTable.appendChild(row);
             });
+
+        };
+
+        request.onerror = (event) => {
+            console.error('Error loading expenses:', event);
+        };
+    }
+
+    function deleteSelectedExpenses() {
+        const selectedCheckboxes = document.querySelectorAll('.select-checkbox:checked');
+        const idsToDelete = Array.from(selectedCheckboxes).map(checkbox => parseInt(checkbox.dataset.id, 10));
+        if (idsToDelete.length === 0) {
+            alert('No rows selected for deletion.');
+            return;
+        }
+        const transaction = db.transaction(['expenses'], 'readwrite');
+        const store = transaction.objectStore('expenses');
+        idsToDelete.forEach(id => {
+            const request = store.delete(id);
+            request.onsuccess = () => {
+                console.log(`Expense with ID ${id} deleted.`);
+            };
+            request.onerror = (event) => {
+                console.error(`Error deleting expense with ID ${id}:`, event);
+            };
+        });
+        transaction.oncomplete = () => {
+            loadExpenses();
         };
     }
 
@@ -599,6 +632,7 @@ async function fetchMostExpensiveExpense() {
         const { label, amount } = data;
   
         document.getElementById('biggest-expense').textContent = ` ${label} - $${amount.toFixed(2)}`;
+
     } catch (error) {
         console.error('Error fetching the most expensive expense:', error);
         document.getElementById('biggest-expense').textContent = 'Error fetching expense';
@@ -634,6 +668,7 @@ window.onload = function(){
     displayTips(false);
     fetchMostExpensiveExpense();
     fetchMostExpensiveCategory();
+
 };
 
 //listen to click of tip button and add to the tips

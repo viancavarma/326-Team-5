@@ -53,12 +53,11 @@ router.post('/', async (req, res) => {
 // GET /expenses - Retrieve all or filtered expenses
 router.get('/', async (req, res) => {
     try {
-        const { date, label, amount, category } = req.query;
+        const { date, amount, category } = req.query;
 
         // Prepare filters based on query parameters
         const filters = {};
         if (date) filters.date = date;
-        if (label) filters.label = { [Sequelize.Op.like]: `%${label}%` }; // Partial match for label
         if (amount) filters.amount = parseFloat(amount);
         if (category) filters.category = category;
 
@@ -91,6 +90,48 @@ router.get('/by-date/:date', async (req, res) => {
     } catch (error) {
         console.error('Error retrieving logs by date:', error.message, error.stack); // Log detailed error
         res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+// GET /expenses/by-month/:month for pie chart
+router.get('/by-month/:month', async (req, res) => {
+    const { month } = req.params; // Extract the month in YYYY-MM format
+
+    try {
+        // Parse the input month and derive the start and end dates
+        const [year, monthPart] = month.split('-');
+        const startDate = new Date(`${year}-${monthPart}-01`);
+        const endDate = new Date(startDate);
+        endDate.setMonth(startDate.getMonth() + 1);
+        endDate.setDate(0);
+
+        // Query the database for expenses within the month and aggregate by category
+        const expenses = await Expense.findAll({
+            attributes: [
+                'category',
+                [Sequelize.fn('sum', Sequelize.col('amount')), 'total']
+            ],
+            where: {
+                date: {
+                    [Sequelize.Op.between]: [
+                        startDate.toISOString().split('T')[0],
+                        endDate.toISOString().split('T')[0]
+                    ]
+                }
+            },
+            group: ['category']
+        });
+        
+        // Format the results as { category, total }
+        const categoryData = expenses.map(expense => ({
+            category: expense.get('category'),
+            total: parseFloat(expense.get('total'))
+        }));
+
+        res.status(200).json(categoryData);
+    } catch (error) {
+        console.error('Error retrieving expenses by month:', error);
+        res.status(500).json({ error: 'Failed to retrieve monthly data' });
     }
 });
 

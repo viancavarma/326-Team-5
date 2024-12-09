@@ -22,6 +22,7 @@ router.get('/most-expensive-category', async (req, res) => {
   try {
     const mostExpensiveCategory = await expenseModel.findMostExpensiveCategory();
 
+
     if (!mostExpensiveCategory) {
       return res.status(404).json({ message: 'No expenses found' });
     }

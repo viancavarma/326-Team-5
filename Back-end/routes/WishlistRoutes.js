@@ -1,6 +1,6 @@
 import express from 'express';
 import { Sequelize } from 'sequelize';
-import { Wishlist } from '../models/SQLiteWishlistModel.js';
+import Wishlist from '../models/SQLiteWishlistModel.js';
 
 const router = express.Router();
 

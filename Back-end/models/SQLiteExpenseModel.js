@@ -38,9 +38,6 @@ class SQLiteExpenseModel {
     if (filters.date) {
       whereClause.date = filters.date;
     }
-    if (filters.label) {
-      whereClause.label = { [Sequelize.Op.like]: `%${filters.label}%` };
-    }
     if (filters.amount) {
       whereClause.amount = filters.amount;
     }
@@ -86,9 +83,6 @@ class SQLiteExpenseModel {
   
     return result.length > 0 ? result[0] : null; 
   }
-
-
-}
 
 const expenseModel = new SQLiteExpenseModel();
 
