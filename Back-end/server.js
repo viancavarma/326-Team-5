@@ -6,6 +6,7 @@ import wishlistRoutes from './routes/WishlistRoutes.js';
 import notesRoutes from './routes/NotesRoutes.js';
 import tipsRoutes from './routes/tipsRoutes.js';
 import sequelize from './config/database.js';
+import savingsGoalsRoutes from './routes/SavingsGoalsRoutes.js';
 
 dotenv.config();
 
@@ -29,6 +30,9 @@ app.get('/', (req, res) => {
 
 // use tips routes
 app.use('/tips', tipsRoutes);
+
+// Use savings goals routes
+app.use('/savings-goals', savingsGoalsRoutes);
 
 sequelize.authenticate()
     .then(() => console.log('Database connected'))
