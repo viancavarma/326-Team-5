@@ -1,4 +1,5 @@
 import express from 'express';
+import savingsGoalsModel from '../models/SQLiteSavingsGoalsModel.js';
 import { SavingsGoal } from '../models/SQLiteSavingsGoalsModel.js';
 
 const router = express.Router();
@@ -34,6 +35,17 @@ router.post('/', async (req, res) => {
     } catch (error) {
         console.error('Error adding savings goal:', error);
         res.status(500).json({ error: 'Failed to add savings goal.' });
+    }
+});
+
+// GET /savings-goals - Retrieve all savings goals
+router.get('/', async (req, res) => {
+    try {
+        const goals = await savingsGoalsModel.readAll();
+        res.status(200).json(goals);
+    } catch (error) {
+        console.error('Error retrieving savings goals:', error);
+        res.status(500).json({ error: 'Failed to retrieve savings goals.' });
     }
 });
 
