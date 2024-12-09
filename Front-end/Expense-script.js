@@ -630,10 +630,34 @@ async function fetchMostExpensiveExpense() {
         const data = await response.json();
         const { label, amount } = data;
   
-        document.getElementById('biggest-expense').textContent = `${label} - $${amount.toFixed(2)}`;
+        document.getElementById('biggest-expense').textContent = ` ${label} - $${amount.toFixed(2)}`;
     } catch (error) {
         console.error('Error fetching the most expensive expense:', error);
         document.getElementById('biggest-expense').textContent = 'Error fetching expense';
+    }
+  }
+
+// fetch most expensive category
+async function fetchMostExpensiveCategory() {
+    try {
+      const response = await fetch('http://localhost:3000/tips/most-expensive-category');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+  
+      const { category, total_amount } = data;
+  
+      // Ensure total_amount is valid before formatting
+      if (total_amount !== undefined && total_amount !== null) {
+        document.getElementById('biggest-category').textContent = ` ${category} - $${total_amount.toFixed(2)}`;
+      } else {
+        document.getElementById('biggest-category').textContent = ` ${category} - Amount not available`;
+      }
+    } catch (error) {
+      console.error('Error fetching the most expensive category:', error);
+      document.getElementById('biggest-category').textContent = 'Error fetching category';
     }
   }
 
@@ -641,6 +665,7 @@ async function fetchMostExpensiveExpense() {
 window.onload = function(){
     displayTips(false);
     fetchMostExpensiveExpense();
+    fetchMostExpensiveCategory();
 };
 
 //listen to click of tip button and add to the tips
