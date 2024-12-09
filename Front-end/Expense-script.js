@@ -589,6 +589,7 @@ Date.prototype.getWeekNumber = function () {
 };
 
 // fetch most expensive expense
+console.log('Script loaded!');
 async function fetchMostExpensiveExpense() {
     try {
       const response = await fetch('/tips/most-expensive');
