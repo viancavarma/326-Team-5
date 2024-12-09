@@ -35,14 +35,17 @@ class SQLiteExpenseModel {
 
   async readAll(filters = {}) {
     const whereClause = {};
-    if (filters.category) {
-      whereClause.category = filters.category;
+    if (filters.date) {
+      whereClause.date = filters.date;
     }
     if (filters.label) {
       whereClause.label = { [Sequelize.Op.like]: `%${filters.label}%` };
     }
     if (filters.amount) {
       whereClause.amount = filters.amount;
+    }
+    if (filters.category) {
+      whereClause.category = filters.category;
     }
     return await Expense.findAll({ where: whereClause });
   }
