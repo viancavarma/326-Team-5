@@ -4,6 +4,7 @@ import expenseRoutes from './routes/ExpenseRoutes.js';
 import expenseModel from './models/SQLiteExpenseModel.js';
 import wishlistRoutes from './routes/WishlistRoutes.js';
 import notesRoutes from './routes/NotesRoutes.js';
+import tipsRoutes from './routes/tipsRoutes.js';
 import sequelize from './config/database.js';
 
 dotenv.config();
@@ -26,9 +27,13 @@ app.get('/', (req, res) => {
   res.send('Expense Tracker API is running!');
 });
 
+// use tips routes
+app.use('/tips', tipsRoutes);
+
 sequelize.authenticate()
     .then(() => console.log('Database connected'))
     .catch(err => console.error('Database connection error:', err));
+
 
 // Start the server after initializing the database
 const startServer = async () => {
