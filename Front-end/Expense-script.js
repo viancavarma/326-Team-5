@@ -773,19 +773,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const li = document.createElement('li');
-        li.textContent = description ? `${name} - ${description}` : name;
-        currentList.appendChild(li);
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'delete-btn';
-        deleteBtn.textContent = 'X';
-        deleteBtn.addEventListener('click', function() {
-            currentList.removeChild(li);
-            deleteItem(storeName, data);
-        });
-        li.appendChild(deleteBtn);
-
+        const endpoint = currentList.id === 'planner-list' ? 'NotesRoutes' : '/WishlistRoutes';
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+            
             if (!response.ok) {
                 throw new Error('Failed to add item');
             }
