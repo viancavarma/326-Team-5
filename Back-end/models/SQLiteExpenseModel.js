@@ -62,6 +62,12 @@ class SQLiteExpenseModel {
   async delete(date) {
     return await Expense.destroy({ where: { date } });
   }
+
+  async findMostExpensive(){
+    return await Expense.findOne({
+      order:[['amount', 'DESC']],
+    });
+  }
 }
 
 const expenseModel = new SQLiteExpenseModel();
