@@ -756,7 +756,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closePopupBtn.addEventListener('click', closePopup);
 
-    addItemForm.addEventListener('submit', function(e) {
+    addItemForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const name = document.getElementById('item-name').value;
@@ -768,10 +768,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const storeName = currentList.id === 'planner-list' ? 'planner' : 'wishlist';
-        const tx = db.transaction(storeName, 'readwrite');
-        const store = tx.objectStore(storeName);  
-        store.add(data);
+        if (!description) {
+            alert('Item description is required');
+            return;
+        }
 
         const li = document.createElement('li');
         li.textContent = description ? `${name} - ${description}` : name;
@@ -786,7 +786,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         li.appendChild(deleteBtn);
 
-        closePopup();
+            if (!response.ok) {
+                throw new Error('Failed to add item');
+            }
+
+            const item = await response.json();
+
+            const li = document.createElement('li');
+            li.textContent = description ? `${name} - ${description}` : name;
+            currentList.appendChild(li);
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.textContent = 'X';
+            deleteBtn.addEventListener('click', () => deleteItem(endpoint, item.id, li));
+            li.appendChild(deleteBtn);
+
+            closePopup();
+        }
+        catch(error) {
+            console.error('Error adding item:', error);
+        }
     });
 
     window.addEventListener('click', function(e) {
@@ -795,31 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    let db;
-
-    const request = indexedDB.open('spending-planner', 1);
-    request.onupgradeneeded = function(event) {
-        db = event.target.result;
-        
-        if (!db.objectStoreNames.contains('planner')) {
-            db.createObjectStore('planner', { keyPath: 'id', autoIncrement: true });
-        }
-        if (!db.objectStoreNames.contains('wishlist')) {
-            db.createObjectStore('wishlist', { keyPath: 'id', autoIncrement: true });
-        }
-    };
-    request.onsuccess = function(event) {
-        db = event.target.result;
-        loadItems();
-    };
-    request.onerror = function(event) {
-        console.error('Database error: ' + event.target.errorCode);
-    }
     function loadItems() {
-        const tx = db.transaction(['planner', 'wishlist'], 'readonly');
-        const plannerStore = tx.objectStore('planner');
-        const wishlistStore = tx.objectStore('wishlist');
-
         wishlistStore.getAll().onsuccess = function(event) {
             const wishlistItems = event.target.result;
             const wishlistList = document.getElementById('wishlist-list');
@@ -886,4 +882,6 @@ document.addEventListener('DOMContentLoaded', () => {
         clearItems('wishlist');
         document.getElementById('wishlist-list').innerHTML = '';
     });
+
+    loadItems();
 });
