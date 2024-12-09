@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const applyFilters = document.getElementById('applyFilters');
     const clearFilters = document.getElementById('clearFilters');
     document.getElementById('deleteSelected').addEventListener('click', deleteSelectedExpenses);
-
+    document.getElementById('editSelected').addEventListener('click', editSelectedExpense);
 
     // Indexed Data-Base setup
     let db;
@@ -412,6 +412,68 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    function editSelectedExpense() {
+        const selectedCheckboxes = document.querySelectorAll('.select-checkbox:checked');
+        if (selectedCheckboxes.length !== 1) {
+            alert('Please select exactly one row to edit.');
+            return;
+        }
+    
+        const selectedId = parseInt(selectedCheckboxes[0].dataset.id, 10);
+        const transaction = db.transaction(['expenses'], 'readonly');
+        const store = transaction.objectStore('expenses');
+        const request = store.get(selectedId);
+    
+        request.onsuccess = (event) => {
+            const expense = event.target.result;
+    
+            // Fill the form with the selected expense details
+            document.getElementById('expenseLabel').value = expense.label || '';
+            document.getElementById('expenseAmount').value = expense.amount || '';
+            document.getElementById('expenseCategory').value = expense.category || '';
+            document.getElementById('date').value = expense.date || '';
+    
+            // Change the submit button functionality to update the expense
+            const submitButton = document.getElementById('submitExpense');
+            submitButton.textContent = 'Update';
+            submitButton.onclick = () => updateExpense(selectedId);
+        };
+    
+        request.onerror = (event) => {
+            console.error('Error fetching expense for editing:', event);
+        };
+    }
+    
+    function updateExpense(id) {
+        const label = document.getElementById('expenseLabel').value;
+        const amount = parseFloat(document.getElementById('expenseAmount').value);
+        const category = document.getElementById('expenseCategory').value;
+        const date = document.getElementById('date').value;
+    
+        if (!label || isNaN(amount) || !category || !date) {
+            alert('Please fill out all fields.');
+            return;
+        }
+    
+        const updatedExpense = { id, label, amount, category, date };
+    
+        const transaction = db.transaction(['expenses'], 'readwrite');
+        const store = transaction.objectStore('expenses');
+        const request = store.put(updatedExpense);
+    
+        request.onsuccess = () => {
+            console.log('Expense updated:', updatedExpense);
+            document.getElementById('submitExpense').textContent = 'Submit';
+            document.getElementById('submitExpense').onclick = addExpense; // Restore original functionality
+            clearEnteredData();
+            loadExpenses();
+        };
+    
+        request.onerror = (event) => {
+            console.error('Error updating expense:', event);
+        };
+    }
+
     function deleteSelectedExpenses() {
         const selectedCheckboxes = document.querySelectorAll('.select-checkbox:checked');
         const idsToDelete = Array.from(selectedCheckboxes).map(checkbox => parseInt(checkbox.dataset.id, 10));
@@ -439,7 +501,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const filters = {
             date: filterDate.value || null,
             category: filterCategory.value || null,
-            label: filterLabel.value || null,
             amount: filterAmount.value || null
         };
         loadExpenses(filters);
@@ -448,7 +509,6 @@ document.addEventListener('DOMContentLoaded', () => {
     clearFilters.addEventListener('click', () => {
         filterDate.value = '';
         filterCategory.value = '';
-        filterLabel.value = '';
         filterAmount.value = '';
         loadExpenses();
     });
