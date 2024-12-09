@@ -598,7 +598,7 @@ async function fetchMostExpensiveExpense() {
         const data = await response.json();
         const { label, amount } = data;
   
-        document.getElementById('biggest-expense').textContent = `${label} - $${amount.toFixed(2)}`;
+        document.getElementById('biggest-expense').textContent = ` ${label} - $${amount.toFixed(2)}`;
     } catch (error) {
         console.error('Error fetching the most expensive expense:', error);
         document.getElementById('biggest-expense').textContent = 'Error fetching expense';
@@ -608,18 +608,21 @@ async function fetchMostExpensiveExpense() {
 // fetch most expensive category
 async function fetchMostExpensiveCategory() {
     try {
-      // Make the fetch request to the backend
       const response = await fetch('http://localhost:3000/tips/most-expensive-category');
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
   
-      // Parse the JSON response
       const data = await response.json();
   
-      // Update the DOM
       const { category, total_amount } = data;
-      document.getElementById('biggest-category').textContent = `${category} - $${total_amount.toFixed(2)}`;
+  
+      // Ensure total_amount is valid before formatting
+      if (total_amount !== undefined && total_amount !== null) {
+        document.getElementById('biggest-category').textContent = ` ${category} - $${total_amount.toFixed(2)}`;
+      } else {
+        document.getElementById('biggest-category').textContent = ` ${category} - Amount not available`;
+      }
     } catch (error) {
       console.error('Error fetching the most expensive category:', error);
       document.getElementById('biggest-category').textContent = 'Error fetching category';
