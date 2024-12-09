@@ -53,12 +53,11 @@ router.post('/', async (req, res) => {
 // GET /expenses - Retrieve all or filtered expenses
 router.get('/', async (req, res) => {
     try {
-        const { date, label, amount, category } = req.query;
+        const { date, amount, category } = req.query;
 
         // Prepare filters based on query parameters
         const filters = {};
         if (date) filters.date = date;
-        if (label) filters.label = { [Sequelize.Op.like]: `%${label}%` }; // Partial match for label
         if (amount) filters.amount = parseFloat(amount);
         if (category) filters.category = category;
 
