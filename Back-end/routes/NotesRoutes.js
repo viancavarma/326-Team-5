@@ -1,6 +1,6 @@
 import express from 'express';
 import { Sequelize } from 'sequelize';
-import { Notes } from '../models/SQLiteNotesModel.js';
+import Notes from '../models/SQLiteNotesModel.js';
 
 const router = express.Router();
 

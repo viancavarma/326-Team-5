@@ -378,11 +378,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Log of expenses
     function loadExpenses(filters = {}) {
         expenseLogsTable.innerHTML = '';
-
+    
         const transaction = db.transaction(['expenses'], 'readonly');
         const store = transaction.objectStore('expenses');
         const request = store.getAll();
-
+    
         request.onsuccess = (event) => {
             const expenses = event.target.result;
             const filteredExpenses = expenses.filter(expense => {
@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
                        (!filters.category || expense.category.toLowerCase().includes(filters.category.toLowerCase())) &&
                        (!filters.amount || expense.amount === parseFloat(filters.amount));
             });
-
+    
             filteredExpenses.forEach(expense => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
@@ -620,9 +620,27 @@ Date.prototype.getWeekNumber = function () {
     return Math.ceil((numberOfDays + oneJan.getDay() + 1) / 7);
 };
 
+// fetch most expensive expense
+async function fetchMostExpensiveExpense() {
+    try {
+        const response = await fetch('http://localhost:3000/tips/most-expensive');;
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        const { label, amount } = data;
+  
+        document.getElementById('biggest-expense').textContent = `${label} - $${amount.toFixed(2)}`;
+    } catch (error) {
+        console.error('Error fetching the most expensive expense:', error);
+        document.getElementById('biggest-expense').textContent = 'Error fetching expense';
+    }
+  }
+
 //when page loads display tips
 window.onload = function(){
     displayTips(false);
+    fetchMostExpensiveExpense();
 };
 
 //listen to click of tip button and add to the tips

@@ -38,9 +38,6 @@ class SQLiteExpenseModel {
     if (filters.date) {
       whereClause.date = filters.date;
     }
-    if (filters.label) {
-      whereClause.label = { [Sequelize.Op.like]: `%${filters.label}%` };
-    }
     if (filters.amount) {
       whereClause.amount = filters.amount;
     }
@@ -71,7 +68,21 @@ class SQLiteExpenseModel {
       order:[['amount', 'DESC']],
     });
   }
-}
+
+  // sequelize query to get the most expensive category
+  async findMostExpensiveCategory() {
+    const result = await Expense.findAll({
+      attributes: [
+        'category', 
+        [Sequelize.fn('SUM', Sequelize.col('amount')), 'total_amount']
+      ],
+      group: ['category'],
+      order: [[Sequelize.literal('total_amount'), 'DESC']],
+      limit: 1,
+    });
+  
+    return result.length > 0 ? result[0] : null; 
+  }
 
 const expenseModel = new SQLiteExpenseModel();
 
