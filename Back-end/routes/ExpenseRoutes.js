@@ -72,4 +72,28 @@ router.get('/', async (req, res) => {
     }
 });
 
+// GET /expenses/by-date/:date for bar graph
+router.get('/by-date/:date', async (req, res) => {
+    const { date } = req.params;
+
+    try {
+        // Filter for a specific date
+        const filters = {
+            date: Sequelize.where(Sequelize.fn('date', Sequelize.col('date')), date)
+        };
+        const expenses = await expenseModel.readAll(filters);
+
+        if (expenses.length === 0) {
+            return res.status(404).json({ message: 'No logs found for the selected date.' });
+        }
+
+        res.status(200).json(expenses);
+    } catch (error) {
+        console.error('Error retrieving logs by date:', error.message, error.stack); // Log detailed error
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
 export default router;
