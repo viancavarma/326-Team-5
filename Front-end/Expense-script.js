@@ -780,7 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
-            
+
             if (!response.ok) {
                 throw new Error('Failed to add item');
             }
@@ -810,9 +810,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function loadItems() {
-        wishlistStore.getAll().onsuccess = function(event) {
-            const wishlistItems = event.target.result;
+    async function loadItems() {
+        try {
+            const wishlistResponse = await fetch('/WishlistRoutes');
+
+            if (!wishlistResponse.ok) {
+                throw new Error('Failed to retrieve wishlist items');
+            }
+            
+            const wishlistItems = await wishlistResponse.json();
             const wishlistList = document.getElementById('wishlist-list');
 
             wishlistItems.forEach(item => {
@@ -823,15 +829,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = 'X';
-                deleteBtn.addEventListener('click', function() {
-                    wishlistList.removeChild(li);
-                    deleteItem('wishlist', item);
-                });
+                deleteBtn.addEventListener('click', () => deleteItem('/WishlistRoutes', item.id, li));
                 li.appendChild(deleteBtn);
+                wishlistList.appendChild(li);
             });
-        }
-        plannerStore.getAll().onsuccess = function(event) {
-            const plannerItems = event.target.result;
+
+            const plannerResponse = await fetch('/NotesRoutes');
+            
+            if (!plannerResponse.ok) {
+                throw new Error('Failed to retrieve planner items');
+            }
+
+            const plannerItems = await plannerResponse.json();
             const plannerList = document.getElementById('planner-list');
 
             plannerItems.forEach(item => {
@@ -842,12 +851,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = 'X';
-                deleteBtn.addEventListener('click', function() {
-                    plannerList.removeChild(li);
-                    deleteItem('planner', item);
-                });
+                deleteBtn.addEventListener('click', () => deleteItem('/NotesRoutes', item.id, li));
                 li.appendChild(deleteBtn);
+                plannerList.appendChild(li);
             });
+        }
+        catch(error) {
+            console.error("Error loading items:", error);
         }
     }
 
