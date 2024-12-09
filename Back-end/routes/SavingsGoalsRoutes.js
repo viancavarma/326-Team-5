@@ -49,4 +49,22 @@ router.get('/', async (req, res) => {
     }
 });
 
+// GET /savings-goals/:id - Retrieve a specific savings goal by ID
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const goal = await savingsGoalsModel.readById(id);
+
+        if (!goal) {
+            return res.status(404).json({ error: 'Savings goal not found.' });
+        }
+
+        res.status(200).json(goal);
+    } catch (error) {
+        console.error('Error retrieving savings goal:', error);
+        res.status(500).json({ error: 'Failed to retrieve savings goal.' });
+    }
+});
+
 export default router;
