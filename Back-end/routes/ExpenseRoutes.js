@@ -1,5 +1,6 @@
 import express from 'express';
 import { Sequelize } from 'sequelize';
+import expenseModel from '../models/SQLiteExpenseModel.js';
 import { Expense } from '../models/SQLiteExpenseModel.js';
 
 const router = express.Router();
@@ -48,5 +49,51 @@ router.post('/', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+// GET /expenses - Retrieve all or filtered expenses
+router.get('/', async (req, res) => {
+    try {
+        const { date, label, amount, category } = req.query;
+
+        // Prepare filters based on query parameters
+        const filters = {};
+        if (date) filters.date = date;
+        if (label) filters.label = { [Sequelize.Op.like]: `%${label}%` }; // Partial match for label
+        if (amount) filters.amount = parseFloat(amount);
+        if (category) filters.category = category;
+
+        // Retrieve expenses from the model
+        const expenses = await expenseModel.readAll(filters);
+
+        res.status(200).json(expenses);
+    } catch (error) {
+        console.error('Error retrieving expenses:', error);
+        res.status(500).json({ error: 'Failed to retrieve expenses' });
+    }
+});
+
+// GET /expenses/by-date/:date for bar graph
+router.get('/by-date/:date', async (req, res) => {
+    const { date } = req.params;
+
+    try {
+        // Filter for a specific date
+        const filters = {
+            date: Sequelize.where(Sequelize.fn('date', Sequelize.col('date')), date)
+        };
+        const expenses = await expenseModel.readAll(filters);
+
+        if (expenses.length === 0) {
+            return res.status(404).json({ message: 'No logs found for the selected date.' });
+        }
+
+        res.status(200).json(expenses);
+    } catch (error) {
+        console.error('Error retrieving logs by date:', error.message, error.stack); // Log detailed error
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
 
 export default router;
