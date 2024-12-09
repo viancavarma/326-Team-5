@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
 // use tips routes
 app.use('/tips', tipsRoutes);
 
+// use the savings goals routes
 app.use('/savings-goals', savingsGoalsRoutes);
 
 sequelize.authenticate()
