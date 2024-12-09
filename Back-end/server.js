@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import expenseRoutes from './routes/ExpenseRoutes.js';
 import expenseModel from './models/SQLiteExpenseModel.js';
+import sequelize from './config/database.js';
 
 dotenv.config();
 
@@ -18,6 +19,10 @@ app.use('/expenses', expenseRoutes); // Prefix the expenses routes
 app.get('/', (req, res) => {
   res.send('Expense Tracker API is running!');
 });
+
+sequelize.authenticate()
+    .then(() => console.log('Database connected'))
+    .catch(err => console.error('Database connection error:', err));
 
 // Start the server after initializing the database
 const startServer = async () => {
