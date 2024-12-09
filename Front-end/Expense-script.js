@@ -597,12 +597,11 @@ async function fetchMostExpensiveExpense() {
       }
       const data = await response.json();
       const { label, amount } = data;
-      document.getElementById('biggest-expense').textContent = label;
-      document.getElementById('biggest-amount').textContent = `$${amount.toFixed(2)}`;
+  
+      document.getElementById('biggest-expense').textContent = `${label} - $${amount.toFixed(2)}`;
     } catch (error) {
       console.error('Error fetching the most expensive expense:', error);
       document.getElementById('biggest-expense').textContent = 'Error fetching expense';
-      document.getElementById('biggest-amount').textContent = '';
     }
   }
 
