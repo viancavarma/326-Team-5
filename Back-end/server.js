@@ -2,6 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import expenseRoutes from './routes/ExpenseRoutes.js';
 import expenseModel from './models/SQLiteExpenseModel.js';
+import wishlistRoutes from './routes/WishlistRoutes.js';
+import notesRoutes from './routes/NotesRoutes.js';
 import tipsRoutes from './routes/tipsRoutes.js';
 import sequelize from './config/database.js';
 
@@ -15,6 +17,10 @@ app.use(express.json());
 
 // Use the expenses routes
 app.use('/expenses', expenseRoutes); // Prefix the expenses routes
+
+// use wishlist and notes routes
+app.use('/wishlist', wishlistRoutes);
+app.use('/notes', notesRoutes);
 
 // Example root route
 app.get('/', (req, res) => {
