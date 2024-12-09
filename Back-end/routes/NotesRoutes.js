@@ -4,7 +4,7 @@ import { Notes } from '../models/SQLiteNotesModel.js';
 
 const router = express.Router();
 
-// GET /notes
+// get notes
 router.get('/', async (req, res) => {
     try {
         const notes = await Notes.findAll();
