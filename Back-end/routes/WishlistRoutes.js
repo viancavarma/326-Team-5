@@ -7,9 +7,10 @@ const router = express.Router();
 // get wishlist items
 router.get('/', async (req, res) => {
     try {
-        const wishlist = await Wishlist.findAll();
+        const wishlist = await Wishlist.readAll();
         res.status(200).json(wishlist);
-    } catch (error) {
+    } 
+    catch (error) {
         console.error('Error retrieving wishlist items:', error);
         res.status(500).json({ error: 'Failed to retrieve wishlist items' });
     }
@@ -26,7 +27,8 @@ router.post('/', async (req, res) => {
 
         const newWishlistItem = await Wishlist.create({ title, content });
         res.status(201).json(newWishlistItem);
-    } catch (error) {
+    } 
+    catch (error) {
         console.error('Error adding wishlist item:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -42,9 +44,10 @@ router.put('/:id', async (req, res) => {
             return res.status(400).json({ error: 'All fields are required.' });
         }
 
-        const updatedWishlistItem = await Wishlist.update({ title, content }, { where: { id } });
-        res.status(200).json(updatedWishlistItem);
-    } catch (error) {
+        const updatedItem = await Wishlist.update({ title, content }, { where: { id } });
+        res.status(200).json(updatedItem);
+    } 
+    catch (error) {
         console.error('Error updating wishlist item:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
@@ -54,8 +57,8 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const deletedWishlistItem = await Wishlist.destroy({ where: { id } });
-        res.status(200).json(deletedWishlistItem);
+        const deletedItem = await Wishlist.destroy({ where: { id } });
+        res.status(200).json(deletedItem);
     }
     catch(error) {
         console.error('Error deleting wishlist item:', error);
