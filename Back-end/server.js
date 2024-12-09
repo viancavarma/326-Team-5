@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import expenseRoutes from './routes/ExpenseRoutes.js';
 import expenseModel from './models/SQLiteExpenseModel.js';
+import tipsRoutes from './routes/tipsRoutes.js';
 
 dotenv.config();
 
@@ -18,6 +19,9 @@ app.use('/expenses', expenseRoutes); // Prefix the expenses routes
 app.get('/', (req, res) => {
   res.send('Expense Tracker API is running!');
 });
+
+// use tips routes
+app.use('/tips', tipsRoutes);
 
 // Start the server after initializing the database
 const startServer = async () => {
