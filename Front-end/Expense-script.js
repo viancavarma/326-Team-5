@@ -867,10 +867,17 @@ document.addEventListener('DOMContentLoaded', () => {
     //     store.put(item);
     // }
     
-    function deleteItem(storeName, item) {
-        const tx = db.transaction(storeName, 'readwrite');
-        const store = tx.objectStore(storeName);
-        store.delete(item.id);
+    async function deleteItem(endpoint, id, li) {
+        try {
+            const response = await fetch(`${endpoint}/${id}`, { method: 'DELETE' });
+            if (!response.ok) {
+                throw new Error('Failed to delete item');
+            }
+            li.remove();
+        }
+        catch(error) {
+            console.error('Error deleting item:', error);
+        }
     }
 
     function clearItems(storeName) {
