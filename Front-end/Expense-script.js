@@ -605,10 +605,32 @@ async function fetchMostExpensiveExpense() {
     }
   }
 
+// fetch most expensive category
+async function fetchMostExpensiveCategory() {
+    try {
+      // Make the fetch request to the backend
+      const response = await fetch('http://localhost:3000/tips/most-expensive-category');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      // Parse the JSON response
+      const data = await response.json();
+  
+      // Update the DOM
+      const { category, total_amount } = data;
+      document.getElementById('biggest-category').textContent = `${category} - $${total_amount.toFixed(2)}`;
+    } catch (error) {
+      console.error('Error fetching the most expensive category:', error);
+      document.getElementById('biggest-category').textContent = 'Error fetching category';
+    }
+  }
+
 //when page loads display tips
 window.onload = function(){
     displayTips(false);
     fetchMostExpensiveExpense();
+    fetchMostExpensiveCategory();
 };
 
 //listen to click of tip button and add to the tips
