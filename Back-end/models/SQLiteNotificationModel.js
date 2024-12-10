@@ -14,4 +14,11 @@ class SQLiteNotificationsModel {
         await sequelize.sync({ force: fresh });
     }
     
+    async create(notificationData) {
+        return await Notification.create(notificationData);
+    }
+
 }
+
+const notificationsModel = new SQLiteNotificationsModel();
+export default notificationsModel;
