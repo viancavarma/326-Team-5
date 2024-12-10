@@ -73,7 +73,6 @@ router.put('/:id', async (req, res) => {
     const { goal_name, target_amount, current_amount, deadline } = req.body;
 
     try {
-        // Retrieve the goal to update
         const goal = await savingsGoalsModel.readById(id);
 
         if (!goal) {
@@ -91,7 +90,6 @@ router.put('/:id', async (req, res) => {
             return res.status(400).json({ error: 'Deadline must be a future date.' });
         }
 
-        // Update the goal
         const updatedGoal = await savingsGoalsModel.update(id, {
             goal_name: goal_name || goal.goal_name,
             target_amount: target_amount || goal.target_amount,
@@ -103,6 +101,25 @@ router.put('/:id', async (req, res) => {
     } catch (error) {
         console.error('Error updating savings goal:', error);
         res.status(500).json({ error: 'Failed to update savings goal.' });
+    }
+});
+
+// DELETE /savings-goals/:id - Delete a savings goal by ID
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const goal = await savingsGoalsModel.readById(id);
+
+        if (!goal) {
+            return res.status(404).json({ error: 'Savings goal not found.' });
+        }
+
+        await savingsGoalsModel.delete(id);
+        res.status(200).json({ message: 'Savings goal deleted successfully.' });
+    } catch (error) {
+        console.error('Error deleting savings goal:', error);
+        res.status(500).json({ error: 'Failed to delete savings goal.' });
     }
 });
 
