@@ -761,7 +761,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const name = document.getElementById('item-name').value;
         const description = document.getElementById('item-description').value;
-        const data = { name, description };
+        //const data = { name, description };
 
         if (!name) {
             alert('Item name is required');
@@ -773,22 +773,29 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const endpoint = currentList.id === 'planner-list' ? 'NotesRoutes' : '/WishlistRoutes';
+        const endpoint = currentList.id === 'planner-list' ? 'http://localhost:3000/notes' : 'http://localhost:3000/wishlist';
+        console.log(endpoint);
+
         try {
             const response = await fetch(endpoint, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title: name, content: description }),
             });
+
+            console.log(response);
 
             if (!response.ok) {
                 throw new Error('Failed to add item');
             }
 
             const item = await response.json();
+            console.log(item);
 
             const li = document.createElement('li');
-            li.textContent = description ? `${name} - ${description}` : name;
+            li.textContent = `${name} - ${description}`;
             currentList.appendChild(li);
 
             const deleteBtn = document.createElement('button');
@@ -812,7 +819,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadItems() {
         try {
-            const wishlistResponse = await fetch('/WishlistRoutes');
+            const wishlistResponse = await fetch('http://localhost:3000/wishlist');
 
             if (!wishlistResponse.ok) {
                 throw new Error('Failed to retrieve wishlist items');
@@ -820,38 +827,35 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const wishlistItems = await wishlistResponse.json();
             const wishlistList = document.getElementById('wishlist-list');
+            console.log(wishlistItems);
 
             wishlistItems.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = item.description ? `${item.name} - ${item.description}` : item.name;
-                wishlistList.appendChild(li);
-
+                li.textContent = `${item.title} - ${item.content}`;
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = 'X';
-                deleteBtn.addEventListener('click', () => deleteItem('/WishlistRoutes', item.id, li));
+                deleteBtn.addEventListener('click', () => deleteItem('/wishlist', item.id, li));
                 li.appendChild(deleteBtn);
                 wishlistList.appendChild(li);
             });
 
-            const plannerResponse = await fetch('/NotesRoutes');
-            
+            const plannerResponse = await fetch('http://localhost:3000/notes');
             if (!plannerResponse.ok) {
                 throw new Error('Failed to retrieve planner items');
             }
 
             const plannerItems = await plannerResponse.json();
             const plannerList = document.getElementById('planner-list');
-
+            console.log(plannerItems);
             plannerItems.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = item.description ? `${item.name} - ${item.description}` : item.name;
+                li.textContent = `${item.title} - ${item.content}`;
                 plannerList.appendChild(li);
-
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = 'X';
-                deleteBtn.addEventListener('click', () => deleteItem('/NotesRoutes', item.id, li));
+                deleteBtn.addEventListener('click', () => deleteItem('/notes', item.id, li));
                 li.appendChild(deleteBtn);
                 plannerList.appendChild(li);
             });
@@ -894,6 +898,5 @@ document.addEventListener('DOMContentLoaded', () => {
         clearItems('wishlist');
         document.getElementById('wishlist-list').innerHTML = '';
     });
-
     loadItems();
 });

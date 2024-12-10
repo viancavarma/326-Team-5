@@ -19,6 +19,7 @@ router.get('/', async (req, res) => {
 //add note
 router.post('/', async (req, res) => {
     try {
+        console.log(req.body);
         const { title, content } = req.body;
 
         if (!title || !content) {
