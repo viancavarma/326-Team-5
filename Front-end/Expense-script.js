@@ -806,6 +806,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'delete-btn';
+            deleteBtn.type = 'button';
             deleteBtn.textContent = 'X';
             deleteBtn.addEventListener('click', async function(e) {
                 e.preventDefault();
@@ -843,6 +844,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 wishlistList.appendChild(li);
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
+                deleteBtn.type = 'button';
                 deleteBtn.textContent = 'X';
                 deleteBtn.addEventListener('click', async function(e) {
                     e.preventDefault();
@@ -865,6 +867,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 plannerList.appendChild(li);
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
+                deleteBtn.type = 'button';
                 deleteBtn.textContent = 'X';
                 deleteBtn.addEventListener('click', async function(e) {
                     e.preventDefault();
@@ -910,31 +913,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function clearItems(list_id) {
-        try {
-            const list = document.getElementById(list_id);
-            while (list.firstChild) {
-                const response = await fetch(`http://localhost:3000/${list_id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+    // async function clearItems(list_id) {
+    //     try {
+    //         const list = document.getElementById(list_id);
+    //         while (list.firstChild) {
+    //             const response = await fetch(`http://localhost:3000/${list_id}`, {
+    //                 method: 'DELETE',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             });
     
-                console.log(response);
-                if (!response.ok) {
-                    throw new Error('Failed to clear items');
-                }
+    //             console.log(response);
+    //             if (!response.ok) {
+    //                 throw new Error('Failed to clear items');
+    //             }
     
-                const data = await response.json();
-                console.log('Items cleared:', data);
-            }
+    //             const data = await response.json();
+    //             console.log('Items cleared:', data);
+    //         }
             
-        }
-        catch(error) {
-            console.error('Error clearing items:', error);
-        }
-    }
+    //     }
+    //     catch(error) {
+    //         console.error('Error clearing items:', error);
+    //     }
+    // }
 
     // clearPlanner.addEventListener('click', () => {
     //     clearItems('notes');
