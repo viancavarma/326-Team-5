@@ -780,7 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const endpoint = currentList.id === 'planner-list' ? 'http://localhost:3000/notes' : 'http://localhost:3000/wishlist';
+        const endpoint = currentList.id === 'planner-list' ? 'Back-end/routes/NotesRoutes.js' : 'Back-end/routes/WishlistRoutes.js';
         console.log(endpoint);
 
         try {
@@ -846,7 +846,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 li.appendChild(deleteBtn);
             });
 
-            const plannerResponse = await fetch('http://localhost:3000/notes');
+            const plannerResponse = await fetch('http://localhost:3000/notes');  
             if (!plannerResponse.ok) {
                 throw new Error('Failed to retrieve planner items');
             }

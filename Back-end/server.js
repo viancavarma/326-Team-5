@@ -6,6 +6,7 @@ import wishlistRoutes from './routes/WishlistRoutes.js';
 import notesRoutes from './routes/NotesRoutes.js';
 import tipsRoutes from './routes/tipsRoutes.js';
 import sequelize from './config/database.js';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -14,6 +15,8 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware for parsing JSON
 app.use(express.json());
+
+app.use(cors());
 
 // Use the expenses routes
 app.use('/expenses', expenseRoutes); // Prefix the expenses routes

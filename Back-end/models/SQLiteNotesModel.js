@@ -58,7 +58,7 @@ class SQLiteNotesModel {
             return await notes.destroy();
         }
         return null;
-    }   
+    }
 }
 
 const notesModel = new SQLiteNotesModel();
