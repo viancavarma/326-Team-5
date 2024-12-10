@@ -67,4 +67,43 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// PUT /savings-goals/:id - Update an existing savings goal by ID
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { goal_name, target_amount, current_amount, deadline } = req.body;
+
+    try {
+        // Retrieve the goal to update
+        const goal = await savingsGoalsModel.readById(id);
+
+        if (!goal) {
+            return res.status(404).json({ error: 'Savings goal not found.' });
+        }
+
+        // Validate input
+        if (target_amount && target_amount <= 0) {
+            return res.status(400).json({ error: 'Target amount must be a positive number.' });
+        }
+        if (current_amount && current_amount < 0) {
+            return res.status(400).json({ error: 'Current amount cannot be negative.' });
+        }
+        if (deadline && new Date(deadline) <= new Date()) {
+            return res.status(400).json({ error: 'Deadline must be a future date.' });
+        }
+
+        // Update the goal
+        const updatedGoal = await savingsGoalsModel.update(id, {
+            goal_name: goal_name || goal.goal_name,
+            target_amount: target_amount || goal.target_amount,
+            current_amount: current_amount || goal.current_amount,
+            deadline: deadline || goal.deadline,
+        });
+
+        res.status(200).json(updatedGoal);
+    } catch (error) {
+        console.error('Error updating savings goal:', error);
+        res.status(500).json({ error: 'Failed to update savings goal.' });
+    }
+});
+
 export default router;
