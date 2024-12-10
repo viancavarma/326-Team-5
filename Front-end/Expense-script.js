@@ -43,30 +43,6 @@ function initIndexedDB() {
 }
 
 initIndexedDB();
-
-function addExpense(amount, category, date) {
-    const transaction = db.transaction(['expenses'], 'readwrite');
-    const store = transaction.objectStore('expenses');
-
-    const expense = { amount: parseFloat(amount), category, date };
-    const request = store.add(expense);
-
-    request.onsuccess = () => {
-        console.log('Expense added:', expense);
-        updateCharts(currentWeekOffset, currentMonthOffset);
-    };
-
-    request.onerror = (event) => {
-        console.log('Error adding expense:', event);
-    };
-}
-
-function clearEnteredData() {
-    document.getElementById('expenseAmount').value = '';
-    document.getElementById('expenseCategory').value = '';
-    document.getElementById('expenseDate').value = '';
-}
-
 function getAllExpenses(callback) {
     const transaction = db.transaction(['expenses'], 'readonly');
     const store = transaction.objectStore('expenses');
@@ -319,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const applyFilters = document.getElementById('applyFilters');
     const clearFilters = document.getElementById('clearFilters');
     document.getElementById('deleteSelected').addEventListener('click', deleteSelectedExpenses);
-
+    document.getElementById('editSelected').addEventListener('click', editSelectedExpense);
 
     // Indexed Data-Base setup
     let db;
@@ -377,6 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Log of expenses
     function loadExpenses(filters = {}) {
+
         expenseLogsTable.innerHTML = '';
     
         const transaction = db.transaction(['expenses'], 'readonly');
@@ -412,6 +389,98 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    function openEditModal(expense) {
+        document.getElementById('editExpenseLabel').value = expense.label;
+        document.getElementById('editExpenseAmount').value = expense.amount;
+        document.getElementById('editExpenseCategory').value = expense.category;
+        document.getElementById('editExpenseDate').value = expense.date;
+        document.getElementById('editExpenseModal').dataset.expenseId = expense.id;
+        document.getElementById('editExpenseModal').style.display = 'block';
+    }
+
+    document.getElementById('closeModalButton').addEventListener('click', () => {
+        document.getElementById('editExpenseModal').style.display = 'none';
+    });
+    
+    document.getElementById('saveChangesButton').addEventListener('click', () => {
+        const expenseId = parseInt(document.getElementById('editExpenseModal').dataset.expenseId, 10);
+        const label = document.getElementById('editExpenseLabel').value;
+        const amount = parseFloat(document.getElementById('editExpenseAmount').value);
+        const category = document.getElementById('editExpenseCategory').value;
+        const date = document.getElementById('editExpenseDate').value;
+    
+        if (!label || isNaN(amount) || !category || !date) {
+            alert('Please fill out all fields.');
+            return;
+        }
+    
+        const updatedExpense = { id: expenseId, label, amount, category, date };
+    
+        const transaction = db.transaction(['expenses'], 'readwrite');
+        const store = transaction.objectStore('expenses');
+        const request = store.put(updatedExpense);
+    
+        request.onsuccess = () => {
+            console.log('Expense updated:', updatedExpense);
+            document.getElementById('editExpenseModal').style.display = 'none'; // Close modal
+            loadExpenses(); // Refresh the logs
+        };
+    
+        request.onerror = (event) => {
+            console.error('Error updating expense:', event);
+        };
+    }); 
+
+    function editSelectedExpense() {
+        const selectedCheckboxes = document.querySelectorAll('.select-checkbox:checked');
+        if (selectedCheckboxes.length !== 1) {
+            alert('Please select exactly one row to edit.');
+            return;
+        }
+        const selectedId = parseInt(selectedCheckboxes[0].dataset.id, 10);
+        const transaction = db.transaction(['expenses'], 'readonly');
+        const store = transaction.objectStore('expenses');
+        const request = store.get(selectedId);
+        request.onsuccess = (event) => {
+            const expense = event.target.result;
+            if (expense) {
+                openEditModal(expense);
+            } else {
+                alert('Expense not found!');
+            }
+        };
+        request.onerror = (event) => {
+            console.error('Error fetching expense for editing:', event);
+        };
+    }
+    
+    function updateExpense(id) {
+        const label = document.getElementById('expenseLabel').value;
+        const amount = parseFloat(document.getElementById('expenseAmount').value);
+        const category = document.getElementById('expenseCategory').value;
+        const date = document.getElementById('date').value;
+        if (!label || isNaN(amount) || !category || !date) {
+            alert('Please fill out all fields.');
+            return;
+        }
+        const updatedExpense = { id, label, amount, category, date };
+        const transaction = db.transaction(['expenses'], 'readwrite');
+        const store = transaction.objectStore('expenses');
+        const request = store.put(updatedExpense);
+    
+        request.onsuccess = () => {
+            console.log('Expense updated:', updatedExpense);
+            document.getElementById('submitExpense').textContent = 'Submit';
+            document.getElementById('submitExpense').onclick = addExpense;
+            clearEnteredData();
+            loadExpenses();
+        };
+    
+        request.onerror = (event) => {
+            console.error('Error updating expense:', event);
+        };
+    }
+
     function deleteSelectedExpenses() {
         const selectedCheckboxes = document.querySelectorAll('.select-checkbox:checked');
         const idsToDelete = Array.from(selectedCheckboxes).map(checkbox => parseInt(checkbox.dataset.id, 10));
@@ -439,7 +508,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const filters = {
             date: filterDate.value || null,
             category: filterCategory.value || null,
-            label: filterLabel.value || null,
             amount: filterAmount.value || null
         };
         loadExpenses(filters);
@@ -448,7 +516,6 @@ document.addEventListener('DOMContentLoaded', () => {
     clearFilters.addEventListener('click', () => {
         filterDate.value = '';
         filterCategory.value = '';
-        filterLabel.value = '';
         filterAmount.value = '';
         loadExpenses();
     });
@@ -540,85 +607,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 //Tips
-// list of different tips that are helpful to financial wellness
-const allTips = ['50-30-20 Rule: 50% of paycheck -> regular expenses; 30% -> personal expenses; 20% -> savings',
-    'Go shopping with a list to prevent overspending',
-    "Don't succumb to the instant gratification of spending (think it over)",
-    'Track all of your spending in our app',
-    'Buy necessities in bulk',
-    'Stick to your savings goals',
-    'Automate transfers to savings account',
-    'Review your subscriptions',
-    'Try only carrying cash to avoid overspending with cards',
-    'Take advantage of coupons and discounts',
-    "Limit your 'want' purchases",
-    'Take advantage of free public resources'
-]
+// access the backend data base
+const BASE_URL = "http://localhost:3000/custom-tips";
 
-// access the user-generated tips
-function getUserTips(){
-    const userTips = localStorage.getItem('userTips');
-    return userTips ? JSON.parse(userTips) : [];
-}
+// DOM Elements
+const tipsList = document.getElementById("tips-list");
+const addTipButton = document.getElementById("addTipButton");
+const newTipInput = document.getElementById("newTip");
+const cashRefreshButton = document.getElementById("cashRefresh");
 
-// add the user tips to the tip list
-function addUserTip(tip){
-    const userTips = getUserTips();
-    userTips.push(tip);
-    localStorage.setItem('userTips', JSON.stringify(userTips));
-}
-
-
-// shuffle the list of tips
-function shuffleTips(array) {
-    return array.sort(() => Math.random() - 0.5);
-}
-
-// get the tips for the week
-function getWeeklyTips(forceRefresh = false) {
-    const userTips = getUserTips();
-    
-    const ALLtips = [...allTips, ...userTips];
-    // when refresh button is clicked, will shuffle tips regardless of day
-    if (forceRefresh) {
-        const shuffledTips = shuffleTips(ALLtips).slice(0,3);
-        localStorage.setItem('weeklyTips', JSON.stringify(shuffledTips));
-        return shuffledTips;
+// fetch and display tips
+async function fetchTips() {
+    try {
+      const response = await fetch(BASE_URL);
+      if (!response.ok) throw new Error("Failed to fetch tips");
+  
+      const tips = await response.json();
+      displayTips(tips);
+    } catch (error) {
+      console.error("Error fetching tips:", error);
     }
-
-    const lastTips = localStorage.getItem('weeklyTips');
-    const lastWeek = localStorage.getItem('week');
-
-    const currentWeek = new Date().getWeekNumber();
-
-    if (lastTips && lastWeek == currentWeek) {
-        return JSON.parse(lastTips);
-    } else {
-        const shuffledTips = shuffleTips([...allTips]).slice(0,3);
-        localStorage.setItem('weeklyTips', JSON.stringify(shuffledTips));
-        localStorage.setItem('week', currentWeek);
-        return shuffledTips;
-    }
-}
-
-// display the tips for the week
-function displayTips(refresh = false){
-    const tipsList = document.getElementById('tips-list');
-    const weeklyTips = getWeeklyTips(refresh);
-
-    tipsList.innerHTML = '';
-    weeklyTips.forEach(tip => {
-        const li = document.createElement('li');
-        li.textContent = tip;
-        tipsList.appendChild(li);
+  }
+  
+  // display tips in the "3 Tips for the Week" section
+  function displayTips(tips) {
+    tipsList.innerHTML = ""; // Clear the current list
+    const maxTips = 3; // Limit to 3 tips
+    tips.slice(0, maxTips).forEach(tip => {
+      const li = document.createElement("li");
+      li.textContent = tip.tip;
+      tipsList.appendChild(li);
     });
-}
+  }
 
-Date.prototype.getWeekNumber = function () {
-    const oneJan = new Date(this.getFullYear(), 0, 1);
-    const numberOfDays = Math.floor((this - oneJan) / (24 * 60 * 60 * 1000));
-    return Math.ceil((numberOfDays + oneJan.getDay() + 1) / 7);
-};
+// add new tip
+async function addTip() {
+    const newTip = newTipInput.value.trim();
+    if (!newTip) {
+      alert("Please enter a tip.");
+      return;
+    }
+  
+    try {
+      const response = await fetch(BASE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tip: newTip }),
+      });
+      if (!response.ok) throw new Error("Failed to add tip");
+  
+      const result = await response.json();
+      console.log("Tip added:", result);
+      newTipInput.value = ""; // Clear the input field
+      fetchTips(); // Refresh the tips list
+    } catch (error) {
+      console.error("Error adding tip:", error);
+    }
+  }
 
 // fetch most expensive expense
 async function fetchMostExpensiveExpense() {
@@ -630,33 +675,53 @@ async function fetchMostExpensiveExpense() {
         const data = await response.json();
         const { label, amount } = data;
   
-        document.getElementById('biggest-expense').textContent = `${label} - $${amount.toFixed(2)}`;
+        document.getElementById('biggest-expense').textContent = ` ${label} - $${amount.toFixed(2)}`;
+
     } catch (error) {
         console.error('Error fetching the most expensive expense:', error);
         document.getElementById('biggest-expense').textContent = 'Error fetching expense';
     }
   }
 
+// fetch most expensive category
+async function fetchMostExpensiveCategory() {
+    try {
+      const response = await fetch('http://localhost:3000/tips/most-expensive-category');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+  
+      const { category, total_amount } = data;
+  
+      // Ensure total_amount is valid before formatting
+      if (total_amount !== undefined && total_amount !== null) {
+        document.getElementById('biggest-category').textContent = ` ${category} - $${total_amount.toFixed(2)}`;
+      } else {
+        document.getElementById('biggest-category').textContent = ` ${category} - Amount not available`;
+      }
+    } catch (error) {
+      console.error('Error fetching the most expensive category:', error);
+      document.getElementById('biggest-category').textContent = 'Error fetching category';
+    }
+  }
+
 //when page loads display tips
 window.onload = function(){
-    displayTips(false);
     fetchMostExpensiveExpense();
+    fetchMostExpensiveCategory();
+
 };
 
-//listen to click of tip button and add to the tips
-document.getElementById('addTipButton').addEventListener('click', function() {
-    const tipInput = document.getElementById('newTip');
-    const addedTip = tipInput.value;
+// Refresh tips when clicking on the cash icon
+cashRefreshButton.addEventListener("click", fetchTips);
 
-    if (addedTip) {
-        addUserTip(addedTip);
-        tipInput.value = '';
-    }
-});
+// Add a new tip when the Add Tip button is clicked
+addTipButton.addEventListener("click", addTip);
 
-document.getElementById('cashRefresh').addEventListener('click', function(){
-    displayTips(true);
-})
+// Initial Fetch
+fetchTips();
 
 //Notifications
 

@@ -83,6 +83,7 @@ class SQLiteExpenseModel {
   
     return result.length > 0 ? result[0] : null; 
   }
+}
 
 const expenseModel = new SQLiteExpenseModel();
 
