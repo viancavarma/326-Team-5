@@ -51,6 +51,14 @@ class _SQLiteTipsModel {
         await Tip.destroy({ where: { tip } });
         return tip;
     }
+
+    // read random 3 tips
+    async readRandom(count = 3) {
+        const tips = await Tip.findAll();
+        // Shuffle and pick the first `count` tips
+        const shuffled = tips.sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
+      }
 }
 
 const SQLiteTipsModel = new _SQLiteTipsModel();

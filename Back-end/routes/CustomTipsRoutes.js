@@ -3,16 +3,13 @@ import tipsModel from "../models/SQLiteTipsModel.js";
 
 const router = express.Router();
 
-// get all tips
+// get three random tips
 router.get("/", async (req, res) => {
   try {
-    const tips = await tipsModel.read();
-    if (!tips || tips.length === 0) {
-      return res.status(404).json({ message: "No tips found" });
-    }
+    const tips = await tipsModel.readRandom(3); // Fetch 3 random tips
     res.json(tips);
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching random tips:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 });

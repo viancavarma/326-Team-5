@@ -607,85 +607,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 //Tips
-// list of different tips that are helpful to financial wellness
-const allTips = ['50-30-20 Rule: 50% of paycheck -> regular expenses; 30% -> personal expenses; 20% -> savings',
-    'Go shopping with a list to prevent overspending',
-    "Don't succumb to the instant gratification of spending (think it over)",
-    'Track all of your spending in our app',
-    'Buy necessities in bulk',
-    'Stick to your savings goals',
-    'Automate transfers to savings account',
-    'Review your subscriptions',
-    'Try only carrying cash to avoid overspending with cards',
-    'Take advantage of coupons and discounts',
-    "Limit your 'want' purchases",
-    'Take advantage of free public resources'
-]
+// access the backend data base
+const BASE_URL = "http://localhost:3000/custom-tips";
 
-// access the user-generated tips
-function getUserTips(){
-    const userTips = localStorage.getItem('userTips');
-    return userTips ? JSON.parse(userTips) : [];
-}
+// DOM Elements
+const tipsList = document.getElementById("tips-list");
+const addTipButton = document.getElementById("addTipButton");
+const newTipInput = document.getElementById("newTip");
+const cashRefreshButton = document.getElementById("cashRefresh");
 
-// add the user tips to the tip list
-function addUserTip(tip){
-    const userTips = getUserTips();
-    userTips.push(tip);
-    localStorage.setItem('userTips', JSON.stringify(userTips));
-}
-
-
-// shuffle the list of tips
-function shuffleTips(array) {
-    return array.sort(() => Math.random() - 0.5);
-}
-
-// get the tips for the week
-function getWeeklyTips(forceRefresh = false) {
-    const userTips = getUserTips();
-    
-    const ALLtips = [...allTips, ...userTips];
-    // when refresh button is clicked, will shuffle tips regardless of day
-    if (forceRefresh) {
-        const shuffledTips = shuffleTips(ALLtips).slice(0,3);
-        localStorage.setItem('weeklyTips', JSON.stringify(shuffledTips));
-        return shuffledTips;
+// fetch and display tips
+async function fetchTips() {
+    try {
+      const response = await fetch(BASE_URL);
+      if (!response.ok) throw new Error("Failed to fetch tips");
+  
+      const tips = await response.json();
+      displayTips(tips);
+    } catch (error) {
+      console.error("Error fetching tips:", error);
     }
-
-    const lastTips = localStorage.getItem('weeklyTips');
-    const lastWeek = localStorage.getItem('week');
-
-    const currentWeek = new Date().getWeekNumber();
-
-    if (lastTips && lastWeek == currentWeek) {
-        return JSON.parse(lastTips);
-    } else {
-        const shuffledTips = shuffleTips([...allTips]).slice(0,3);
-        localStorage.setItem('weeklyTips', JSON.stringify(shuffledTips));
-        localStorage.setItem('week', currentWeek);
-        return shuffledTips;
-    }
-}
-
-// display the tips for the week
-function displayTips(refresh = false){
-    const tipsList = document.getElementById('tips-list');
-    const weeklyTips = getWeeklyTips(refresh);
-
-    tipsList.innerHTML = '';
-    weeklyTips.forEach(tip => {
-        const li = document.createElement('li');
-        li.textContent = tip;
-        tipsList.appendChild(li);
+  }
+  
+  // display tips in the "3 Tips for the Week" section
+  function displayTips(tips) {
+    tipsList.innerHTML = ""; // Clear the current list
+    const maxTips = 3; // Limit to 3 tips
+    tips.slice(0, maxTips).forEach(tip => {
+      const li = document.createElement("li");
+      li.textContent = tip.tip;
+      tipsList.appendChild(li);
     });
-}
+  }
 
-Date.prototype.getWeekNumber = function () {
-    const oneJan = new Date(this.getFullYear(), 0, 1);
-    const numberOfDays = Math.floor((this - oneJan) / (24 * 60 * 60 * 1000));
-    return Math.ceil((numberOfDays + oneJan.getDay() + 1) / 7);
-};
+// add new tip
+async function addTip() {
+    const newTip = newTipInput.value.trim();
+    if (!newTip) {
+      alert("Please enter a tip.");
+      return;
+    }
+  
+    try {
+      const response = await fetch(BASE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tip: newTip }),
+      });
+      if (!response.ok) throw new Error("Failed to add tip");
+  
+      const result = await response.json();
+      console.log("Tip added:", result);
+      newTipInput.value = ""; // Clear the input field
+      fetchTips(); // Refresh the tips list
+    } catch (error) {
+      console.error("Error adding tip:", error);
+    }
+  }
 
 // fetch most expensive expense
 async function fetchMostExpensiveExpense() {
@@ -731,26 +709,19 @@ async function fetchMostExpensiveCategory() {
 
 //when page loads display tips
 window.onload = function(){
-    displayTips(false);
     fetchMostExpensiveExpense();
     fetchMostExpensiveCategory();
 
 };
 
-//listen to click of tip button and add to the tips
-document.getElementById('addTipButton').addEventListener('click', function() {
-    const tipInput = document.getElementById('newTip');
-    const addedTip = tipInput.value;
+// Refresh tips when clicking on the cash icon
+cashRefreshButton.addEventListener("click", fetchTips);
 
-    if (addedTip) {
-        addUserTip(addedTip);
-        tipInput.value = '';
-    }
-});
+// Add a new tip when the Add Tip button is clicked
+addTipButton.addEventListener("click", addTip);
 
-document.getElementById('cashRefresh').addEventListener('click', function(){
-    displayTips(true);
-})
+// Initial Fetch
+fetchTips();
 
 //Notifications
 

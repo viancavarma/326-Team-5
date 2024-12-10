@@ -9,6 +9,7 @@ import sequelize from './config/database.js';
 import customTipsModel from './models/SQLiteTipsModel.js';
 import customTipsRoutes from './routes/CustomTipsRoutes.js';
 import savingsGoalsRoutes from './routes/SavingsGoalsRoutes.js';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -24,6 +25,8 @@ app.use('/expenses', expenseRoutes); // Prefix the expenses routes
 // use wishlist and notes routes
 app.use('/wishlist', wishlistRoutes);
 app.use('/notes', notesRoutes);
+
+app.use(cors())
 
 // Example root route
 app.get('/', (req, res) => {
