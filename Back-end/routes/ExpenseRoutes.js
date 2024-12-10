@@ -32,13 +32,13 @@ router.get('/summary', async (req, res) => {
 });
 
 import passport from "../auth/passport.js";
-import { //TODO: make sure this actually lines up later
+import {
   register,
   login,
   logout,
   googleAuthCallback,
   getProfile,
-} from "../controller/controller.js";
+} from "../controller/UsersController.js";
 import { isAuthenticated } from "../auth/middleware.js";
 
 // Routes for registration and login
