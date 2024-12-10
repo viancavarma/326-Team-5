@@ -6,6 +6,8 @@ import wishlistRoutes from './routes/WishlistRoutes.js';
 import notesRoutes from './routes/NotesRoutes.js';
 import tipsRoutes from './routes/tipsRoutes.js';
 import sequelize from './config/database.js';
+import customTipsModel from './models/SQLiteTipsModel.js';
+import customTipsRoutes from './routes/CustomTipsRoutes.js';
 
 dotenv.config();
 
@@ -29,6 +31,15 @@ app.get('/', (req, res) => {
 
 // use tips routes
 app.use('/tips', tipsRoutes);
+
+// initialize the database
+(async () => {
+  await customTipsModel.init(true); 
+})();
+
+
+// use custom tips routes
+app.use('/custom-tips', customTipsRoutes);
 
 sequelize.authenticate()
     .then(() => console.log('Database connected'))

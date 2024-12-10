@@ -4,7 +4,7 @@ import sequelize from '../config/database.js';
 // comment sequelize model tips 54: 
 
 // define tip model
-const Tip = sequelize.define("SavingsGoal", {
+const Tip = sequelize.define("Tip", {
     tip: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -34,8 +34,8 @@ class _SQLiteTipsModel {
         }
     }
 
-    async create(tip){
-        return await Tip.create({ tip });
+    async create(tipData){
+        return await Tip.create(tipData);
     }
 
     async read() {
