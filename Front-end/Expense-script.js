@@ -803,7 +803,6 @@ document.addEventListener('DOMContentLoaded', () => {
             deleteBtn.textContent = 'X';
             deleteBtn.addEventListener('click', () => deleteItem(endpoint, item.id, li));
             li.appendChild(deleteBtn);
-
             closePopup();
         }
         catch(error) {
@@ -832,12 +831,12 @@ document.addEventListener('DOMContentLoaded', () => {
             wishlistItems.forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = `${item.title} - ${item.content}`;
+                wishlistList.appendChild(li);
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = 'X';
-                deleteBtn.addEventListener('click', () => deleteItem('/wishlist', item.id, li));
+                deleteBtn.addEventListener('click', () => deleteItem('http://localhost:3000/wishlist', item.id, li));
                 li.appendChild(deleteBtn);
-                wishlistList.appendChild(li);
             });
 
             const plannerResponse = await fetch('http://localhost:3000/notes');
@@ -855,9 +854,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = 'X';
-                deleteBtn.addEventListener('click', () => deleteItem('/notes', item.id, li));
+                deleteBtn.addEventListener('click', () => deleteItem('http://localhost:3000/notes', item.id, li));
                 li.appendChild(deleteBtn);
-                plannerList.appendChild(li);
             });
         }
         catch(error) {
@@ -873,21 +871,48 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function deleteItem(endpoint, id, li) {
         try {
-            const response = await fetch(`${endpoint}/${id}`, { method: 'DELETE' });
+            console.log('Deleting item:', id);
+            console.log(endpoint);
+            console.log(`${endpoint}/${id}`);
+
+            const response = await fetch(`${endpoint}/${id}`, {
+                method: 'DELETE',
+            });
+
+            console.log(response);
             if (!response.ok) {
                 throw new Error('Failed to delete item');
             }
+
             li.remove();
+            console.log('Item deleted:', id);
         }
         catch(error) {
             console.error('Error deleting item:', error);
         }
     }
 
-    function clearItems(storeName) {
-        const tx = db.transaction(storeName, 'readwrite');
-        const store = tx.objectStore(storeName);
-        store.clear();
+    async function clearItems(list_id) {
+        try {
+            const endpoint = list_id === 'planner' ? 'http://localhost:3000/notes' : 'http://localhost:3000/wishlist';
+
+            const response = await fetch(endpoint, {
+                method: 'DELETE',  
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to clear items');
+            }
+
+            const list = document.getElementById(`${list_id}-list`);
+            while (list.firstChild) {
+                list.removeChild(list.firstChild);
+            }
+            console.log('Items cleared:', list_id);
+        }
+        catch(error) {
+            console.error('Error clearing items:', error);
+        }
     }
 
     clearPlanner.addEventListener('click', () => {
@@ -898,5 +923,6 @@ document.addEventListener('DOMContentLoaded', () => {
         clearItems('wishlist');
         document.getElementById('wishlist-list').innerHTML = '';
     });
+
     loadItems();
 });
