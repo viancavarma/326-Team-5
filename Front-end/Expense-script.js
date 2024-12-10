@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Log of expenses
-    function loadExpenses() {
+    function loadExpenses(filters = {}) {
         expenseLogsTable.innerHTML = '';
 
         const transaction = db.transaction(['expenses'], 'readonly');
@@ -730,8 +730,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const closePopupBtn = document.getElementById('close-popup');
     const addItemForm = document.getElementById('add-item-form');
     const popupTitle = document.getElementById('popup-title');
-    const clearPlanner = document.getElementById('clear-planner');
-    const clearWishlist = document.getElementById('clear-wishlist');
+    // const clearPlanner = document.getElementById('clear-planner');
+    // const clearWishlist = document.getElementById('clear-wishlist');
 
     let currentList = null;
 
@@ -758,10 +758,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /*
         - Known Issues:
-            - Deleting an item does not remove it from the list nor the database
-            - Clearing a list does not remove them from the database
-            - Editing an item is not implemented
-            - Adding an item refreshes the page?
+            -adding and deleting items refresh the page
+            - clearing the list is bugged so it is commented out for now
+            - editing items not implemented
     */
     addItemForm.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -780,7 +779,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const endpoint = currentList.id === 'planner-list' ? 'Back-end/routes/NotesRoutes.js' : 'Back-end/routes/WishlistRoutes.js';
+        const endpoint = currentList.id === 'planner-list' ? 'http://localhost:3000/notes' : 'http://localhost:3000/wishlist';
         console.log(endpoint);
 
         try {
@@ -808,7 +807,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'delete-btn';
             deleteBtn.textContent = 'X';
-            deleteBtn.addEventListener('click', () => deleteItem(endpoint, item.id, li));
+            deleteBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                await deleteItem(endpoint, item.id, li);
+            });
             li.appendChild(deleteBtn);
             closePopup();
         }
@@ -842,7 +844,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = 'X';
-                deleteBtn.addEventListener('click', () => deleteItem('http://localhost:3000/wishlist', item.id, li));
+                deleteBtn.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    await deleteItem('http://localhost:3000/wishlist', item.id, li);
+                });
                 li.appendChild(deleteBtn);
             });
 
@@ -861,7 +866,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = 'X';
-                deleteBtn.addEventListener('click', () => deleteItem('http://localhost:3000/notes', item.id, li));
+                deleteBtn.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    await deleteItem('http://localhost:3000/notes', item.id, li);
+                });
                 li.appendChild(deleteBtn);
             });
         }
@@ -884,6 +892,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const response = await fetch(`${endpoint}/${id}`, {
                 method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
 
             console.log(response);
@@ -901,35 +912,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function clearItems(list_id) {
         try {
-            const endpoint = list_id === 'planner' ? 'http://localhost:3000/notes' : 'http://localhost:3000/wishlist';
-
-            const response = await fetch(endpoint, {
-                method: 'DELETE',  
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to clear items');
-            }
-
-            const list = document.getElementById(`${list_id}-list`);
+            const list = document.getElementById(list_id);
             while (list.firstChild) {
-                list.removeChild(list.firstChild);
+                const response = await fetch(`http://localhost:3000/${list_id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+    
+                console.log(response);
+                if (!response.ok) {
+                    throw new Error('Failed to clear items');
+                }
+    
+                const data = await response.json();
+                console.log('Items cleared:', data);
             }
-            console.log('Items cleared:', list_id);
+            
         }
         catch(error) {
             console.error('Error clearing items:', error);
         }
     }
 
-    clearPlanner.addEventListener('click', () => {
-        clearItems('planner');
-        document.getElementById('planner-list').innerHTML = '';
-    });
-    clearWishlist.addEventListener('click', () => {
-        clearItems('wishlist');
-        document.getElementById('wishlist-list').innerHTML = '';
-    });
+    // clearPlanner.addEventListener('click', () => {
+    //     clearItems('notes');
+    //     console.log('Planner cleared');
+    //     document.getElementById('planner-list').innerHTML = '';
+    // });
+    // clearWishlist.addEventListener('click', () => {
+    //     clearItems('wishlist');
+    //     console.log('Wishlist cleared');
+    //     document.getElementById('wishlist-list').innerHTML = '';
+    // });
 
     loadItems();
 });
