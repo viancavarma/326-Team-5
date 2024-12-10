@@ -845,8 +845,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const closePopupBtn = document.getElementById('close-popup');
     const addItemForm = document.getElementById('add-item-form');
     const popupTitle = document.getElementById('popup-title');
-    const clearPlanner = document.getElementById('clear-planner');
-    const clearWishlist = document.getElementById('clear-wishlist');
+    // const clearPlanner = document.getElementById('clear-planner');
+    // const clearWishlist = document.getElementById('clear-wishlist');
 
     let currentList = null;
 
@@ -871,37 +871,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closePopupBtn.addEventListener('click', closePopup);
 
-    addItemForm.addEventListener('submit', function(e) {
+    /*
+        - Known Issues:
+            -adding and deleting items refresh the page
+            - clearing the list is bugged so it is commented out for now
+            - editing items not implemented
+    */
+    addItemForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const name = document.getElementById('item-name').value;
         const description = document.getElementById('item-description').value;
-        const data = { name, description };
+        //const data = { name, description };
 
         if (!name) {
             alert('Item name is required');
             return;
         }
 
-        const storeName = currentList.id === 'planner-list' ? 'planner' : 'wishlist';
-        const tx = db.transaction(storeName, 'readwrite');
-        const store = tx.objectStore(storeName);  
-        store.add(data);
+        if (!description) {
+            alert('Item description is required');
+            return;
+        }
 
-        const li = document.createElement('li');
-        li.textContent = description ? `${name} - ${description}` : name;
-        currentList.appendChild(li);
+        const endpoint = currentList.id === 'planner-list' ? 'http://localhost:3000/notes' : 'http://localhost:3000/wishlist';
+        console.log(endpoint);
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'delete-btn';
-        deleteBtn.textContent = 'X';
-        deleteBtn.addEventListener('click', function() {
-            currentList.removeChild(li);
-            deleteItem(storeName, data);
-        });
-        li.appendChild(deleteBtn);
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title: name, content: description }),
+            });
 
-        closePopup();
+            console.log(response);
+
+            if (!response.ok) {
+                throw new Error('Failed to add item');
+            }
+
+            const item = await response.json();
+            console.log(item);
+
+            const li = document.createElement('li');
+            li.textContent = `${name} - ${description}`;
+            currentList.appendChild(li);
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.type = 'button';
+            deleteBtn.textContent = 'X';
+            deleteBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                await deleteItem(endpoint, item.id, li);
+            });
+            li.appendChild(deleteBtn);
+            closePopup();
+        }
+        catch(error) {
+            console.error('Error adding item:', error);
+        }
     });
 
     window.addEventListener('click', function(e) {
@@ -910,68 +941,58 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    let db;
+    async function loadItems() {
+        try {
+            const wishlistResponse = await fetch('http://localhost:3000/wishlist');
 
-    const request = indexedDB.open('spending-planner', 1);
-    request.onupgradeneeded = function(event) {
-        db = event.target.result;
-        
-        if (!db.objectStoreNames.contains('planner')) {
-            db.createObjectStore('planner', { keyPath: 'id', autoIncrement: true });
-        }
-        if (!db.objectStoreNames.contains('wishlist')) {
-            db.createObjectStore('wishlist', { keyPath: 'id', autoIncrement: true });
-        }
-    };
-    request.onsuccess = function(event) {
-        db = event.target.result;
-        loadItems();
-    };
-    request.onerror = function(event) {
-        console.error('Database error: ' + event.target.errorCode);
-    }
-    function loadItems() {
-        const tx = db.transaction(['planner', 'wishlist'], 'readonly');
-        const plannerStore = tx.objectStore('planner');
-        const wishlistStore = tx.objectStore('wishlist');
-
-        wishlistStore.getAll().onsuccess = function(event) {
-            const wishlistItems = event.target.result;
+            if (!wishlistResponse.ok) {
+                throw new Error('Failed to retrieve wishlist items');
+            }
+            
+            const wishlistItems = await wishlistResponse.json();
             const wishlistList = document.getElementById('wishlist-list');
+            console.log(wishlistItems);
 
             wishlistItems.forEach(item => {
                 const li = document.createElement('li');
-                li.textContent = item.description ? `${item.name} - ${item.description}` : item.name;
+                li.textContent = `${item.title} - ${item.content}`;
                 wishlistList.appendChild(li);
-
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
+                deleteBtn.type = 'button';
                 deleteBtn.textContent = 'X';
-                deleteBtn.addEventListener('click', function() {
-                    wishlistList.removeChild(li);
-                    deleteItem('wishlist', item);
+                deleteBtn.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    await deleteItem('http://localhost:3000/wishlist', item.id, li);
+                });
+                li.appendChild(deleteBtn);
+            });
+
+            const plannerResponse = await fetch('http://localhost:3000/notes');  
+            if (!plannerResponse.ok) {
+                throw new Error('Failed to retrieve planner items');
+            }
+
+            const plannerItems = await plannerResponse.json();
+            const plannerList = document.getElementById('planner-list');
+            console.log(plannerItems);
+            plannerItems.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.title} - ${item.content}`;
+                plannerList.appendChild(li);
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.type = 'button';
+                deleteBtn.textContent = 'X';
+                deleteBtn.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    await deleteItem('http://localhost:3000/notes', item.id, li);
                 });
                 li.appendChild(deleteBtn);
             });
         }
-        plannerStore.getAll().onsuccess = function(event) {
-            const plannerItems = event.target.result;
-            const plannerList = document.getElementById('planner-list');
-
-            plannerItems.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item.description ? `${item.name} - ${item.description}` : item.name;
-                plannerList.appendChild(li);
-
-                const deleteBtn = document.createElement('button');
-                deleteBtn.className = 'delete-btn';
-                deleteBtn.textContent = 'X';
-                deleteBtn.addEventListener('click', function() {
-                    plannerList.removeChild(li);
-                    deleteItem('planner', item);
-                });
-                li.appendChild(deleteBtn);
-            });
+        catch(error) {
+            console.error("Error loading items:", error);
         }
     }
 
@@ -981,24 +1002,68 @@ document.addEventListener('DOMContentLoaded', () => {
     //     store.put(item);
     // }
     
-    function deleteItem(storeName, item) {
-        const tx = db.transaction(storeName, 'readwrite');
-        const store = tx.objectStore(storeName);
-        store.delete(item.id);
+    async function deleteItem(endpoint, id, li) {
+        try {
+            console.log('Deleting item:', id);
+            console.log(endpoint);
+            console.log(`${endpoint}/${id}`);
+
+            const response = await fetch(`${endpoint}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            console.log(response);
+            if (!response.ok) {
+                throw new Error('Failed to delete item');
+            }
+
+            li.remove();
+            console.log('Item deleted:', id);
+        }
+        catch(error) {
+            console.error('Error deleting item:', error);
+        }
     }
 
-    function clearItems(storeName) {
-        const tx = db.transaction(storeName, 'readwrite');
-        const store = tx.objectStore(storeName);
-        store.clear();
-    }
+    // async function clearItems(list_id) {
+    //     try {
+    //         const list = document.getElementById(list_id);
+    //         while (list.firstChild) {
+    //             const response = await fetch(`http://localhost:3000/${list_id}`, {
+    //                 method: 'DELETE',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             });
+    
+    //             console.log(response);
+    //             if (!response.ok) {
+    //                 throw new Error('Failed to clear items');
+    //             }
+    
+    //             const data = await response.json();
+    //             console.log('Items cleared:', data);
+    //         }
+            
+    //     }
+    //     catch(error) {
+    //         console.error('Error clearing items:', error);
+    //     }
+    // }
 
-    clearPlanner.addEventListener('click', () => {
-        clearItems('planner');
-        document.getElementById('planner-list').innerHTML = '';
-    });
-    clearWishlist.addEventListener('click', () => {
-        clearItems('wishlist');
-        document.getElementById('wishlist-list').innerHTML = '';
-    });
+    // clearPlanner.addEventListener('click', () => {
+    //     clearItems('notes');
+    //     console.log('Planner cleared');
+    //     document.getElementById('planner-list').innerHTML = '';
+    // });
+    // clearWishlist.addEventListener('click', () => {
+    //     clearItems('wishlist');
+    //     console.log('Wishlist cleared');
+    //     document.getElementById('wishlist-list').innerHTML = '';
+    // });
+
+    loadItems();
 });

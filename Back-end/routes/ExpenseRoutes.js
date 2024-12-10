@@ -136,5 +136,34 @@ router.get('/by-month/:month', async (req, res) => {
 });
 
 
+//-------------------------------
+//login/authentication routes
+import passport from "../auth/passport.js";
+import {
+  register,
+  login,
+  logout,
+  googleAuthCallback,
+  getProfile,
+} from "../controller/UsersController.js";
+import { isAuthenticated } from "../auth/middleware.js";
+
+// Routes for registration and login
+router.post("/register", register);
+router.post("/login", login);
+router.get("/logout", logout);
+
+// Google Authentication routes
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile"] })
+);
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/" }),
+  googleAuthCallback
+);
+
+router.get("/profile", isAuthenticated, getProfile);
 
 export default router;
