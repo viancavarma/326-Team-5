@@ -56,19 +56,20 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-router.delete('/id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
         if (isNaN(id)) {
             return res.status(400).json({ error: 'Invalid note ID' });
         }
         console.log(id);
-        const deletedNote = await Notes.destroy({ where: { id } }); 
+        const deletedNote = await Notes.delete(id); 
 
         if (deletedNote === 0) {
             return res.status(404).json({ error: 'Note not found' });
         }
 
+        console.log(deletedNote);
         res.status(200).json(deletedNote);
     }
     catch(error) {

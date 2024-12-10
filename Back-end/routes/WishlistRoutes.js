@@ -54,19 +54,20 @@ router.put('/:id', async (req, res) => {
 });
 
 // delete wishlist item 
-router.delete('/id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const id = parseInt(req.params.id, 10);
         if (isNaN(id)) {
             return res.status(400).json({ error: 'Invalid ID' });
         }
         console.log(id);
-        const deletedItem = await Wishlist.destroy({ where: { id } });
+        const deletedItem = await Wishlist.delete(id);
 
         if (!deletedItem) {
             return res.status(404).json({ error: 'Item not found' });
         }
-
+        
+        console.log(deletedItem);
         res.status(200).json(deletedItem);
     }
     catch(error) {
