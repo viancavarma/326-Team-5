@@ -18,6 +18,14 @@ class SQLiteNotificationsModel {
         return await Notification.create(notificationData);
     }
 
+    async readAll(userId) {
+        return await Notification.findAll({ where: { userId } });
+    }
+
+    async updateAsRead(id) {
+        const notification = await Notification.findByPk(id);
+        return notification.update({ read: true });
+    }
 }
 
 const notificationsModel = new SQLiteNotificationsModel();
