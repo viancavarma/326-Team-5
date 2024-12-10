@@ -32,7 +32,34 @@ body {
     color: #2a6045;
 }
 
+.login-container {
+    display: flex;
+    justify-content: space-between; /* Space between buttons */
+    margin-top: auto; /* Align container at the bottom if necessary */
+    padding: 10px;
+}
+
+.sidebar .login { /*could probably find some way to merge this with two things below*/
+    margin-top: auto;
+    padding: 10px;
+    font-size: 16px;
+    color: #2a6045;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+}
+
 .sidebar .logout {
+    margin-top: auto;
+    padding: 10px;
+    font-size: 16px;
+    color: #2a6045;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+}
+
+.sidebar .register {
     margin-top: auto;
     padding: 10px;
     font-size: 16px;
