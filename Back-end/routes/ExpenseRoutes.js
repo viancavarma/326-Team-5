@@ -31,15 +31,9 @@ router.get('/summary', async (req, res) => {
     }
 });
 
-import passport from "../auth/passport.js";
-import {
-  register,
-  login,
-  logout,
-  googleAuthCallback,
-  getProfile,
-} from "../controller/UsersController.js";
-import { isAuthenticated } from "../auth/middleware.js";
+const passport = require("../auth/passport.js");
+const { register, login, logout, googleAuthCallback, getProfile } = require("../controllers/UsersController.js");
+const { isAuthenticated } = require("../auth/middleware.js");
 
 // Routes for registration and login
 router.post("/register", register);
