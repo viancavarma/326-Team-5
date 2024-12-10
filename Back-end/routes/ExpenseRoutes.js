@@ -135,6 +135,7 @@ router.get('/by-month/:month', async (req, res) => {
     }
 });
 
+
 //-------------------------------
 //login/authentication routes
 import passport from "../auth/passport.js";
@@ -166,4 +167,3 @@ router.get(
 router.get("/profile", isAuthenticated, getProfile);
 
 export default router;
-

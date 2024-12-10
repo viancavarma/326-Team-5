@@ -18,7 +18,13 @@
             <button class="nav-button" data-target="notes">Notes</button>
             <button class="nav-button" data-target="notification">Notification</button>
             <button class="nav-button" data-target="settings">Settings</button>
-            <button class="logout">Log out</button>
+            
+            <!-- new buttons placed side by side with logout button -->
+            <div class="login-container">
+                <button class="login">Log in</button>
+                <button class="logout">Log out</button>
+                <button class="register">Register</button>
+            </div>
         </div>
 
         <!-- Dashboard Section -->
@@ -79,18 +85,20 @@
             <h2>Logs</h2>
             <div class="filter-container">
                 <label>Date: <input type="date" id="filterDate"></label>
-                <label>Label: <input type="text" id="filterLabel" placeholder="e.g., Eggs"></label>
                 <label>Amount: <input type="number" id="filterAmount" placeholder="e.g., 50"></label>
                 <label>Category: <input type="text" id="filterCategory" placeholder="e.g., Groceries"></label>
                 <div class="button-group">
                     <button id="applyFilters">Apply Filters</button>
                     <button id="clearFilters">Clear Filters</button>
+                    <button id="editSelected">Edit Selected</button>
+                    <button id="deleteSelected">Delete Selected</button>
                 </div>
             </div>
             <div class="logs-container">
                 <table id="expenseLogs">
                     <thead>
                         <tr>
+                            <th>Select</th>
                             <th>Date</th>
                             <th>Label</th>
                             <th>Amount</th>
@@ -99,6 +107,24 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+            </div>
+        </div>
+
+        <div id="editExpenseModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h3>Edit Expense</h3>
+                <form id="editExpenseForm">
+                    <label for="editExpenseLabel">Label:</label>
+                    <input type="text" id="editExpenseLabel" required><br>
+                    <label for="editExpenseAmount">Amount:</label>
+                    <input type="number" id="editExpenseAmount" required><br>
+                    <label for="editExpenseCategory">Category:</label>
+                    <input type="text" id="editExpenseCategory" required><br>
+                    <label for="editExpenseDate">Date:</label>
+                    <input type="date" id="editExpenseDate" required><br>
+                    <button type="button" id="saveChangesButton">Save Changes</button>
+                </form>
+                <button type="button" id="closeModalButton">Close</button>
             </div>
         </div>
         
