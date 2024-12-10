@@ -7,11 +7,15 @@ import notesRoutes from './routes/NotesRoutes.js';
 import tipsRoutes from './routes/tipsRoutes.js';
 import sequelize from './config/database.js';
 import savingsGoalsRoutes from './routes/SavingsGoalsRoutes.js';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// allow requests from any origin using CORS
+app.use(cors());
 
 // Middleware for parsing JSON
 app.use(express.json());
