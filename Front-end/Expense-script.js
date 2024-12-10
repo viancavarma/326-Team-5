@@ -756,6 +756,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closePopupBtn.addEventListener('click', closePopup);
 
+    /*
+        - Known Issues:
+            - Deleting an item does not remove it from the list nor the database
+            - Clearing a list does not remove them from the database
+            - Editing an item is not implemented
+            - Adding an item refreshes the page?
+    */
     addItemForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
