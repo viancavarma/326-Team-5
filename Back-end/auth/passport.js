@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import User from "../models/SQLiteUsersModel.js";
 
 dotenv.config(); //lodaing env vars from .env
-.
+
 passport.use( //used to auth users using their google account
   new GoogleStrategy(
     {
