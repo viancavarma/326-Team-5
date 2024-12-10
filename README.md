@@ -1,5 +1,5 @@
 # 326-Team-5
-# Expense Tracker Application
+# BudjetBetter - Expense Tracker Application
 
 ## Overview
 
