@@ -6,6 +6,8 @@ import wishlistRoutes from './routes/WishlistRoutes.js';
 import notesRoutes from './routes/NotesRoutes.js';
 import tipsRoutes from './routes/tipsRoutes.js';
 import sequelize from './config/database.js';
+import customTipsModel from './models/SQLiteTipsModel.js';
+import customTipsRoutes from './routes/CustomTipsRoutes.js';
 import savingsGoalsRoutes from './routes/SavingsGoalsRoutes.js';
 import cors from 'cors';
 
@@ -27,6 +29,8 @@ app.use('/expenses', expenseRoutes); // Prefix the expenses routes
 app.use('/wishlist', wishlistRoutes);
 app.use('/notes', notesRoutes);
 
+app.use(cors())
+
 // Example root route
 app.get('/', (req, res) => {
   res.send('Expense Tracker API is running!');
@@ -34,6 +38,15 @@ app.get('/', (req, res) => {
 
 // use tips routes
 app.use('/tips', tipsRoutes);
+
+// initialize the database
+(async () => {
+  await customTipsModel.init(true); 
+})();
+
+
+// use custom tips routes
+app.use('/custom-tips', customTipsRoutes);
 
 // use the savings goals routes
 app.use('/savings-goals', savingsGoalsRoutes);
