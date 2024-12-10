@@ -22,8 +22,6 @@ app.use(cors());
 // Middleware for parsing JSON
 app.use(express.json());
 
-app.use(cors());
-
 // Use the expenses routes
 app.use('/expenses', expenseRoutes); // Prefix the expenses routes
 
