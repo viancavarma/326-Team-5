@@ -166,4 +166,10 @@ router.get(
 
 router.get("/profile", isAuthenticated, getProfile);
 
+
+
+
+
+
+
 export default router;
