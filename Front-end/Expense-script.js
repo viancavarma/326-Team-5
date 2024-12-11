@@ -1,5 +1,3 @@
-//Dashboard
-let db;
 let currentWeekOffset = 0;
 let currentMonthOffset = 0;
 
@@ -11,6 +9,7 @@ const greenShades = [
 
 const categoryColors = {};
 
+// Assign a color to a category
 function getCategoryColor(category) {
     if (!categoryColors[category]) {
         const colorIndex = Object.keys(categoryColors).length % greenShades.length;
@@ -19,79 +18,67 @@ function getCategoryColor(category) {
     return categoryColors[category];
 }
 
-function initIndexedDB() {
-    const request = indexedDB.open('ExpenseDB', 1);
+// Fetch weekly data for the bar chart from the backend
+async function fetchWeeklyData(weekOffset) {
+    const now = new Date();
+    const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay() - (weekOffset * 7)));
+    startOfWeek.setHours(0, 0, 0, 0);
+    const startDate = startOfWeek.toISOString().split('T')[0];
 
-    request.onerror = (event) => {
-        console.log('Error opening IndexedDB:', event);
-    };
-
-    request.onsuccess = (event) => {
-        db = event.target.result;
-        console.log('IndexedDB initialized.');
-        updateCharts(currentWeekOffset, currentMonthOffset);
-    };
-
-    request.onupgradeneeded = (event) => {
-        db = event.target.result;
-        const expenseStore = db.createObjectStore('expenses', { keyPath: 'id', autoIncrement: true });
-        expenseStore.createIndex('category', 'category', { unique: false });
-        expenseStore.createIndex('amount', 'amount', { unique: false });
-        expenseStore.createIndex('date', 'date', { unique: false });
-        console.log('Object store created.');
-    };
+    try {
+        const response = await fetch(`http://localhost:3000/expenses/by-date/${startDate}`);
+        if (!response.ok) throw new Error(`Failed to fetch weekly data: ${response.statusText}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching weekly data:', error);
+        return [];
+    }
 }
 
-initIndexedDB();
-function getAllExpenses(callback) {
-    const transaction = db.transaction(['expenses'], 'readonly');
-    const store = transaction.objectStore('expenses');
+// Fetch monthly data for the pie chart from the backend
+async function fetchMonthlyData(monthOffset) {
+    const now = new Date();
+    const targetMonth = new Date(now.getFullYear(), now.getMonth() + monthOffset, 1);
+    const monthString = `${targetMonth.getFullYear()}-${String(targetMonth.getMonth() + 1).padStart(2, '0')}`;
 
-    const request = store.getAll();
-    request.onsuccess = (event) => {
-        const expenses = event.target.result;
-        callback(expenses);
-    };
-
-    request.onerror = (event) => {
-        console.log('Error retrieving expenses:', event);
-    };
+    try {
+        const response = await fetch(`http://localhost:3000/expenses/by-month/${monthString}`);
+        if (!response.ok) throw new Error(`Failed to fetch monthly data: ${response.statusText}`);
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching monthly data:', error);
+        return [];
+    }
 }
 
-function updateCharts(weekOffset, monthOffset) {
+// Update the charts using backend data
+async function updateCharts(weekOffset, monthOffset) {
     console.log('Updating charts:', { weekOffset, monthOffset });
 
-    getAllExpenses((expenses) => {
-        console.log('Expenses retrieved:', expenses);
+    // Update weekly spending chart
+    const weeklyExpenses = await fetchWeeklyData(weekOffset);
+    const weeklyData = processWeeklyData(weeklyExpenses, weekOffset);
+    weeklySpendingChart.data.labels = weeklyData.labels;
+    weeklySpendingChart.data.datasets = weeklyData.datasets;
+    weeklySpendingChart.update();
 
-        const weeklyData = processWeeklyData(expenses, weekOffset);
-        const categoryData = processMonthlyCategoryData(expenses, monthOffset);
+    // Update pie chart for monthly data
+    const monthlyExpenses = await fetchMonthlyData(monthOffset);
+    const categoryData = processMonthlyCategoryData(monthlyExpenses);
+    if (categoryData.values.length === 0) {
+        expenditureCategoryChart.data.datasets[0].data = [1];
+        expenditureCategoryChart.data.labels = ['No Data'];
+        expenditureCategoryChart.options.plugins.legend.display = false;
+    } else {
+        expenditureCategoryChart.data.datasets[0].data = categoryData.values;
+        expenditureCategoryChart.data.labels = categoryData.labels;
+        expenditureCategoryChart.data.datasets[0].backgroundColor = categoryData.colors;
+        expenditureCategoryChart.options.plugins.legend.display = true;
+    }
+    expenditureCategoryChart.update();
 
-        console.log('Weekly data:', weeklyData);
-        console.log('Category data:', categoryData);
-
-        // Update weekly spending chart
-        weeklySpendingChart.data.labels = weeklyData.labels;
-        weeklySpendingChart.data.datasets = weeklyData.datasets;
-        weeklySpendingChart.update();
-
-        // Update pie chart for monthly data
-        if (categoryData.values.length === 0) {
-            expenditureCategoryChart.data.datasets[0].data = [1]; // Placeholder for no data
-            expenditureCategoryChart.data.labels = ['No Data'];
-            expenditureCategoryChart.options.plugins.legend.display = false;
-        } else {
-            expenditureCategoryChart.data.datasets[0].data = categoryData.values;
-            expenditureCategoryChart.data.labels = categoryData.labels;
-            expenditureCategoryChart.data.datasets[0].backgroundColor = categoryData.colors;
-            expenditureCategoryChart.options.plugins.legend.display = true;
-        }
-        expenditureCategoryChart.update();
-
-        // Update week and month labels
-        updateWeekLabel(weekOffset);
-        updateMonthLabel(monthOffset);
-    });
+    updateWeekLabel(weekOffset);
+    updateMonthLabel(monthOffset);
 }
 
 function updateWeekLabel(weekOffset) {
@@ -130,8 +117,7 @@ function processWeeklyData(expenses, weekOffset) {
     }
 
     expenses.forEach((expense) => {
-        const expenseDate = new Date(expense.date + "T00:00:00");
-        expenseDate.setHours(0, 0, 0, 0);
+        const expenseDate = new Date(expense.date);
         const dayDifference = Math.floor((expenseDate - startOfWeek) / (1000 * 60 * 60 * 24));
         if (dayDifference >= 0 && dayDifference < 7) {
             const dayName = Object.keys(dayTotalsByCategory)[dayDifference];
@@ -158,23 +144,15 @@ function processWeeklyData(expenses, weekOffset) {
     return { labels: Object.keys(dayTotalsByCategory), datasets };
 }
 
-function processMonthlyCategoryData(expenses, monthOffset) {
+function processMonthlyCategoryData(expenses) {
     const categoryTotals = {};
-    const now = new Date();
-    const targetMonth = new Date(now.getFullYear(), now.getMonth() + monthOffset, 1);
 
     expenses.forEach((expense) => {
-        const expenseDate = new Date(expense.date);
-        if (
-            expenseDate.getFullYear() === targetMonth.getFullYear() &&
-            expenseDate.getMonth() === targetMonth.getMonth()
-        ) {
-            const category = expense.category;
-            if (!categoryTotals[category]) {
-                categoryTotals[category] = 0;
-            }
-            categoryTotals[category] += expense.amount;
+        const category = expense.category;
+        if (!categoryTotals[category]) {
+            categoryTotals[category] = 0;
         }
+        categoryTotals[category] += expense.total;
     });
 
     return {
@@ -234,8 +212,6 @@ const weeklySpendingChart = new Chart(document.getElementById('weeklyChart').get
     }
 });
 
-
-
 const expenditureCategoryChart = new Chart(document.getElementById('expenditureChart').getContext('2d'), {
     type: 'pie',
     data: {
@@ -258,27 +234,28 @@ const expenditureCategoryChart = new Chart(document.getElementById('expenditureC
 // Event Listeners
 document.getElementById('previousWeekButton').addEventListener('click', () => {
     console.log('Previous week clicked');
-    currentWeekOffset += 1; // Move to the previous week
+    currentWeekOffset += 1;
     updateCharts(currentWeekOffset, currentMonthOffset);
 });
 
 document.getElementById('nextWeekButton').addEventListener('click', () => {
     console.log('Next week clicked');
-    currentWeekOffset -= 1; // Move to the next week
+    currentWeekOffset -= 1;
     updateCharts(currentWeekOffset, currentMonthOffset);
 });
 
 document.getElementById('previousMonthButton').addEventListener('click', () => {
     console.log('Previous month clicked');
-    currentMonthOffset -= 1; // Move to the previous month
+    currentMonthOffset -= 1;
     updateCharts(currentWeekOffset, currentMonthOffset);
 });
 
 document.getElementById('nextMonthButton').addEventListener('click', () => {
     console.log('Next month clicked');
-    currentMonthOffset += 1; // Move to the next month
+    currentMonthOffset += 1;
     updateCharts(currentWeekOffset, currentMonthOffset);
 });
+
 
 
 //Expenditure and Logs
