@@ -13,6 +13,9 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import passport from 'passport';
+import session from 'express-session';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 
 dotenv.config();
 
@@ -81,5 +84,29 @@ const startServer = async () => {
     console.error('Error starting the server:', error);
   }
 };
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,  
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Google authentication route
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+
+// Google OAuth callback route
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+    // Redirect to profile page or wherever you'd like after successful login
+    res.redirect('/');
+  }
+);
 
 startServer();
