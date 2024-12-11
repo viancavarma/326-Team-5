@@ -145,7 +145,7 @@ import {
   logout,
   googleAuthCallback,
   getProfile,
-} from "../controller/UsersController.js";
+} from "../controllers/UsersController.js";
 import { isAuthenticated } from "../auth/middleware.js";
 
 // Routes for registration and login
