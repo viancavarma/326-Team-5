@@ -521,147 +521,90 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-//savings goal
+//saving goal
 
 document.addEventListener('DOMContentLoaded', () => {
-    const BASE_URL = 'http://localhost:3000/savings-goals'; // Backend URL
     const addGoalButton = document.getElementById('add-goal-btn');
     const goalList = document.getElementById('goal-list');
 
-    // Fetch and render goals on page load
-    async function fetchGoals() {
-        try {
-            const response = await fetch(BASE_URL);
-            if (!response.ok) throw new Error('Failed to fetch savings goals');
+    let goals = []; 
 
-            const goals = await response.json();
-            renderGoals(goals);
-        } catch (error) {
-            console.error('Error fetching savings goals:', error);
-        }
-    }
-
-    // Render goals dynamically to the UI
-    function renderGoals(goals) {
-        goalList.innerHTML = '';
-        goals.forEach(goal => {
-            const progressPercent = Math.min((goal.current_amount / goal.target_amount) * 100, 100).toFixed(1);
-
-            const goalItem = document.createElement('li');
-            goalItem.innerHTML = `
-                <div>
-                    <strong>${goal.goal_name}</strong> (${goal.current_amount} / ${goal.target_amount})
-                    <div class="goal-progress-container">
-                        <div class="goal-progress-bar" style="width: ${progressPercent}%"></div>
-                    </div>
-                    Deadline: ${goal.deadline}
-                </div>
-                <div>
-                    <button onclick="editGoal(${goal.goal_id})">Edit</button>
-                    <button onclick="deleteGoal(${goal.goal_id})">Delete</button>
-                </div>
-            `;
-            goalList.appendChild(goalItem);
-        });
-    }
-
-    // Add a new savings goal
-    addGoalButton.addEventListener('click', async () => {
+    addGoalButton.addEventListener('click', () => {
         const goalName = document.getElementById('goal-name').value;
         const targetAmount = parseFloat(document.getElementById('target-amount').value);
-        const currentAmount = parseFloat(document.getElementById('current-amount').value) || 0;
+        const currentAmount = parseFloat(document.getElementById('current-amount').value);
         const deadline = document.getElementById('goal-deadline').value;
 
-        if (!goalName || isNaN(targetAmount) || !deadline) {
-            alert('Please fill in all required fields.');
+        if (!goalName || isNaN(targetAmount) || isNaN(currentAmount) || !deadline) {
+            alert('Please fill in all fields.');
             return;
         }
 
         const newGoal = {
-            user_id: 1, // Replace with a dynamic user ID if available
-            goal_name: goalName,
-            target_amount: targetAmount,
-            current_amount: currentAmount,
-            deadline: deadline
+            id: Date.now(), 
+            name: goalName,
+            target: targetAmount,
+            current: currentAmount,
+            deadline: deadline,
         };
 
-        try {
-            const response = await fetch(BASE_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newGoal),
-            });
-            if (!response.ok) throw new Error('Failed to add goal');
-            fetchGoals(); // Refresh goals
-        } catch (error) {
-            console.error('Error adding savings goal:', error);
-        }
+        goals.push(newGoal);
+        renderGoals();
+        clearForm();
     });
 
-    // Delete a savings goal
-    window.deleteGoal = async function (goalId) {
-        try {
-            const response = await fetch(`${BASE_URL}/${goalId}`, { method: 'DELETE' });
-            if (!response.ok) throw new Error('Failed to delete savings goal');
-            fetchGoals();
-        } catch (error) {
-            console.error('Error deleting savings goal:', error);
-        }
-    };
+    function renderGoals() {
+        goalList.innerHTML = '';
+    
+        goals.forEach(goal => {
+            const progressPercent = Math.min((goal.current / goal.target) * 100, 100).toFixed(1);
+    
+            const goalItem = document.createElement('li');
+            goalItem.classList.add('goal-item'); 
+            goalItem.innerHTML = `
+                <div class="goal-details">
+                    <span><strong>${goal.name}</strong> (${goal.current} / ${goal.target})</span>
+                    <span>Deadline: ${goal.deadline}</span>
+                </div>
+                <div class="goal-progress-container">
+                    <div class="goal-progress-bar" style="width: ${progressPercent}%"></div>
+                </div>
+                <div class="goal-actions">
+                    <button onclick="editGoal(${goal.id})">Edit</button>
+                    <button onclick="deleteGoal(${goal.id})">Delete</button>
+                </div>
+            `;
+    
+            goalList.appendChild(goalItem);
+        });
+    }
 
-    // Edit a savings goal
-    window.editGoal = async function (goalId) {
-        try {
-            const response = await fetch(`${BASE_URL}/${goalId}`);
-            if (!response.ok) throw new Error('Failed to fetch goal for editing');
-
-            const goal = await response.json();
-            document.getElementById('goal-name').value = goal.goal_name;
-            document.getElementById('target-amount').value = goal.target_amount;
-            document.getElementById('current-amount').value = goal.current_amount;
-            document.getElementById('goal-deadline').value = goal.deadline;
-
-            // Update goal on resubmission
-            addGoalButton.textContent = 'Update Goal';
-            addGoalButton.onclick = async () => {
-                const updatedGoal = {
-                    goal_name: document.getElementById('goal-name').value,
-                    target_amount: parseFloat(document.getElementById('target-amount').value),
-                    current_amount: parseFloat(document.getElementById('current-amount').value),
-                    deadline: document.getElementById('goal-deadline').value
-                };
-
-                try {
-                    const updateResponse = await fetch(`${BASE_URL}/${goalId}`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(updatedGoal),
-                    });
-                    if (!updateResponse.ok) throw new Error('Failed to update goal');
-                    fetchGoals(); // Refresh goals
-                    resetForm();
-                } catch (error) {
-                    console.error('Error updating goal:', error);
-                }
-            };
-        } catch (error) {
-            console.error('Error editing savings goal:', error);
-        }
-    };
-
-    // Reset form after updating
-    function resetForm() {
+    function clearForm() {
         document.getElementById('goal-name').value = '';
         document.getElementById('target-amount').value = '';
         document.getElementById('current-amount').value = '';
         document.getElementById('goal-deadline').value = '';
-        addGoalButton.textContent = 'Add Goal';
-        addGoalButton.onclick = () => addGoal();
     }
 
-    // Initial Fetch on Load
-    fetchGoals();
+    window.editGoal = function (id) {
+        const goal = goals.find(g => g.id === id);
+        if (goal) {
+            document.getElementById('goal-name').value = goal.name;
+            document.getElementById('target-amount').value = goal.target;
+            document.getElementById('current-amount').value = goal.current;
+            document.getElementById('goal-deadline').value = goal.deadline;
+
+            goals = goals.filter(g => g.id !== id); 
+            renderGoals();
+        }
+    };
+
+    window.deleteGoal = function (id) {
+        goals = goals.filter(goal => goal.id !== id);
+        renderGoals();
+    };
 });
+
 
 //Tips
 // access the backend data base
