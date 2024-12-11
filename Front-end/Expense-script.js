@@ -19,6 +19,43 @@ function getCategoryColor(category) {
     return categoryColors[category];
 }
 
+async function register() {
+    const username = document.getElementById("base-username-input").value;
+    const password = document.getElementById("base-password-input").value;
+    const response = await fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+    });
+    const data = await response.json();
+    console.log(JSON.stringify(data, null, 2));
+    alert(data.message);
+}
+  
+async function login() {
+    const username = document.getElementById("base-username-input").value;
+    const password = document.getElementById("base-password-input").value;
+    const response = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+    });
+    const data = await response.json();
+    console.log(JSON.stringify(data, null, 2));
+    alert(data.message);
+}
+  
+async function logout() {
+    const response = await fetch("/logout");
+    const data = await response.json();
+    console.log(JSON.stringify(data, null, 2));
+    alert(data.message);
+}
+
+document.getElementById("register").addEventListener("click", register);
+document.getElementById("login").addEventListener("click", login);
+document.getElementById("logout").addEventListener("click", logout);
+
 function initIndexedDB() {
     const request = indexedDB.open('ExpenseDB', 1);
 
