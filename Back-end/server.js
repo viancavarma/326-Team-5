@@ -10,6 +10,9 @@ import customTipsModel from './models/SQLiteTipsModel.js';
 import customTipsRoutes from './routes/CustomTipsRoutes.js';
 import savingsGoalsRoutes from './routes/SavingsGoalsRoutes.js';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 dotenv.config();
 
@@ -31,9 +34,17 @@ app.use('/notes', notesRoutes);
 
 app.use(cors())
 
-// Example root route
+// Get the directory name of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+
+// Serves static files to get our html, css, js etc from the Front-end directory
+app.use(express.static(path.join(__dirname, '..', 'Front-end')));
+
+// Serve the HTML file at the root route
 app.get('/', (req, res) => {
-  res.send('Expense Tracker API is running!');
+  res.sendFile(path.join(__dirname, '..', 'Front-end', 'index.html'));
 });
 
 // use tips routes
