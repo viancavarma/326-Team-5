@@ -24,3 +24,15 @@ router.get('/:userId', async (req, res) => {
         res.status(500).json({ error: 'Failed to retrieve notifications.' });
     }
 });
+// Route to mark a notification as read
+router.put('/mark-read/:id', async (req, res) => {
+    const { id } = req.params; 
+    try {
+        const updatedNotification = await notificationsModel.updateAsRead(id); 
+        res.status(200).json(updatedNotification); 
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to mark notification as read.' }); 
+    }
+});
+
+export default router;
