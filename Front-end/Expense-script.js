@@ -290,59 +290,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const expenseLogsTable = document.querySelector('#expenseLogs tbody');
     const filterDate = document.getElementById('filterDate');
     const filterCategory = document.getElementById('filterCategory');
-    const filterLabel = document.getElementById('filterLabel');
     const filterAmount = document.getElementById('filterAmount');
     const applyFilters = document.getElementById('applyFilters');
     const clearFilters = document.getElementById('clearFilters');
     document.getElementById('deleteSelected').addEventListener('click', deleteSelectedExpenses);
     document.getElementById('editSelected').addEventListener('click', editSelectedExpense);
 
-    // Indexed Data-Base setup
-    let db;
-    const request = indexedDB.open('ExpenseDB', 1);
-
-    request.onerror = (event) => {
-        console.error('Error opening IndexedDB:', event);
-    };
-
-    request.onsuccess = (event) => {
-        db = event.target.result;
-        console.log('IndexedDB initialized.');
-        loadExpenses();
-    };
-
-    request.onupgradeneeded = (event) => {
-        db = event.target.result;
-        const expenseStore = db.createObjectStore('expenses', { keyPath: 'id', autoIncrement: true });
-        expenseStore.createIndex('date', 'date', { unique: false });
-        expenseStore.createIndex('label', 'label', { unique: false });
-        expenseStore.createIndex('amount', 'amount', { unique: false });
-        expenseStore.createIndex('category', 'category', { unique: false });
-        console.log('Object store created.');
-    };
-
     // Add expense
-    submitExpense.addEventListener('click', () => {
+    submitExpense.addEventListener('click', async () => {
         const expense = {
             date: new Date().toISOString().split('T')[0],
             label: expenseLabel.value,
             amount: parseFloat(expenseAmount.value),
-            category: expenseCategory.value
+            category: expenseCategory.value,
         };
-
-        const transaction = db.transaction(['expenses'], 'readwrite');
-        const store = transaction.objectStore('expenses');
-        const request = store.add(expense);
-
-        request.onsuccess = () => {
-            console.log('Expense added:', expense);
-            loadExpenses();
+        try {
+            const response = await fetch('/expenses', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(expense),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to add expense');
+            }
+            console.log('Expense added successfully');
+            loadExpensesFromServer();
             clearForm();
-        };
-
-        request.onerror = (event) => {
-            console.error('Error adding expense:', event);
-        };
+        }
+        catch (error) {
+            console.error('Error adding expense:', error);
+        }
     });
 
     function clearForm() {
@@ -352,23 +329,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Log of expenses
-    function loadExpenses(filters = {}) {
-
+    async function loadExpensesFromServer(filters = {}) {
         expenseLogsTable.innerHTML = '';
-    
-        const transaction = db.transaction(['expenses'], 'readonly');
-        const store = transaction.objectStore('expenses');
-        const request = store.getAll();
-    
-        request.onsuccess = (event) => {
-            const expenses = event.target.result;
-            const filteredExpenses = expenses.filter(expense => {
-                return (!filters.date || expense.date === filters.date) &&
-                       (!filters.category || expense.category.toLowerCase().includes(filters.category.toLowerCase())) &&
-                       (!filters.amount || expense.amount === parseFloat(filters.amount));
-            });
-    
-            filteredExpenses.forEach(expense => {
+        try {
+            const queryParams = new URLSearchParams(filters).toString();
+            const response = await fetch(`/expenses?${queryParams}`);
+            if (!response.ok) {
+                throw new Error('Failed to load expenses');
+            }
+            const expenses = await response.json();
+            expenses.forEach(expense => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>
@@ -381,13 +351,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 expenseLogsTable.appendChild(row);
             });
-
-        };
-
-        request.onerror = (event) => {
-            console.error('Error loading expenses:', event);
-        };
-    }
+        }
+        catch (error) {
+            console.error('Error loading expenses:', error);
+        }
+    }    
 
     function openEditModal(expense) {
         document.getElementById('editExpenseLabel').value = expense.label;
@@ -402,35 +370,35 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('editExpenseModal').style.display = 'none';
     });
     
-    document.getElementById('saveChangesButton').addEventListener('click', () => {
+    document.getElementById('saveChangesButton').addEventListener('click', async () => {
         const expenseId = parseInt(document.getElementById('editExpenseModal').dataset.expenseId, 10);
         const label = document.getElementById('editExpenseLabel').value;
         const amount = parseFloat(document.getElementById('editExpenseAmount').value);
         const category = document.getElementById('editExpenseCategory').value;
         const date = document.getElementById('editExpenseDate').value;
-    
         if (!label || isNaN(amount) || !category || !date) {
             alert('Please fill out all fields.');
             return;
         }
+        const updatedExpense = { label, amount, category, date };
+        try {
+            const response = await fetch(`/expenses/${expenseId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedExpense),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to update expense');
+            }
+            console.log('Expense updated successfully');
+            document.getElementById('editExpenseModal').style.display = 'none';
+            loadExpensesFromServer();
+        }
+        catch (error) {
+            console.error('Error updating expense:', error);
+        }
+    });
     
-        const updatedExpense = { id: expenseId, label, amount, category, date };
-    
-        const transaction = db.transaction(['expenses'], 'readwrite');
-        const store = transaction.objectStore('expenses');
-        const request = store.put(updatedExpense);
-    
-        request.onsuccess = () => {
-            console.log('Expense updated:', updatedExpense);
-            document.getElementById('editExpenseModal').style.display = 'none'; // Close modal
-            loadExpenses(); // Refresh the logs
-        };
-    
-        request.onerror = (event) => {
-            console.error('Error updating expense:', event);
-        };
-    }); 
-
     function editSelectedExpense() {
         const selectedCheckboxes = document.querySelectorAll('.select-checkbox:checked');
         if (selectedCheckboxes.length !== 1) {
@@ -438,86 +406,53 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         const selectedId = parseInt(selectedCheckboxes[0].dataset.id, 10);
-        const transaction = db.transaction(['expenses'], 'readonly');
-        const store = transaction.objectStore('expenses');
-        const request = store.get(selectedId);
-        request.onsuccess = (event) => {
-            const expense = event.target.result;
-            if (expense) {
-                openEditModal(expense);
-            } else {
-                alert('Expense not found!');
-            }
-        };
-        request.onerror = (event) => {
-            console.error('Error fetching expense for editing:', event);
-        };
-    }
     
-    function updateExpense(id) {
-        const label = document.getElementById('expenseLabel').value;
-        const amount = parseFloat(document.getElementById('expenseAmount').value);
-        const category = document.getElementById('expenseCategory').value;
-        const date = document.getElementById('date').value;
-        if (!label || isNaN(amount) || !category || !date) {
-            alert('Please fill out all fields.');
-            return;
-        }
-        const updatedExpense = { id, label, amount, category, date };
-        const transaction = db.transaction(['expenses'], 'readwrite');
-        const store = transaction.objectStore('expenses');
-        const request = store.put(updatedExpense);
-    
-        request.onsuccess = () => {
-            console.log('Expense updated:', updatedExpense);
-            document.getElementById('submitExpense').textContent = 'Submit';
-            document.getElementById('submitExpense').onclick = addExpense;
-            clearEnteredData();
-            loadExpenses();
-        };
-    
-        request.onerror = (event) => {
-            console.error('Error updating expense:', event);
-        };
-    }
+        // Fetch the expense from the backend for editing
+        fetch(`/expenses/${selectedId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch expense');
+                }
+                return response.json();
+            })
+            .then(expense => openEditModal(expense))
+            .catch(error => console.error('Error fetching expense:', error));
+    }    
 
-    function deleteSelectedExpenses() {
+    async function deleteSelectedExpenses() {
         const selectedCheckboxes = document.querySelectorAll('.select-checkbox:checked');
         const idsToDelete = Array.from(selectedCheckboxes).map(checkbox => parseInt(checkbox.dataset.id, 10));
         if (idsToDelete.length === 0) {
             alert('No rows selected for deletion.');
             return;
         }
-        const transaction = db.transaction(['expenses'], 'readwrite');
-        const store = transaction.objectStore('expenses');
-        idsToDelete.forEach(id => {
-            const request = store.delete(id);
-            request.onsuccess = () => {
-                console.log(`Expense with ID ${id} deleted.`);
-            };
-            request.onerror = (event) => {
-                console.error(`Error deleting expense with ID ${id}:`, event);
-            };
-        });
-        transaction.oncomplete = () => {
-            loadExpenses();
-        };
-    }
+        try {
+            await Promise.all(
+                idsToDelete.map(id =>
+                    fetch(`/expenses/${id}`, { method: 'DELETE' })
+                )
+            );
+            console.log('Selected expenses deleted successfully');
+            loadExpensesFromServer();
+        }
+        catch (error) {
+            console.error('Error deleting expenses:', error);
+        }
+    }    
 
     applyFilters.addEventListener('click', () => {
-        const filters = {
-            date: filterDate.value || null,
-            category: filterCategory.value || null,
-            amount: filterAmount.value || null
-        };
-        loadExpenses(filters);
-    });
+        const filters = {};
+        if (filterDate.value) filters.date = filterDate.value;
+        if (filterCategory.value) filters.category = filterCategory.value;
+        if (filterAmount.value) filters.amount = filterAmount.value;
+        loadExpensesFromServer(filters);
+    });    
 
     clearFilters.addEventListener('click', () => {
         filterDate.value = '';
         filterCategory.value = '';
         filterAmount.value = '';
-        loadExpenses();
+        loadExpensesFromServer();
     });
 });
 
